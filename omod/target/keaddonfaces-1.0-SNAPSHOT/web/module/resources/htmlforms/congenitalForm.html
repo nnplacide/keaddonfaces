@@ -1,0 +1,217 @@
+<!--
+  ~ The contents of this file are subject to the OpenMRS Public License
+  ~ Version 1.0 (the "License"); you may not use this file except in
+  ~ compliance with the License. You may obtain a copy of the License at
+  ~ http://license.openmrs.org
+  ~
+  ~ Software distributed under the License is distributed on an "AS IS"
+  ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or impliediaxd. See the
+  ~ License for the specific language governing rights and limitations
+  ~ under the License.
+  ~
+  ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+-->
+<htmlform>
+
+<style type="text/css">
+    table.HEI {
+        border-collapse: collapse;
+    //background-color: #F3F9FF;
+        }
+    table.HEI > tbody > tr > td, table.HEI > tbody > tr > th {
+        border: 1px solid black;
+        vertical-align: baseline;
+        padding: 4px;
+        text-align: left;
+    }
+</style>
+
+<script type="text/javascript">
+
+    function onEncounterDateChange()
+    {
+
+        var msInYear=1000*60*60*24*365.25;
+        var msInMonth=1000*60*60*24*30.25;
+        var msInWeek=1000*60*60*24*7;
+        var birthDate = new Date(getValue('dob.value'))//.getTime();
+        var today = new Date()//.getTime();        //get current date
+        var ENC_DATE=new Date(getValue('encounter-date.value'))//.getTime();
+        var birthdateMs= new Date(<lookup expression="patient.birthdate.time"/>);
+        var encounterDateMs=ENC_DATE.getTime();
+        var age = (encounterDateMs-birthdateMs)/msInYear;
+        var wks = (encounterDateMs-birthdateMs)/msInWeek;
+        var mths = (encounterDateMs-birthdateMs)/msInMonth;
+        /*this data should not be in Future */
+        if(ENC_DATE &gt; today)
+        {
+            getField('encounter-date.error').html('Should not be greater than the Current date').show();
+        }
+        else if(ENC_DATE &lt; birthDate)
+        {
+            /* Encounter Date should be greater than the Patients's date of Birth    */
+            getField('encounter-date.error').html('Should not be less than the date of Birth').show();
+        }
+        else
+        {
+            getField('encounter-date.error').hide();
+        }
+
+        jq('#age_wks').html(wks.toFixed(2));
+        jq('#age_mths').html(mths.toFixed(2));
+        jq('#age_yrs').html(age.toFixed(2));
+        jq('#enc_date').html(ENC_DATE);
+
+
+    }
+
+    jq(function() {
+
+        getField('encounter-date.value').change(onEncounterDateChange);
+        onEncounterDateChange();
+    });
+</script>
+
+<div style="display:none">
+    <encounterProvider default="1cc7dc79-ad09-4897-8a1d-0b3d3226e9ee"  />   <!-- "1cc7dc79-ad09-4897-8a1d-0b3d3226e9ee" -->
+</div>
+<div class="ke-form-header">
+    <table style="width: 100%">
+        <tr>
+            <td>Date: <encounterDate id="encounter-date" showTime="false"/></td>
+            <td>Enrolled at: <encounterLocation id="site" default="GlobalProperty:kenyaemr.defaultLocation"/></td>
+        </tr>
+    </table>
+</div>
+
+<div class="ke-form-content">
+    <table class="HEI" align="center">
+        <tbody>
+
+        <tr>
+            <td colspan="15">
+                <h3 align="center">CONGENITAL ABNORMALITY SCREENING FORM</h3>
+            </td>
+        </tr>
+
+
+        <tr>
+            <td colspan="15" style="background-color: #696969; color: #ffffff;text-align:center;">
+                Assessment of Congenital Abnormalities
+            </td>
+        </tr>
+        <tr>
+            <td colspan="15"><b>a. Any congenital abnormality?</b>
+                <obs conceptId="119975AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                     answerLabels="Yes,No"  style="radio"/>   <b> If No, stop here.<br/>
+                    If yes, categorize abnormality below </b>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="15"><b>b. Central Nervous System (CNS):</b>
+
+                <obs conceptId="1082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="143924AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Hydrocephalus" style="checkbox"/>
+                <obs conceptId="1082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="120049AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Spina fida" style="checkbox"/>
+                <obs conceptId="1082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Other (specify):" style="checkbox"/>
+
+            </td>
+        </tr>
+        <tr>
+            <td colspan="15"><b>c.  Eye, Ear, Face and Neck:</b>
+
+                <obs conceptId="1070AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="120544AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Cleft lip and palate" style="checkbox"/>
+                <obs conceptId="1070AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="124152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Very small jaw" style="checkbox"/>
+                <obs conceptId="1070AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Other (specify):" style="checkbox"/>
+
+            </td>
+        </tr>
+        <tr>
+            <td colspan="15"><b>d.  Heart Defects:</b>
+
+                <obs conceptId="1071AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="139063AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="murmur   If murmur present, categorize as" style="checkbox"/>
+                <obs conceptId="1071AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="143050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Cyanosis Present OR " style="checkbox"/>
+                <obs conceptId="1071AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1000048FACES_FACES_FACES_FACES_FACES" answerLabel="No Cyanosis Defects " style="checkbox"/>
+                <br/><obs conceptId="1071AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Other or Specify based on Echo if available" style="checkbox"/>
+
+            </td>
+        </tr>
+        <tr>
+            <td colspan="15"><b>e.  Gastro-intestinal system:</b>
+
+                <obs conceptId="1078AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="111699AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Umbilical Hernia " style="checkbox"/>
+                <obs conceptId="1078AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="120128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Major Abdominal wall defect &lt;i&gt;(e.g. intestines outside such as gastroschisis or omphalocele)&lt;/i&gt; " style="checkbox"/>
+                <br/><obs conceptId="1078AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="121575AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Anorectal malformation " style="checkbox"/>
+                <obs conceptId="1078AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Other :" style="checkbox"/>
+
+            </td>
+        </tr>
+        <tr>
+            <td colspan="15"><b>f.  Genitalia:</b>
+
+                <obs conceptId="119946AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="149013AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Ambiguous genitalia " style="checkbox"/>
+                <obs conceptId="119946AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="138010AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Hypospadias " style="checkbox"/>
+                <obs conceptId="119946AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="116954AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Inguinal Hernia " style="checkbox"/>
+                <obs conceptId="119946AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Other :" style="checkbox"/>
+
+            </td>
+        </tr>
+        <tr>
+            <td colspan="15"><b>g.  Renal and urinary system:</b>
+
+                <obs conceptId="1080AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="138010AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Hypospadias " style="checkbox"/>
+                <includeIf velocityTest="$patient.gender == 'F' ">
+                    <obs conceptId="1080AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="110272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Epispadias, Female " style="checkbox"/>
+                </includeIf>
+                <includeIf velocityTest="$patient.gender == 'M' ">
+                    <obs conceptId="1080AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="141101AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Epispadias, Male " style="checkbox"/>
+                </includeIf>
+                <obs conceptId="1080AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="140895AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Bladder exstrophy   " style="checkbox"/>
+                <obs conceptId="1080AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Other :" style="checkbox"/>
+
+            </td>
+        </tr>
+        <tr>
+            <td colspan="15"><b>h.  Limb defects:</b>
+
+                <obs conceptId="120080AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="125043AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Talipes Equinovarus &lt;i&gt;(club foot) &lt;/i&gt;" style="checkbox"/>
+                <obs conceptId="120080AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="129566AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Polydactyly &lt;i&gt;(extra fingers/toes)&lt;/i&gt; " style="checkbox"/>
+                <obs conceptId="120080AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="125163AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Syndactyly &lt;i&gt;(fused fingers/toes)&lt;/i&gt;   " style="checkbox"/>
+                <obs conceptId="120080AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Other :" style="checkbox"/>
+
+            </td>
+        </tr>
+        <tr>
+            <td colspan="15"><b>i.  Chromosomal anomaly:</b>
+
+                <obs conceptId="119997AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="144481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Down Syndrome     " style="checkbox"/>
+                <obs conceptId="119997AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Other :" style="checkbox"/>
+
+            </td>
+        </tr>
+        <tr>
+            <td colspan="15"><b>j.  Other Organ systems:</b>
+
+                <obs conceptId="1069AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                     answerLabels="Yes,No"  style="radio"/>
+                <b>If Yes (Specify):  </b>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="15"><b>k.  Multi-organ anomalies:</b>
+
+                <obs conceptId="1000047FACES_FACES_FACES_FACES_FACES" answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                     answerLabels="Yes,No"  style="radio"/>
+                <b>If Yes (Specify):  </b>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<div class="ke-form-footer">
+    <submit />
+</div>
+
+</htmlform>

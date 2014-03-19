@@ -1,0 +1,175 @@
+<!--
+  ~ The contents of this file are subject to the OpenMRS Public License
+  ~ Version 1.0 (the "License"); you may not use this file except in
+  ~ compliance with the License. You may obtain a copy of the License at
+  ~ http://license.openmrs.org
+  ~
+  ~ Software distributed under the License is distributed on an "AS IS"
+  ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or impliediaxd. See the
+  ~ License for the specific language governing rights and limitations
+  ~ under the License.
+  ~
+  ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+-->
+<htmlform>
+
+    <style type="text/css">
+        table.HEI {
+            border-collapse: collapse;
+        //background-color: #F3F9FF;
+            }
+        table.HEI > tbody > tr > td, table.HEI > tbody > tr > th {
+            border: 1px solid black;
+            vertical-align: baseline;
+            padding: 4px;
+            text-align: left;
+        }
+    </style>
+
+    <script type="text/javascript">
+
+        function onEncounterDateChange()
+        {
+
+            var msInYear=1000*60*60*24*365.25;
+            var msInMonth=1000*60*60*24*30.25;
+            var msInWeek=1000*60*60*24*7;
+            var birthDate = new Date(getValue('dob.value'))//.getTime();
+            var today = new Date()//.getTime();        //get current date
+            var ENC_DATE=new Date(getValue('encounter-date.value'))//.getTime();
+            var birthdateMs= new Date(<lookup expression="patient.birthdate.time"/>);
+            var encounterDateMs=ENC_DATE.getTime();
+            var age = (encounterDateMs-birthdateMs)/msInYear;
+            var wks = (encounterDateMs-birthdateMs)/msInWeek;
+            var mths = (encounterDateMs-birthdateMs)/msInMonth;
+            /*this data should not be in Future */
+            if(ENC_DATE &gt; today)
+            {
+                getField('encounter-date.error').html('Should not be greater than the Current date').show();
+            }
+            else if(ENC_DATE &lt; birthDate)
+            {
+                /* Encounter Date should be greater than the Patients's date of Birth    */
+                getField('encounter-date.error').html('Should not be less than the date of Birth').show();
+            }
+            else
+            {
+                getField('encounter-date.error').hide();
+            }
+
+            jq('#age_wks').html(wks.toFixed(2));
+            jq('#age_mths').html(mths.toFixed(2));
+            jq('#age_yrs').html(age.toFixed(2));
+            jq('#enc_date').html(ENC_DATE);
+
+
+        }
+
+        jq(function() {
+
+            getField('encounter-date.value').change(onEncounterDateChange);
+            onEncounterDateChange();
+        });
+    </script>
+
+    <div style="display:none">
+        <encounterProvider default="1cc7dc79-ad09-4897-8a1d-0b3d3226e9ee"  />   <!-- "1cc7dc79-ad09-4897-8a1d-0b3d3226e9ee" -->
+    </div>
+    <div class="ke-form-header">
+        <table style="width: 100%">
+            <tr>
+                <td>Date: <encounterDate id="encounter-date" showTime="false"/></td>
+                <td>Enrolled at: <encounterLocation id="site" default="GlobalProperty:kenyaemr.defaultLocation"/></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="ke-form-content">
+        <table class="HEI" align="center">
+            <tbody>
+            <tr>
+                <td colspan="15" style="background-color: #696969; color: #ffffff; text-align:center;">
+                    <a name="page1"></a>
+                    MINISTRY OF PUBLIC HEALTH AND SANITATION &amp; MINISTRY OF MEDICAL SERVICES
+                </td>
+            </tr>
+            <tr>
+                <td colspan="15">
+                    <h3 align="center">HIV Exposed Infant (HEI) Follow-up Card (Follow-up),Page1</h3>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="15" style="background-color: #696969; color: #ffffff;text-align:center;">
+                    GROWTH, NUTRITION AND DEVELOPMENT MONITORING
+                    <a name="page2"></a>
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="2" style="text-align:center;">Date</td>
+                <td rowspan="2" style="text-align:center;">Age <br/>(Wks/Mths)</td>
+                <td rowspan="2" style="text-align:center;">Temp <br/>(C)</td>
+                <td rowspan="2" style="text-align:center;">Weight <br/>(Kg)</td>
+                <td rowspan="2" style="text-align:center;">Height <br/>(cm)</td>
+                <td rowspan="2" style="text-align:center;">Infant <br/> Feeding</td>
+                <td colspan="3" style="text-align:center;">Medication Indicate Dose</td>
+                <td rowspan="2" style="text-align:center;">TB Assessment <br/> Outcome</td>
+                <td rowspan="2" style="text-align:center;">Milestones <br/> Normal(N) <br/> Delayed(D) <br/> Regressed(R)</td>
+                <td rowspan="2" colspan="3" style="text-align:center;">Next <br/>Appointment</td>
+            </tr>
+            <tr>
+                <td style="text-align:center;">NVP <br/> (mls)</td>
+                <td style="text-align:center;">CTX <br/>(mls/mg)</td>
+                <td style="text-align:center;">M/vit</td>
+            </tr>
+            <tr>
+                <td style="text-align:center;">(a)</td>
+                <td style="text-align:center;">(b)</td>
+                <td style="text-align:center;"></td>
+                <td style="text-align:center;">(c)</td>
+                <td style="text-align:center;">(d)</td>
+                <td style="text-align:center;">(e)</td>
+                <td style="text-align:center;">(f)</td>
+                <td style="text-align:center;">(g)</td>
+                <td style="text-align:center;">(h)</td>
+
+                <td style="text-align:center;">(i)</td>
+                <td style="text-align:center;">(j)</td>
+                <td colspan="3" style="text-align:center;">(k)</td>
+
+            </tr>
+            <tr>
+                <td><span id="enc_date"></span></td>
+                <td><span id="age_wks"></span>(wks)<br/> <span id="age_mths"></span>(Mths)<br/><span id="age_yrs"></span>(Yrs)<br/><i>fill only one</i></td>
+                <td><obs id="temp" conceptId="5088" size="3"/></td>
+                <td><obs id="weight" conceptId="5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" size="3"/></td>
+                <td><obs id="height" conceptId="5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" size="3"/></td>
+                <td><obs conceptId="1151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerConceptIds="5526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1595AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,6046AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerLabels="Exclusive breastfeeding(EBF),Exclusive replacement feeding(ERF),Mixed feeding(MF), Breastfeeding(BF),Not breastfeeding(NBF),Other"
+                         style="dropdown"/></td>
+                <td style="text-align:center;"><obs conceptId="1276AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="80586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/></td>
+                <td style="text-align:center;"><obs conceptId="1276AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="105281AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/></td>
+                <td style="text-align:center;"><obs conceptId="1276AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="461AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/></td>
+
+                <td><obs conceptId="1659AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerConceptIds="1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,142177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1661AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,160737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerLabels="No signs,Suspect,Confirmed,TB Rx,Not Done" answerSeparator="&lt;br/&gt;" style="radio"/></td>
+                <td><obs conceptId="1189AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerConceptIds="1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,6022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,6025AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerLabels="Normal(N),Delayed(D),Regressed(R),N/A"/></td>
+                <td colspan="3"><obs id="tca" conceptId="5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" allowFutureDates="true"/></td>
+
+
+            </tr>
+
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="ke-form-footer">
+        <submit />
+    </div>
+
+</htmlform>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<module configVersion="1.2">
+
+	<!-- Module Properties -->
+	<id>${project.parent.artifactId}</id>
+	<name>${project.parent.name}</name>
+	<version>${project.parent.version}</version>
+	<package>${project.parent.groupId}.${project.parent.artifactId}</package>
+	<author>FACES</author>
+	<description>
+		${project.parent.description}
+	</description>
+	<updateURL>https://modules.openmrs.org/modules/download/${project.parent.artifactId}/update.rdf</updateURL>
+	<require_version>${openMRSVersion}</require_version>
+	<!-- / Module Properties -->
+
+	
+	<!-- Required Modules -->
+	<require_modules>
+																											
+		<require_module version="1.5">
+			org.openmrs.module.appframework
+		</require_module>
+
+        <!--
+		<require_module version="1.0">
+			org.openmrs.module.calculation
+		</require_module>
+		-->
+																											
+		<require_module version="2.2.1">
+			org.openmrs.module.htmlformentry
+		</require_module>
+																											
+		<require_module version="2.6">
+			org.openmrs.module.idgen
+		</require_module>
+																											
+		<require_module version="0.16">
+			org.openmrs.module.kenyacore
+		</require_module>
+																											
+		<require_module version="13.3-RC2">
+			org.openmrs.module.kenyaemr
+		</require_module>
+																											
+		<require_module version="1.13.1">
+			org.openmrs.module.kenyaui
+		</require_module>
+																											
+		<require_module version="0.1">
+			org.openmrs.module.metadatadeploy
+		</require_module>
+																											
+		<require_module version="1.1.8">
+			org.openmrs.module.metadatasharing
+		</require_module>
+																											
+		<require_module version="0.8">
+			org.openmrs.module.reporting
+		</require_module>
+																											
+		<require_module version="0.2.7">
+			org.openmrs.module.serialization.xstream
+		</require_module>
+																											
+		<require_module version="3.1">
+			org.openmrs.module.uiframework
+		</require_module>
+			
+	</require_modules>
+	<!-- / Required Modules -->
+	
+	<!-- Module Activator -->
+	<activator>${project.parent.groupId}.${project.parent.artifactId}.FacesModuleActivator</activator>
+	
+	
+	<!-- Maps hibernate file's, if present -->
+	<mappingFiles>
+				
+	</mappingFiles>
+
+	<!-- Internationalization -->
+	<!-- All message codes should start with ${project.parent.artifactId}. -->
+	<messages>
+		<lang>en</lang>
+		<file>messages.properties</file>
+	</messages>
+	<messages>
+		<lang>fr</lang>
+		<file>messages_fr.properties</file>
+	</messages>
+	<messages>
+		<lang>es</lang>
+		<file>messages_es.properties</file>
+	</messages>
+	<!-- /Internationalization -->
+
+</module>
+
