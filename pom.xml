@@ -21,11 +21,19 @@
 		<url>http://openmrs.org</url>
 	</organization>
 
+    <!--
 	<scm>
 		<connection>scm:svn:https://svn.openmrs.org/openmrs-modules/keaddonfaces/trunk/</connection>
 		<developerConnection>scm:svn:https://svn.openmrs.org/openmrs-modules/keaddonfaces/trunk/</developerConnection>
 		<url>https://svn.openmrs.org/openmrs-modules/keaddonfaces/trunk/</url>
 	</scm>
+	-->
+    <scm>
+        <connection>scm:git:git@github.com:kemri-ucsf/keaddonfaces.git</connection>
+        <developerConnection>scm:git:git@github.com:kemri-ucsf/keaddonfaces.git</developerConnection>
+        <url>scm:git:git@github.com:kemri-ucsf/keaddonfaces.git</url>
+        <tag>HEAD</tag>
+    </scm>
 
 	<modules>
 		<module>api</module>
