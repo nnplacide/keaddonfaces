@@ -24,7 +24,7 @@
     <bean id="keaddonfaces.app.faces" class="org.openmrs.module.appframework.SimpleAppDescriptor">
         <property name="id" value="keaddonfaces.faces"/>
         <property name="label" value="Faces Add on Forms"/>
-        <property name="homepageUrl" value="keaddonfaces/faces/home.page"/>
+        <property name="homepageUrl" value="keaddonfaces/faces/facesHome.page"/>
         <property name="iconUrl" value="keaddonfaces:apps/example.png"/>
     </bean>
 
@@ -49,6 +49,7 @@
             <set>
                 <ref bean="kenyaemr.app.clinician" />
                 <ref bean="kenyaemr.app.chart" />
+                <ref bean="keaddonfaces.app.faces" />
             </set>
         </property>
         <property name="autoCreateVisitTypeUuid" value="3371a4d4-f66f-4454-a86d-92c7b3da990c" />
@@ -76,6 +77,7 @@
             <set>
                 <ref bean="kenyaemr.app.clinician" />
                 <ref bean="kenyaemr.app.chart" />
+                <ref bean="keaddonfaces.app.faces" />
             </set>
         </property>
         <property name="icon" value="keaddonfaces:forms/generic.png" />
@@ -88,6 +90,7 @@
             <set>
                 <ref bean="kenyaemr.app.clinician" />
                 <ref bean="kenyaemr.app.chart" />
+                <ref bean="keaddonfaces.app.faces" />
             </set>
         </property>
         <property name="autoCreateVisitTypeUuid" value="3371a4d4-f66f-4454-a86d-92c7b3da990c" />
@@ -101,6 +104,7 @@
             <set>
                 <ref bean="kenyaemr.app.clinician" />
                 <ref bean="kenyaemr.app.chart" />
+                <ref bean="keaddonfaces.app.faces" />
             </set>
         </property>
         <property name="icon" value="keaddonfaces:forms/generic.png" />

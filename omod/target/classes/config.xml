@@ -5,7 +5,7 @@
 	<!-- Module Properties -->
 	<id>keaddonfaces</id>
 	<name>KenyaEMR Add-on Faces Module</name>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0</version>
 	<package>org.openmrs.module.keaddonfaces</package>
 	<author>FACES</author>
 	<description>
