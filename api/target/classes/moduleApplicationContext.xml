@@ -20,12 +20,20 @@
 	<!-- Add here beans related to the API context -->
 
     <!-- Apps -->
-
+     <!--
     <bean id="keaddonfaces.app.faces" class="org.openmrs.module.appframework.SimpleAppDescriptor">
         <property name="id" value="keaddonfaces.faces"/>
         <property name="label" value="Faces Add on Forms"/>
         <property name="homepageUrl" value="keaddonfaces/faces/facesHome.page"/>
         <property name="iconUrl" value="keaddonfaces:apps/example.png"/>
+    </bean>
+    -->
+    <bean id="keaddonfaces.app.faces" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
+        <constructor-arg value="keaddonfaces.faces" />
+        <constructor-arg value="Faces Add on Forms" />
+        <constructor-arg value="keaddonfaces/faces/facesHome.page" />
+        <constructor-arg value="keaddonfaces:apps/example.png" />
+        <constructor-arg value="1100000" />
     </bean>
 
     <!-- Forms -->

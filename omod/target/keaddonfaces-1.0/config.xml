@@ -12,7 +12,7 @@
 		Faces Add on Module for adding content to KenyaEMR
 	</description>
 	<updateURL>https://modules.openmrs.org/modules/download/keaddonfaces/update.rdf</updateURL>
-	<require_version>1.9.6</require_version>
+	<require_version>1.9.7</require_version>
 	<!-- / Module Properties -->
 
 	

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * To change this template use File | Settings | File Templates.
  */
 @AppPage(FacesConstants.APP_FACES)
-public class HomePageController {
+public class FacesHomePageController {
 
     public void controller(@RequestParam(required=false, value="patientId") Patient patient,
                            PageModel model,

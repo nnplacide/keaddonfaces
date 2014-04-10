@@ -17,7 +17,7 @@ package org.openmrs.module.keaddonfaces.fragment.controller;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Patient;
-import org.openmrs.module.appframework.AppDescriptor;
+import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.kenyacore.form.FormDescriptor;
 import org.openmrs.module.kenyacore.form.FormManager;
 import org.openmrs.module.kenyaui.KenyaUiUtils;

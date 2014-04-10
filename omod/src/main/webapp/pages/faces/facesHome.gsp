@@ -17,10 +17,7 @@
 
     <% if (currentPatient) { %>
             ${ ui.includeFragment("keaddonfaces", "hei", [ patient: currentPatient ]) }
-        <% if(visit) { %>
-                ${ ui.includeFragment("kenyaemr","availableForms", [ visit: visit ]) }
-                ${ ui.includeFragment("kenyaemr","completedForms", [ visit: visit ]) }
-        <%} %>
+
 
     <% } else { %>
     ${ ui.decorate("kenyaui", "panel", [ heading: "Faces Forms" ], "Select a patient with another app to see a form list here") }
