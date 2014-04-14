@@ -32,7 +32,7 @@
         <br />
         <div align="center">
             ${ ui.includeFragment("kenyaui", "widget/button", [
-                    label: "Add Visit Summary",
+                    label: "Add Hei Visit Summary",
                     extra: "From column",
                     iconProvider: "kenyaui",
                     icon: "buttons/visit_retrospective.png",

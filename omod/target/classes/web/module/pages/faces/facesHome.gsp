@@ -1,9 +1,11 @@
 <%
 
     ui.decorateWith("kenyaemr", "standardPage", [ patient: currentPatient, layout: "sidebar" ])
+
 %>
 
 <div class="ke-page-sidebar">
+
      <div class="ke-panel-frame">
         <div class="ke-panel-heading">Visits</div>
          <% if (!visits) {
@@ -28,15 +30,14 @@
 <div class="ke-page-content">
        <% if (currentPatient) { %>
             ${ ui.includeFragment("keaddonfaces", "hei", [ patient: currentPatient ]) }
-       <% if (visit) { %>
+            <% if (visit) { %>
+                ${ ui.includeFragment("kenyaemr", "visitSummary", [ visit: visit ]) }
+                <% if (!visit.voided) { %>
+                    ${ ui.includeFragment("kenyaemr", "visitCompletedForms", [ visit: visit ]) }
+                    ${ ui.includeFragment("kenyaemr", "visitAvailableForms", [ visit: visit ]) }
+                <% } %>
 
-            ${ ui.includeFragment("kenyaemr", "visitSummary", [ visit: visit ]) }
-            <% if (!visit.voided) { %>
-                ${ ui.includeFragment("kenyaemr", "visitCompletedForms", [ visit: visit ]) }
-                ${ ui.includeFragment("kenyaemr", "visitAvailableForms", [ visit: visit ]) }
             <% } %>
-
-       <% } %>
 
     <% } else { %>
     ${ ui.decorate("kenyaui", "panel", [ heading: "Faces Forms" ], "Select a patient with another app to see a form list here") }

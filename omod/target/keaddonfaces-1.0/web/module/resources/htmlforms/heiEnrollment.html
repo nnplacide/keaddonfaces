@@ -170,7 +170,10 @@
     </td>
 </tr>
 <tr>
-    <td colspan="15">HEI Unique ID Number:<lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('HEI ID') ) $patId #end "/></td>
+    <td colspan="15">HEI Unique ID Number:
+        <!--<lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('HEI ID') ) $patId #end "/>-->
+        <span id="hei-id"><patient field="identifier" identifierTypeId="0691f522-dd67-4eeb-92c8-af5083baf338" required="false" /></span>
+    </td>
 </tr>
 <tr>
     <td colspan="15">Name(First, Middle, Last)<lookup expression="patient.personName"/></td>
