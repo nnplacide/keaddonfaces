@@ -9,7 +9,7 @@
     }
 %>
 <div class="ke-panel-frame">
-    <div class="ke-panel-heading">Page 1 (Care Summary)</div>
+    <div class="ke-panel-heading">HEI Enrollment and HIV Discontinuation</div>
     <div class="ke-panel-content" style="background-color: #F3F9FF">
 
         <fieldset>
@@ -26,7 +26,7 @@
 </div>
 
 <div class="ke-panel-frame">
-    <div class="ke-panel-heading">Page 2 (Initial and Followup Visits)</div>
+    <div class="ke-panel-heading">Page 2 (HEI Initial and Followup Visits)</div>
     <div class="ke-panel-content" style="background-color: #F3F9FF">
         ${ ui.includeFragment("kenyaemr", "widget/encounterStack", [ encounters: page2Encounters, onEncounterClick: onEncounterClick ]) }
         <br />
