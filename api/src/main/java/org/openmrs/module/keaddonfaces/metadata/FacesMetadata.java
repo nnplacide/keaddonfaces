@@ -3,6 +3,7 @@ package org.openmrs.module.keaddonfaces.metadata;
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.encounterType;
 import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.form;
+import org.springframework.stereotype.Component;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,6 +12,7 @@ import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.form;
  * Time: 1:56 PM
  * To change this template use File | Settings | File Templates.
  */
+@Component
 public class FacesMetadata extends AbstractMetadataBundle {
 
     public static class _EncounterType {
