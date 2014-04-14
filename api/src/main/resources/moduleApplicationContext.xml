@@ -30,9 +30,9 @@
     -->
     <bean id="keaddonfaces.app.faces" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
         <constructor-arg value="keaddonfaces.faces" />
-        <constructor-arg value="Faces Add on Forms" />
+        <constructor-arg value="Faces Forms" />
         <constructor-arg value="keaddonfaces/faces/facesHome.page" />
-        <constructor-arg value="keaddonfaces:apps/example.png" />
+        <constructor-arg value="keaddonfaces:apps/order_history.png" />
         <constructor-arg value="1100000" />
     </bean>
 
