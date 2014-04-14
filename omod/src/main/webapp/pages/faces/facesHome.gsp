@@ -1,6 +1,14 @@
 <%
 
     ui.decorateWith("kenyaemr", "standardPage", [ patient: currentPatient, layout: "sidebar" ])
+    programs.each { program ->
+        menuItems << [
+                label: ui.format(program.target),
+                extra: programSummaries[program.target],
+                href: ui.pageLink("kenyaemr", "chart/chartViewPatient", [ patientId: currentPatient.id, programId: program.target.id ]),
+                active: (selection == "program-" + program.target.id)
+        ]
+    }
 %>
 
 <div class="ke-page-sidebar">
