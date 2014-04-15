@@ -115,6 +115,17 @@
             return false;
         }
 
+        var msInYear=1000*60*60*24*365.25;
+        var ENC_DATE=new Date(getValue('encounter-date.value'))//.getTime();
+        var birthdateMs= new Date(<lookup expression="patient.birthdate.time"/>);
+        var encounterDateMs=ENC_DATE.getTime();
+        var age = (encounterDateMs-birthdateMs)/msInYear;
+
+        if(age &gt; 3)
+        {
+            alert("HIV Exposed Infant Age should not be greater than three years ");
+            return false;
+        }
 
         return true;
     });
@@ -453,7 +464,7 @@
                 <template>
                     <obsgroup groupingConceptId="1361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
                         <tr>
-
+                            <span  style="display: none"><obs id="context_status" conceptId="162084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" defaultValue="162080"/></span>
                             <td><obs conceptId="162087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1030AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1000041FACES_FACES_FACES_FACES_FACES,1000045FACES_FACES_FACES_FACES_FACES,1000063FACES_FACES_FACES_FACES_FACES,1000064FACES_FACES_FACES_FACES_FACES,1000065FACES_FACES_FACES_FACES_FACES"
                                      answerLabels="1st DNA PCR,Repeat PCR (For rejections), 1st Antibody Test @ 9 Months,Confirmatory PCR If Antibody is +Ve,Repeat Confirmatory PCR (For Rejections),Final Antibody @ 18 Months" style="dropdown"/> </td>
                             <td><obs conceptId="159951AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" allowTime="false" /></td>

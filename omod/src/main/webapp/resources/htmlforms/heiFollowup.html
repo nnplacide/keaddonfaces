@@ -70,6 +70,44 @@
             getField('encounter-date.value').change(onEncounterDateChange);
             onEncounterDateChange();
         });
+
+        beforeSubmit.push(function() {
+            /*TODO- validate all required fields*/
+
+
+            var today=new Date();
+            var birthDate= new Date("<lookup expression="patient.birthdate"/>").getTime();
+            var enc_date= new Date(getValue('encounter-date.value')).getTime
+
+            /* Validate Encounter Date */
+            /*this data should not be in Future */
+            if(enc_date &gt; today)
+            {
+                getField('encounter-date.error').html('Should not be greater than the Current date').show();
+                return false;
+            }
+
+            /* Encounter Date should be greater than the Patients's date of Birth    */
+            if(enc_date &lt; birthDate)
+            {
+                getField('encounter-date.error').html('Should not be less than the date of Birth').show();
+                return false;
+            }
+
+            var msInYear=1000*60*60*24*365.25;
+            var ENC_DATE=new Date(getValue('encounter-date.value'))//.getTime();
+            var birthdateMs= new Date(<lookup expression="patient.birthdate.time"/>);
+            var encounterDateMs=ENC_DATE.getTime();
+            var age = (encounterDateMs-birthdateMs)/msInYear;
+
+            if(age &gt; 3)
+            {
+                alert("HIV Exposed Infant Age should not be greater than three years ");
+                return false;
+            }
+
+            return true;
+        });
     </script>
 
     <div style="display:none">
