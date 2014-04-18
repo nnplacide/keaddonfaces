@@ -120,6 +120,7 @@
             <set>
                 <ref bean="kenyaemr.app.clinician" />
                 <ref bean="kenyaemr.app.chart" />
+                <ref bean="keaddonfaces.app.faces" />
             </set>
         </property>
 
@@ -133,6 +134,7 @@
             <set>
                 <ref bean="kenyaemr.app.clinician" />
                 <ref bean="kenyaemr.app.chart" />
+                <ref bean="keaddonfaces.app.faces" />
             </set>
         </property>
 
