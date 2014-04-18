@@ -1,47 +1,26 @@
 <%
+    ui.includeJavascript("kenyaemr", "controllers/patient.js")
 
-    ui.decorateWith("kenyaemr", "standardPage", [ patient: currentPatient, layout: "sidebar" ])
+    ui.decorateWith("kenyaemr", "standardPage", [ layout: "sidebar" ])
 
+    def menuItems = [
+            [ iconProvider: "kenyaui", icon: "buttons/patient_search.png", label: "Find a patient", href: ui.pageLink("keaddonfaces", "faces/facesSearch") ]
+    ]
 %>
 
 <div class="ke-page-sidebar">
-
-     <div class="ke-panel-frame">
-        <div class="ke-panel-heading">Visits</div>
-         <% if (!visits) {
-             print ui.includeFragment("kenyaui", "widget/panelMenuItem", [
-                     label: ui.message("general.none"),
-             ])
-         }
-         else {
-             visits.each { visit ->
-                 print ui.includeFragment("kenyaui", "widget/panelMenuItem", [
-                         label: ui.format(visit.visitType),
-                         href: ui.pageLink("keaddonfaces", "faces/facesHome", [ patientId: currentPatient.id, visitId: visit.id ]),
-                         extra: kenyaui.formatVisitDates(visit),
-                         active: (selection == "visit-" + visit.id)
-                 ])
-             }
-         } %>
-    </div>
-
+    ${ ui.includeFragment("kenyaui", "widget/panelMenu", [ heading: "Tasks", items: menuItems ]) }
 </div>
 
 <div class="ke-page-content">
-       <% if (currentPatient) { %>
-            ${ ui.includeFragment("keaddonfaces", "hei", [ patient: currentPatient ]) }
-            <% if (visit) { %>
-                ${ ui.includeFragment("kenyaemr", "visitSummary", [ visit: visit ]) }
-                <% if (!visit.voided) { %>
-                    ${ ui.includeFragment("kenyaemr", "visitCompletedForms", [ visit: visit ]) }
-                    ${ ui.includeFragment("kenyaemr", "visitAvailableForms", [ visit: visit ]) }
-                <% } %>
 
-            <% } %>
-
-    <% } else { %>
-    ${ ui.decorate("kenyaui", "panel", [ heading: "Faces Forms" ], "Select a patient with another app to see a form list here") }
-
-    <% } %>
-
+    <div class="ke-panel-frame" ng-controller="RecentlyViewed" ng-init="init()">
+        <div class="ke-panel-heading">Recently Viewed</div>
+        <div class="ke-panel-content">
+            <div class="ke-stack-item ke-navigable" ng-repeat="patient in recent" ng-click="onResultClick(patient)">
+                ${ ui.includeFragment("kenyaemr", "patient/result.full") }
+            </div>
+            <div ng-if="recent.length == 0" style="text-align: center; font-style: italic">None</div>
+        </div>
+    </div>
 </div>

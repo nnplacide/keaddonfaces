@@ -29,6 +29,15 @@
 <script type="text/javascript">
 
     var OPV_CONCEPT=1569;
+    var PCR_CONCEPT=1030;
+    var HIV_ANTIBODY_TEST_CONCEPT=1040;
+
+    //TEST CONTEXT STATUS concept Ids
+    var INITIAL_CONCEPT=162080;
+    var REPEAT_CONCEPT=162081;
+    var CONFIRMATION_CONCEPT=162082;
+    var FINAL_CONCEPT=162083;
+
 
 
     function validateEncounterDate()
@@ -55,6 +64,54 @@
     jq(function(){
         getField('encounter-date.value').change(validateEncounterDate);
         validateEncounterDate();
+
+        jq('#1-test').change(function(){
+            //alert(this.id)
+            if (getValue('1-test.value')== PCR_CONCEPT)
+            {
+                setValue('1-context_status.value',INITIAL_CONCEPT)
+            }
+        });
+        jq('#2-test').change(function(){
+            if (getValue('2-test.value')== PCR_CONCEPT)
+            {
+                setValue('2-context_status.value',REPEAT_CONCEPT)
+            }
+        });
+
+        jq('#3-test').change(function(){
+            if (getValue('3-test.value')== HIV_ANTIBODY_TEST_CONCEPT)
+            {
+                setValue('3-context_status.value',INITIAL_CONCEPT)
+            }
+        });
+
+        jq('#4-test').change(function(){
+            //alert(this.id)
+            if (getValue('4-test.value')== PCR_CONCEPT)
+            {
+                setValue('4-context_status.value',CONFIRMATION_CONCEPT)
+            }
+        });
+        jq('#5-test').change(function(){
+            //alert(this.id)
+            if (getValue('5-test.value')== PCR_CONCEPT)
+            {
+                setValue('5-context_status.value',FINAL_CONCEPT)
+            }
+        });
+        jq('#6-test').change(function(){
+            //alert(this.id)
+            if (getValue('6-test.value')== HIV_ANTIBODY_TEST_CONCEPT)
+            {
+                setValue('6-context_status.value',FINAL_CONCEPT)
+            }
+        });
+        jq('#7-test').change(function(){
+            alert(this.id)
+        });
+
+
     });
 
     beforeSubmit.push(function() {
@@ -464,9 +521,12 @@
                 <template>
                     <obsgroup groupingConceptId="1361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
                         <tr>
-                            <span  style="display: none"><obs id="context_status" conceptId="162084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" defaultValue="162080"/></span>
-                            <td><obs conceptId="162087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1030AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1000041FACES_FACES_FACES_FACES_FACES,1000045FACES_FACES_FACES_FACES_FACES,1000063FACES_FACES_FACES_FACES_FACES,1000064FACES_FACES_FACES_FACES_FACES,1000065FACES_FACES_FACES_FACES_FACES"
-                                     answerLabels="1st DNA PCR,Repeat PCR (For rejections), 1st Antibody Test @ 9 Months,Confirmatory PCR If Antibody is +Ve,Repeat Confirmatory PCR (For Rejections),Final Antibody @ 18 Months" style="dropdown"/> </td>
+                            <span  style="display: none"><obs id="{n}-context_status" conceptId="162084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></span>
+                            <td><span id="{n}-testName" >
+                                <obs id="{n}-test" conceptId="162087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1030AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerLabels="1st DNA PCR,Repeat PCR (For rejections), 1st Antibody Test @ 9 Months,Confirmatory PCR If Antibody is +Ve,Repeat Confirmatory PCR (For Rejections),Final Antibody @ 18 Months" style="dropdown"/>
+                            </span>
+                            </td>
                             <td><obs conceptId="159951AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" allowTime="false" /></td>
                             <td><obs conceptId="162086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></td>
                             <td><obs conceptId="1000043FACES_FACES_FACES_FACES_FACES" answerConceptIds="1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
@@ -508,8 +568,8 @@
                 <td><obs conceptId="161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="160432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/></td>
             </tr>
             <tr>
-                <td style="text-align:right">Referred to CCC (HIV Posite)</td>
-                <td><obs conceptId="161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1000066FACES_FACES_FACES_FACES_FACES" answerLabel="" style="checkbox"/></td>
+                <td style="text-align:right">Referred to CCC (HIV Positive)</td>
+                <td><obs conceptId="161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="138571AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/></td>
                 <td style="text-align:right">Lost to follow up</td>
                 <td><obs conceptId="161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="5240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/></td>
                 <td style="text-align:right"> Other (Specify)</td>
