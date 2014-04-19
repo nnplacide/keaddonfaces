@@ -240,7 +240,7 @@
 <tr>
     <td colspan="15">HEI Unique ID Number:
         <!--<lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('HEI ID') ) $patId #end "/>-->
-        <span id="hei-id"><patient field="identifier" identifierTypeId="0691f522-dd67-4eeb-92c8-af5083baf338" required="false" /></span>
+        <span id="hei-id"><patient field="identifier" identifierTypeId="0691f522-dd67-4eeb-92c8-af5083baf338" required="true" /></span>
     </td>
 </tr>
 <tr>
@@ -267,12 +267,12 @@
         ARV Prophylaxis:
         <obsgroup groupingConceptId="159898AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
 
-            Sd NVP Only<obs conceptId="1282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="80586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>
-            NVP for 6 weeks<obs conceptId="1282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1000036FACES_FACES_FACES_FACES_FACES" answerLabel="" style="checkbox"/>
-            NVP during BF<obs conceptId="1282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1000037FACES_FACES_FACES_FACES_FACES" answerLabel="" style="checkbox"/>
+            Sd NVP Only<obs conceptId="162328AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="162325AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>
+            NVP for 6 weeks<obs conceptId="162328AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="162326AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>
+            NVP during BF<obs conceptId="162328AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="162327AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>
 
-            None<obs conceptId="1282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>
-            Other / Specify __________________<obs conceptId="1282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>
+            None<obs conceptId="162328AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>
+            Other / Specify __________________<obs conceptId="162328AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>
         </obsgroup>
     </td>
 </tr>
@@ -303,15 +303,15 @@
     <td colspan="15">
         If Yes, select the combination
         <obsgroup groupingConceptId="1638AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
-            Sd NVP Only<obs conceptId="1086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="80586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>
-            AZT from 14 wks ,3TC/ NVP/AZT at delivery, AZT/3TC for 1wk<obs conceptId="1086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>      <br/>
+            Sd NVP Only<obs conceptId="162329AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="162326AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>
+            AZT from 14 wks ,3TC/ NVP/AZT at delivery, AZT/3TC for 1wk<obs conceptId="162329AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="162323AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>      <br/>
 
-            Haart<obs conceptId="1086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>
+            Haart<obs conceptId="162329AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="162321AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>
 
-            Interrupted Haart<obs conceptId="1086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1000039FACES_FACES_FACES_FACES_FACES" answerLabel="" style="checkbox"/>
+            Interrupted Haart<obs conceptId="162329AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="162322AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>
 
-            None<obs conceptId="1086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>
-            Other / Specify __________________<obs conceptId="1086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>
+            None<obs conceptId="162329AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>
+            Other / Specify __________________<obs conceptId="162329AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>
 
         </obsgroup>
     </td>
@@ -343,7 +343,7 @@
                                              3TC/NVP/AZT,
                                              3TC/D4T,
                                              TDF/3TC,
-                                             EDF/3TC/EFV,
+                                             TDF/3TC/EFV,
                                              ABC/3TC,
                                              EFV/FTC/TDF,
                                              3TC/LPV/r/TDF,
@@ -523,15 +523,15 @@
                         <tr>
                             <span  style="display: none"><obs id="{n}-context_status" conceptId="162084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></span>
                             <td><span id="{n}-testName" >
-                                <obs id="{n}-test" conceptId="162087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1030AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-                                     answerLabels="1st DNA PCR,Repeat PCR (For rejections), 1st Antibody Test @ 9 Months,Confirmatory PCR If Antibody is +Ve,Repeat Confirmatory PCR (For Rejections),Final Antibody @ 18 Months" style="dropdown"/>
+                                <obs id="{n}-test" conceptId="162087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1030AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1326AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerLabels="DNA PCR Test,1st Antibody at 9 months,Final Antibody at 18 months" style="dropdown"/>
                             </span>
                             </td>
                             <td><obs conceptId="159951AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" allowTime="false" /></td>
                             <td><obs conceptId="162086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></td>
-                            <td><obs conceptId="1000043FACES_FACES_FACES_FACES_FACES" answerConceptIds="1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
+                            <td><obs conceptId="159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
                             <td></td>
-                            <td><obs conceptId="1000042FACES_FACES_FACES_FACES_FACES" /></td>
+                            <td><obs conceptId="160082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></td>
                             <td>Cmts</td>
                         </tr>
                     </obsgroup>
