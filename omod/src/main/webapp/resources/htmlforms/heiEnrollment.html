@@ -30,6 +30,7 @@
 
     var OPV_CONCEPT=1569;
     var PCR_CONCEPT=1030;
+    var REPEAT_PCR_CONCEPT=1326;
     var HIV_ANTIBODY_TEST_CONCEPT=1040;
 
     //TEST CONTEXT STATUS concept Ids
@@ -64,18 +65,141 @@
     jq(function(){
         getField('encounter-date.value').change(validateEncounterDate);
         validateEncounterDate();
+        jq('#1-test select option').each(function() {
+            var concept = parseInt(jq(this).prop('value'));
+
+            // alert(jq(this).text())
+            // alert(concept);
+            if (concept==PCR_CONCEPT) {
+                jq(this).prop('disabled', false);
+                jq(this).text("1st DNA PCR");
+            }
+            else if (concept==HIV_ANTIBODY_TEST_CONCEPT) {
+                jq(this).prop('disabled', true);
+                jq(this).text("1st Antibody at 9 months");
+            }
+            else if (concept==REPEAT_PCR_CONCEPT) {
+                jq(this).prop('disabled', true);
+                //jq(this).text("1st Antibody at 9 months");
+            }
+        });
+
+        jq('#2-test select option').each(function() {
+            var concept = parseInt(jq(this).prop('value'));
+
+            // alert(jq(this).text())
+            // alert(concept);
+            if (concept==PCR_CONCEPT) {
+                jq(this).prop('disabled', false);
+                jq(this).text("Repeat PCR (For Rejections)");
+            }
+            else if (concept==HIV_ANTIBODY_TEST_CONCEPT) {
+                jq(this).prop('disabled', true);
+                jq(this).text("1st Antibody at 9 months");
+            }
+            else if (concept==REPEAT_PCR_CONCEPT) {
+                jq(this).prop('disabled', true);
+                //jq(this).text("1st Antibody at 9 months");
+            }
+        });
+
+        jq('#3-test select option').each(function() {
+            var concept = parseInt(jq(this).prop('value'));
+
+            // alert(jq(this).text())
+            // alert(concept);
+            if (concept==PCR_CONCEPT) {
+                jq(this).prop('disabled', true);
+                jq(this).text("1st DNA PCR");
+            }
+            else if (concept==HIV_ANTIBODY_TEST_CONCEPT) {
+                jq(this).prop('disabled', false);
+                jq(this).text("1st Antibody at 9 months");
+            }
+            else if (concept==REPEAT_PCR_CONCEPT) {
+                jq(this).prop('disabled', true);
+                //jq(this).text("1st Antibody at 9 months");
+            }
+        });
+
+        jq('#4-test select option').each(function() {
+            var concept = parseInt(jq(this).prop('value'));
+
+            // alert(jq(this).text())
+            // alert(concept);
+            if (concept==PCR_CONCEPT) {
+                jq(this).prop('disabled', false);
+                jq(this).text("Confirmatory PCR, If antibody is +Ve");
+            }
+            else if (concept==HIV_ANTIBODY_TEST_CONCEPT) {
+                jq(this).prop('disabled', true);
+                jq(this).text("1st Antibody at 9 months");
+            }
+            else if (concept==REPEAT_PCR_CONCEPT) {
+                jq(this).prop('disabled', true);
+                //jq(this).text("1st Antibody at 9 months");
+            }
+        });
+
+        jq('#5-test select option').each(function() {
+            var concept = parseInt(jq(this).prop('value'));
+
+            // alert(jq(this).text())
+            // alert(concept);
+            if (concept==PCR_CONCEPT) {
+                jq(this).prop('disabled', false);
+                jq(this).text("Repeat Confirmatory PCR (For Rejections)");
+            }
+            else if (concept==HIV_ANTIBODY_TEST_CONCEPT) {
+                jq(this).prop('disabled', true);
+                jq(this).text("1st Antibody at 9 months");
+            }
+            else if (concept==REPEAT_PCR_CONCEPT) {
+                jq(this).prop('disabled', true);
+                //jq(this).text("1st Antibody at 9 months");
+            }
+        });
+
+        jq('#6-test select option').each(function() {
+            var concept = parseInt(jq(this).prop('value'));
+
+            // alert(jq(this).text())
+            // alert(concept);
+            if (concept==PCR_CONCEPT) {
+                jq(this).prop('disabled', true);
+                jq(this).text("1st DNA PCR");
+            }
+            else if (concept==HIV_ANTIBODY_TEST_CONCEPT) {
+                jq(this).prop('disabled', true);
+                jq(this).text("1st Antibody at 9 months");
+            }
+            else if (concept==REPEAT_PCR_CONCEPT) {
+                jq(this).prop('disabled', false);
+                //jq(this).text("1st Antibody at 9 months");
+            }
+        });
+
 
         jq('#1-test').change(function(){
             //alert(this.id)
             if (getValue('1-test.value')== PCR_CONCEPT)
             {
-                setValue('1-context_status.value',INITIAL_CONCEPT)
+                setValue('1-context_status.value',INITIAL_CONCEPT) ;
             }
+            else
+            {
+                setValue('1-context_status.value',null);
+            }
+
         });
         jq('#2-test').change(function(){
             if (getValue('2-test.value')== PCR_CONCEPT)
             {
                 setValue('2-context_status.value',REPEAT_CONCEPT)
+            }
+            else
+            {
+                setValue('2-context_status.value',null);
             }
         });
 
@@ -83,6 +207,10 @@
             if (getValue('3-test.value')== HIV_ANTIBODY_TEST_CONCEPT)
             {
                 setValue('3-context_status.value',INITIAL_CONCEPT)
+            }
+            else
+            {
+                setValue('3-context_status.value',null);
             }
         });
 
@@ -92,12 +220,20 @@
             {
                 setValue('4-context_status.value',CONFIRMATION_CONCEPT)
             }
+            else
+            {
+                setValue('4-context_status.value',null);
+            }
         });
         jq('#5-test').change(function(){
             //alert(this.id)
             if (getValue('5-test.value')== PCR_CONCEPT)
             {
                 setValue('5-context_status.value',FINAL_CONCEPT)
+            }
+            else
+            {
+                setValue('5-context_status.value',null);
             }
         });
         jq('#6-test').change(function(){
@@ -106,9 +242,14 @@
             {
                 setValue('6-context_status.value',FINAL_CONCEPT)
             }
+            else
+            {
+                setValue('6-context_status.value',null);
+            }
         });
+
         jq('#7-test').change(function(){
-            alert(this.id)
+            //alert(this.id)
         });
 
 
@@ -123,33 +264,8 @@
             return false;
         }
         */
-        /*
-         var var_opv0=  getValue('opvo.value')  ;
-         var var_opv1=  getValue('opv1.value')  ;
-         var var_opv2=  getValue('opv2.value')  ;
-         var var_opv3=  getValue('opv3.value')  ;
 
-         if (var_opv0==OPV_CONCEPT)
-         {
-         setValue('seq0_opv0.value', 0);
-         }
 
-         if (var_opv1 ==OPV_CONCEPT)
-         {
-         setValue('seq1_opv1.value', 1);
-         }
-
-         if (var_opv2 ==OPV_CONCEPT)
-         {
-         setValue('seq2_opv2.value', 2);
-         }
-
-         if (var_opv3 ==OPV_CONCEPT)
-         {
-         setValue('seq3_opv3.value', 3);
-         }
-
-         */
         /*TODO- validate all required fields*/
 
 
@@ -269,7 +385,7 @@
 
             Sd NVP Only<obs conceptId="162328AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="162325AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>
             NVP for 6 weeks<obs conceptId="162328AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="162326AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>
-            NVP during BF<obs conceptId="162328AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="162327AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>
+            NVP during BF<obs conceptId="162328AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="162327AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>
 
             None<obs conceptId="162328AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>
             Other / Specify __________________<obs conceptId="162328AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>
