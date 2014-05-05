@@ -3,7 +3,7 @@
 
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>keaddonfaces</artifactId>
-	<version>1.0</version>
+	<version>1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>KenyaEMR Add-on Faces Module</name>
 	<description>Faces Add on Module for adding content to KenyaEMR</description>

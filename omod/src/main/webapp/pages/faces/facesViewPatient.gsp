@@ -1,4 +1,4 @@
-<%
+E<%
 
     ui.decorateWith("kenyaemr", "standardPage", [ patient: currentPatient, layout: "sidebar" ])
     def menuItems = [

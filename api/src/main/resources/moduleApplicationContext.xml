@@ -180,6 +180,15 @@
 
             </set>
         </property>
+
+    </bean>
+
+    <!-- Adding Reports-->
+    <bean id="keaddonfaces.report.heiEnrollment" class="org.openmrs.module.kenyacore.report.IndicatorReportDescriptor">
+        <property name="targetUuid" value="8324878d-ce31-4ae9-bebc-b173ea69c45e" />
+        <property name="name" value="HEI Enrollment Report" />
+        <property name="description" value="Just an example" />
+        <property name="apps"><set><ref bean="kenyaemr.app.reports" /></set></property>
     </bean>
 
 	

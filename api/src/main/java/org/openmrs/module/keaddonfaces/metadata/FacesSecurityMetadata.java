@@ -1,15 +1,10 @@
 package org.openmrs.module.keaddonfaces.metadata;
 
-import org.openmrs.Privilege;
-import org.openmrs.api.UserService;
 import org.openmrs.module.keaddonfaces.FacesConstants;
+import org.openmrs.module.kenyaemr.metadata.SecurityMetadata;
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.openmrs.module.metadatadeploy.bundle.Requires;
 import org.springframework.stereotype.Component;
-
-import java.util.HashSet;
-import java.util.Set;
 
 import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.*;
 
@@ -24,16 +19,11 @@ import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.*;
         * Security metadata bundle
         */
 @Component
+@Requires(SecurityMetadata.class)
 public class FacesSecurityMetadata extends AbstractMetadataBundle{
-
-    @Autowired
-    @Qualifier("userService")
-    private UserService userService;
 
     public static final class _Role {
         public static final String FACES_DATA_CLERK = "Faces Data Clerk";
-        public static final String FACES_API_PRIVILEGES_VIEW_AND_EDIT = "API Privileges (View and Edit)";
-
     }
 
     /**
@@ -52,42 +42,10 @@ public class FacesSecurityMetadata extends AbstractMetadataBundle{
             install(privilege(app(appId), "Access to the " + appId + " app"));
         }
 
-        install(role(_Role.FACES_API_PRIVILEGES_VIEW_AND_EDIT, "All viewing and editing API privileges",
-                null, getApiPrivileges(false))
-        );
-        // Add custom privileges
-
-
         install(role(_Role.FACES_DATA_CLERK, "Can access the Faces KenyaEmr add on apps",
-                idSet(_Role.FACES_API_PRIVILEGES_VIEW_AND_EDIT),
+                idSet(SecurityMetadata._Role.API_PRIVILEGES_VIEW_AND_EDIT),
                 idSet(app(FacesConstants.APP_FACES))
         ));
-
-
-    }
-
-    /**
-     * Fetches sets of API privileges
-     * @param incDestructive include destructive (delete, purge) privileges
-     * @return the privileges
-     */
-    protected Set<String> getApiPrivileges(boolean incDestructive) {
-        Set<String> privileges = new HashSet<String>();
-
-        for (Privilege privilege : userService.getAllPrivileges()) {
-            if (privilege.getPrivilege().startsWith("App: ") || privilege.getPrivilege().startsWith("Emr: ")) {
-                continue;
-            }
-
-            boolean isDestructive = privilege.getPrivilege().startsWith("Delete ") || privilege.getPrivilege().startsWith("Purge ");
-
-            if (!incDestructive && isDestructive) {
-                continue;
-            }
-            privileges.add(privilege.getPrivilege());
-        }
-
-        return privileges;
     }
 
     /**
