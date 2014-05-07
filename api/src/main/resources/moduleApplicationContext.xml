@@ -147,9 +147,9 @@
         <property name="commonVisitForms">
             <set>
 
-                <ref bean="keaddonfaces.form.adherence" />
-                <ref bean="keaddonfaces.form.counselling" />
-                <ref bean="keaddonfaces.form.congenital" />
+                <!--<ref bean="keaddonfaces.form.adherence" />  -->
+                <!--<ref bean="keaddonfaces.form.counselling" />-->
+                <!--<ref bean="keaddonfaces.form.congenital" />-->
                 <!--<ref bean="keaddonfaces.form.discontinuation" />  -->
                 <!--<ref bean="keaddonfaces.form.heiEnrollment" />-->
                 <!--<ref bean="keaddonfaces.form.heiFollowup" />-->
@@ -159,13 +159,16 @@
         </property>
 
         <!-- Example of adding a form to the HIV program visit form list -->
-        <!--<property name="programVisitForms">
+        <property name="programVisitForms">
             <map>
-                <entry key-ref="kenyaemr.program.hiv">
-                    <set><ref bean="keaddonfaces.form.example" /></set>
+                <entry key-ref="kenyaemr.hiv.program">
+                    <set>
+                        <ref bean="keaddonfaces.form.adherence" />
+                        <ref bean="keaddonfaces.form.counselling" />
+                    </set>
                 </entry>
             </map>
-        </property>-->
+        </property>
 
         <!-- Example of disabling an existing form. This form will no longer appear in the "Available Forms" list -->
         <property name="disabledForms">

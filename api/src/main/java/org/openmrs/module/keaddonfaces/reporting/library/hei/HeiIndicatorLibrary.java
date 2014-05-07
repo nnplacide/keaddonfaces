@@ -27,7 +27,7 @@ public class HeiIndicatorLibrary {
      * @return the indicator
      */
     public CohortIndicator heiEnrolled() {
-        return cohortIndicator("Number of HEI Enrolled", ReportUtils.map(heiCohorts.heiEnrolled(), "fromDate=${startDate},toDate=${endDate}"));
+        return cohortIndicator("Number of HEI Enrolled", ReportUtils.map(heiCohorts.heiEnrolled(), "onOrBefore=${endDate}"));
     }
 
 }
