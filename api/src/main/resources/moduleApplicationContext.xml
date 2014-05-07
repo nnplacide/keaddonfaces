@@ -194,6 +194,7 @@
 
     <!-- Report configuration to Register the Report  -->
     <bean id="keaddonfaces.config.report" class="org.openmrs.module.kenyacore.report.ReportConfiguration">
+
         <property name="programReports">
             <map>
                 <entry key-ref="kenyaemr.mchcs.program">
@@ -201,6 +202,8 @@
                 </entry>
             </map>
         </property>
+
+
     </bean>
 
 
