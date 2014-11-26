@@ -17,7 +17,7 @@
     table.tbICF {
         border-collapse: collapse;
     //background-color: #F3F9FF;
-        }
+    }
     table.tbICF > tbody > tr > td, table.tbICF > tbody > tr > th {
         border: 1px solid black;
         vertical-align: baseline;
@@ -65,6 +65,7 @@
             jq('#ipt_q2_ad').hide();
             //setValue('q4_ad.value', NIGHT_SWEATS_CONCEPT);
 
+            //jq('#under_five').find(':input').attr('disabled', true);
         }
         else
         {
@@ -74,7 +75,7 @@
             jq('#q4_ch').hide();
             jq('#q4_ch_a').hide();
             jq('#ipt_q2_ch').hide();
-            // setValue('q4_ch.value', TB_CONTACT_CONCEPT);
+            jq('#under_five').hide();
         }
     }
     jq(function() {
@@ -84,6 +85,7 @@
 
         var valbirthdate = "<lookup  expression="patient.birthdate" />"
         var valChangedToDateFormat = new Date(valbirthdate).getTime();
+
 
         beforeSubmit.push(function() {
             var valonform = getValue('ipt_Rx_date.value');
@@ -169,6 +171,39 @@
 
             if (valChangedToDateFormatOnForm  &gt;= ENC_DATE) {
                 getField('died.error').html('Date Died, should not be greater than  date of visit').show();
+                return false;
+            }
+
+            var encDate=new Date(getValue('encounter-date.value')).getTime();
+            var rxDate=new Date(getValue('ipt_Rx_date.value')).getTime();
+            var diedDate=new Date(getValue('died.value')).getTime();
+            var completedDate=new Date(getValue('completed.value')).getTime();
+            var transferDate=new Date(getValue('transferred.value')).getTime();
+            var defaultedDate=new Date(getValue('defaulted.value')).getTime();
+            var disconDate=new Date(getValue('discontinued.value')).getTime();
+
+            if (diedDate  &lt;= rxDate) {
+                getField('died.error').html('Date Died, should be greater than  date started IPT').show();
+                return false;
+            }
+
+            if (defaultedDate  &lt;= rxDate) {
+                getField('defaulted.error').html('Date Defaulted, should be greater than  date started IPT').show();
+                return false;
+            }
+
+            if (completedDate  &lt;= rxDate) {
+                getField('completed.error').html('Date Completed, should be greater than  date started IPT').show();
+                return false;
+            }
+
+            if (transferDate  &lt;= rxDate) {
+                getField('transferred.error').html('Date Transferred, should be greater than  date started IPT').show();
+                return false;
+            }
+
+            if (disconDate  &lt;= rxDate) {
+                getField('discontinued.error').html('Date Discontinued, should be greater than  date started IPT').show();
                 return false;
             }
 
@@ -414,8 +449,8 @@
                                 <b>Date started on IPT </b>
                             </td>
                             <td colspan="2">
-                                <obs id="ipt_Rx_date" conceptId="1000067FACES_FACES_FACES_FACES_FACES" />
-                                <lookup expression="fn.latestObs(1000067).getValueDatetime()"/>
+                                <obs id="ipt_Rx_date" conceptId="162320AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+                                <lookup expression="fn.latestObs(162320).getValueDatetime()"/>
                             </td>
                         </tr>
                         <tr>
@@ -423,7 +458,11 @@
                         </tr>
                         <tr>
                             <td> 1 Child under 5 years exposed to active SM +ve PTB</td>
-                            <td colspan="2"><obs conceptId="162276AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="162278AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="checkbox" answerLabel=""   /></td>
+                            <td colspan="2">
+                            	<span id="under_five">
+                            		<obs conceptId="162276AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="162278AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="checkbox" answerLabel=""   />
+                            	</span>
+                            </td>
                         </tr>
                         <tr>
                             <td> 2 PLHIV <b>(Y/N)</b></td>

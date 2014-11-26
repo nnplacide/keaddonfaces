@@ -89,6 +89,32 @@
         <property name="htmlform" value="keaddonfaces:discontinuation.html" />
     </bean>
 
+    <bean id="keaddonfaces.form.crf1Form" class="org.openmrs.module.kenyacore.form.FormDescriptor">
+        <property name="targetUuid" value="e3bbfac4-d32f-4946-8167-eba6e9aab1aa" />
+        <property name="apps">
+            <set>
+                <ref bean="kenyaemr.app.clinician" />
+                <ref bean="keaddonfaces.app.faces" />
+                <ref bean="kenyaemr.app.chart" />
+            </set>
+        </property>
+        <property name="icon" value="keaddonfaces:forms/generic.png" />
+        <property name="htmlform" value="keaddonfaces:/search/crf1Form.html" />
+    </bean>
+
+
+    <bean id="keaddonfaces.form.artEligibilityForm" class="org.openmrs.module.kenyacore.form.FormDescriptor">
+        <property name="targetUuid" value="fc1b79a3-de7c-4423-81f4-9b61cbd4b2ef" />
+        <property name="apps">
+            <set>
+                <ref bean="kenyaemr.app.clinician" />
+                <ref bean="keaddonfaces.app.faces" />
+            </set>
+        </property>
+        <property name="icon" value="keaddonfaces:forms/generic.png" />
+        <property name="htmlform" value="keaddonfaces:artEligibilityForm.html" />
+    </bean>
+
     <bean id="keaddonfaces.form.heiEnrollment" class="org.openmrs.module.kenyacore.form.FormDescriptor">
         <property name="targetUuid" value="a938c14d-1ca8-456e-b992-f44b37a55ae2" />
         <property name="apps">
@@ -188,26 +214,28 @@
 
     <!-- Adding Reports-->
     <!-- Report Descriptor Bean-->
+    <!-- Hiddedn Untill 14.2 release
     <bean id="keaddonfaces.hei.report.heiEnrollment" class="org.openmrs.module.kenyacore.report.IndicatorReportDescriptor">
         <property name="targetUuid" value="8324878d-ce31-4ae9-bebc-b173ea69c45e" />
         <property name="name" value="HEI Enrollment Report" />
         <property name="description" value="Just an example" />
         <property name="apps"><set><ref bean="kenyaemr.app.reports" /></set></property>
     </bean>
-
+    -->
     <!-- Report configuration to Register the Report  -->
-    <bean id="keaddonfaces.config.report" class="org.openmrs.module.kenyacore.report.ReportConfiguration">
+    <!-- Hiddedn Untill 14.2 release
+   <bean id="keaddonfaces.config.report" class="org.openmrs.module.kenyacore.report.ReportConfiguration">
 
-        <property name="programReports">
-            <map>
-                <entry key-ref="kenyaemr.mchcs.program">
-                    <set><ref bean="keaddonfaces.hei.report.heiEnrollment"/></set>
-                </entry>
-            </map>
-        </property>
+       <property name="programReports">
+           <map>
+               <entry key-ref="kenyaemr.mchcs.program">
+                   <set><ref bean="keaddonfaces.hei.report.heiEnrollment"/></set>
+               </entry>
+           </map>
+       </property>
 
 
-    </bean>
-
+   </bean>
+    -->
 
 </beans>

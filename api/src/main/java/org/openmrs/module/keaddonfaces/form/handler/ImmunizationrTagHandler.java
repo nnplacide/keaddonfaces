@@ -17,8 +17,8 @@ import org.openmrs.module.htmlformentry.BadFormDesignException;
 import org.openmrs.module.htmlformentry.FormEntrySession;
 import org.openmrs.module.htmlformentry.FormSubmissionController;
 import org.openmrs.module.htmlformentry.handler.SubstitutionTagHandler;
+import org.openmrs.module.keaddonfaces.form.element.ImmunizationrSubmissionElement;
 import org.springframework.stereotype.Component;
-import org.openmrs.module.keaddonfaces.form.element.ImmunizationSubmissionElement;
 
 
 import java.util.Map;
@@ -31,11 +31,11 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 @Component
-public class ImmunizationTagHandler extends SubstitutionTagHandler {
+public class ImmunizationrTagHandler extends SubstitutionTagHandler {
 
     @Override
     protected String getSubstitution(FormEntrySession session, FormSubmissionController submissionController, Map<String, String> parameters) throws BadFormDesignException {
-        ImmunizationSubmissionElement element = new ImmunizationSubmissionElement(session.getContext(),parameters);
+        ImmunizationrSubmissionElement element = new ImmunizationrSubmissionElement(session.getContext(),parameters);
         submissionController.addAction(element);
         return element.generateHtml(session.getContext());
     }

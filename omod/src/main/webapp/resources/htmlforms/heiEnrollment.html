@@ -17,7 +17,7 @@
     table.HEI {
         border-collapse: collapse;
     //background-color: #F3F9FF;
-        }
+    }
     table.HEI > tbody > tr > td, table.HEI > tbody > tr > th {
         border: 1px solid black;
         vertical-align: baseline;
@@ -28,280 +28,298 @@
 
 <script type="text/javascript">
 
-    var OPV_CONCEPT=1569;
-    var PCR_CONCEPT=1030;
-    var REPEAT_PCR_CONCEPT=1326;
-    var HIV_ANTIBODY_TEST_CONCEPT=1040;
+var OPV_CONCEPT=1569;
+var PCR_CONCEPT=1030;
+var REPEAT_PCR_CONCEPT=1326;
+var HIV_ANTIBODY_TEST_CONCEPT=1040;
 
-    //TEST CONTEXT STATUS concept Ids
-    var INITIAL_CONCEPT=162080;
-    var REPEAT_CONCEPT=162081;
-    var CONFIRMATION_CONCEPT=162082;
-    var FINAL_CONCEPT=162083;
+//TEST CONTEXT STATUS concept Ids
+var INITIAL_CONCEPT=162080;
+var REPEAT_CONCEPT=162081;
+var CONFIRMATION_CONCEPT=162082;
+var FINAL_CONCEPT=162083;
 
 
+function validateHEII_ID(hei_id)
+{
+    /************************************************
+     DESCRIPTION: Validates that a HEI ID is in the right format.
 
-    function validateEncounterDate()
+     PARAMETERS:
+     hei_id - String to be tested for validity
+
+     RETURNS:
+     True if valid, otherwise false.
+     **************************************************/
+    var objRegExp  = /^E[0-9]{5}(SDH|SKS|SKT|SMB|SMG|SNN|SNR|SNT|SNW|SOB|SOG|SSK|SSN|STM|STU|SUG|SUS|SWK)-[0-9]$/;
+
+    //check for integer characters
+    return objRegExp.test(hei_id);
+
+}
+function validateEncounterDate()
+{
+    /******************************************************
+     Validates that Encounter dates are correct
+
+     *******************************************************/
+
+    var today=new Date().getTime();
+    var enc_date=new Date(getValue('encounter-date.value')).getTime();
+    var birthdate=new Date("<lookup expression="patient.birthdate"/>").getTime();
+
+    if (enc_date &gt; today)
     {
-        var today=new Date().getTime();
-        var enc_date=new Date(getValue('encounter-date.value')).getTime();
-        var birthdate=new Date("<lookup expression="patient.birthdate"/>").getTime();
+        getField('encounter-date.error').html('Cannot be a future date').show();
+    }
+    else if (enc_date &lt; birthdate)
+    {
+        getField('encounter-date.error').html('Cannot be a less the  birth date').show();
+    }
+    else
+    {
+        getField('encounter-date.error').hide();
+    }
+}
 
-        if (enc_date &gt; today)
+
+jq(function(){
+    getField('encounter-date.value').change(validateEncounterDate);
+    validateEncounterDate();
+    jq('#1-test').change(function(){
+        /*****************************************************
+         Set the Test-Context Status to Initial if the Value
+         Selected is 1st DNA PCR
+         ******************************************************/
+
+        var text_val=jq('#1-test').find('option:selected').text();
+        if(text_val=="1st DNA PCR Test")
         {
-            getField('encounter-date.error').html('Cannot be a future date').show();
+            //alert(jq('#1-test').find('option:selected').text());
+            setValue('1-context_status.value',INITIAL_CONCEPT) ;
         }
-        else if (enc_date &lt; birthdate)
+
+        else
         {
-            getField('encounter-date.error').html('Cannot be a less the  birth date').show();
+            setValue('1-context_status.value',null);
+        }
+
+
+    });
+    jq('#2-test').change(function(){
+
+        /*****************************************************
+         Set the Test-Context Status to Repeat if the Value
+         Selected is Repeat PCR (For Rejection)
+         ******************************************************/
+        var text_val=jq('#2-test').find('option:selected').text();
+        if(text_val=="Repeat PCR (For Rejections)")
+        {
+            setValue('2-context_status.value',REPEAT_CONCEPT) ;
         }
         else
         {
-            getField('encounter-date.error').hide();
+            setValue('2-context_status.value',null);
         }
+
+    });
+
+    jq('#3-test').change(function(){
+
+        var text_val=jq('#3-test').find('option:selected').text();
+        if(text_val=="1st Antibody at 9 months")
+        {
+            setValue('3-context_status.value',INITIAL_CONCEPT) ;
+        }
+        else
+        {
+            setValue('3-context_status.value',null);
+        }
+
+    });
+
+    jq('#4-test').change(function(){
+        /*****************************************************
+         Set the Test-Context Status to Confirmation if the Value
+         Selected is Confirmatory PCR PCR (For Rejection)
+         ******************************************************/
+        var text_val=jq('#4-test').find('option:selected').text();
+        if(text_val=="Confirmatory PCR If Antibody is +Ve")
+        {
+            setValue('4-context_status.value',CONFIRMATION_CONCEPT) ;
+        }
+        else
+        {
+            setValue('4-context_status.value',null);
+        }
+
+    });
+    jq('#5-test').change(function(){
+
+        /*****************************************************
+         Set the Test-Context Status to Final if the Value
+         Selected is Repeat Confirmatory PCR (For Rejection)
+         ******************************************************/
+        var text_val=jq('#5-test').find('option:selected').text();
+        if(text_val=="Repeat Confirmatory PCR (For Rejections)")
+        {
+            setValue('5-context_status.value',FINAL_CONCEPT) ;
+        }
+        else
+        {
+            setValue('5-context_status.value',null);
+        }
+
+    });
+    jq('#6-test').change(function(){
+        //alert(this.id)
+        var text_val=jq('#6-test').find('option:selected').text();
+        alert(q('#6-test').find('option:selected').val())
+        if(text_val=="Final Antibody at 18 months")
+        {
+            setValue('6-context_status.value',FINAL_CONCEPT) ;
+        }
+        else
+        {
+            setValue('6-context_status.value',null);
+        }
+
+    });
+
+
+    jq('#hei-id').change(function(){
+        //alert(this.id)
+        /********************************
+         Get A text Input from a span
+         *********************************/
+        var text_val=jq('#hei-id').find('input[type=text]').val();
+
+        if(validateHEII_ID(text_val)=="false")
+        {
+            getField('pat_id.error').html('The HEI Identifier is in the wrong Format... e.g. E00123SDH-1').show();
+        }
+
+    });
+
+
+});
+
+beforeSubmit.push(function() {
+    /* validate fields before the form is submitted */
+    /*
+     var val = getValue('weight.value');
+     if (val == null || val == '') {
+     getField('weight.error').html('Required for all patients').show();
+     return false;
+     }
+     */
+
+
+    /*TODO- validate all required fields*/
+
+
+    var today=new Date();
+    var birthDate= new Date("<lookup expression="patient.birthdate"/>").getTime();
+    var enc_date= new Date(getValue('encounter-date.value')).getTime
+
+    /* **********************
+     Validate Encounter Date
+     *****************************/
+    /*this data should not be in Future */
+    if(enc_date &gt; today)
+    {
+        getField('encounter-date.error').html('Should not be greater than the Current date').show();
+        return false;
+    }
+
+    /* Encounter Date should be greater than the Patients's date of Birth    */
+    if(enc_date &lt; birthDate)
+    {
+        getField('encounter-date.error').html('Should not be less than the date of Birth').show();
+        return false;
+    }
+
+    var msInYear=1000*60*60*24*365.25;
+    var ENC_DATE=new Date(getValue('encounter-date.value'))//.getTime();
+    var birthdateMs= new Date(<lookup expression="patient.birthdate.time"/>);
+    var encounterDateMs=ENC_DATE.getTime();
+    var age = (encounterDateMs-birthdateMs)/msInYear;
+
+    /* Validate Encounter Date */
+    /*this data should not be in Future */
+    if(enc_date &gt; today)
+    {
+        getField('encounter-date.error').html('Should not be greater than the Current date').show();
+        return false;
+    }
+
+    /* Encounter Date should be greater than the Patients's date of Birth    */
+    if(enc_date &lt; birthDate)
+    {
+        getField('encounter-date.error').html('Should not be less than the date of Birth').show();
+        return false;
+    }
+
+    var msInYear=1000*60*60*24*365.25;
+    var ENC_DATE=new Date(getValue('encounter-date.value'))//.getTime();
+    var birthdateMs= new Date(<lookup expression="patient.birthdate.time"/>);
+    var encounterDateMs=ENC_DATE.getTime();
+    var age = (encounterDateMs-birthdateMs)/msInYear;
+
+    if(age &gt; 3)
+    {
+        alert("HIV Exposed Infant Age should not be greater than three years ");
+        return false;
+    }
+
+    if(new Date(getValue('1-collectDate.value')).getTime() &lt; new Date(getValue('1-resultDate.value')).getTime())
+    {
+        getField('1-collectDate.error').html('Cannot be before the sample collection date').show();
+        return false;
+    }
+
+    if(new Date(getValue('2-collectDate.value')).getTime() &lt; new Date(getValue('2-resultDate.value')).getTime())
+    {
+        getField('2-collectDate.error').html('Cannot be before the sample collection date').show();
+        return false;
+    }
+
+    if(new Date(getValue('3-collectDate.value')).getTime() &lt; new Date(getValue('3-resultDate.value')).getTime())
+    {
+        getField('3-collectDate.error').html('Cannot be before the sample collection date').show();
+        return false;
+    }
+
+    if(new Date(getValue('4-collectDate.value')).getTime() &lt; new Date(getValue('4-resultDate.value')).getTime())
+    {
+        getField('4-collectDate.error').html('Cannot be before the sample collection date').show();
+        return false;
+    }
+
+    if(new Date(getValue('5-collectDate.value')).getTime() &lt; new Date(getValue('5-resultDate.value')).getTime())
+    {
+        getField('5-collectDate.error').html('Cannot be before the sample collection date').show();
+        return false;
+    }
+
+    if(new Date(getValue('6-collectDate.value')).getTime() &lt; new Date(getValue('6-resultDate.value')).getTime())
+    {
+        getField('6-collectDate.error').html('Cannot be before the sample collection date').show();
+        return false;
     }
 
 
-    jq(function(){
-        getField('encounter-date.value').change(validateEncounterDate);
-        validateEncounterDate();
-        jq('#1-test select option').each(function() {
-            var concept = parseInt(jq(this).prop('value'));
+    var text_val=jq('#hei-id').find('input[type=text]').val();
+    //alert(validateHEII_ID(text_val));
+    if(validateHEII_ID(text_val)==false)
+    {
+        //$j('#hei-id').html('The HEI Identifier is in the wrong Format... e.g. E00123SDH-1');
+        alert('The HEI Identifier is in the wrong Format. The right format should for example be E00123SDH-1. Starts with Letter E, five digits, site code and check digit');
+        return false
+    }
 
-            // alert(jq(this).text())
-            // alert(concept);
-            if (concept==PCR_CONCEPT) {
-                jq(this).prop('disabled', false);
-                jq(this).text("1st DNA PCR");
-            }
-            else if (concept==HIV_ANTIBODY_TEST_CONCEPT) {
-                jq(this).prop('disabled', true);
-                jq(this).text("1st Antibody at 9 months");
-            }
-            else if (concept==REPEAT_PCR_CONCEPT) {
-                jq(this).prop('disabled', true);
-                //jq(this).text("1st Antibody at 9 months");
-            }
-        });
-
-        jq('#2-test select option').each(function() {
-            var concept = parseInt(jq(this).prop('value'));
-
-            // alert(jq(this).text())
-            // alert(concept);
-            if (concept==PCR_CONCEPT) {
-                jq(this).prop('disabled', false);
-                jq(this).text("Repeat PCR (For Rejections)");
-            }
-            else if (concept==HIV_ANTIBODY_TEST_CONCEPT) {
-                jq(this).prop('disabled', true);
-                jq(this).text("1st Antibody at 9 months");
-            }
-            else if (concept==REPEAT_PCR_CONCEPT) {
-                jq(this).prop('disabled', true);
-                //jq(this).text("1st Antibody at 9 months");
-            }
-        });
-
-        jq('#3-test select option').each(function() {
-            var concept = parseInt(jq(this).prop('value'));
-
-            // alert(jq(this).text())
-            // alert(concept);
-            if (concept==PCR_CONCEPT) {
-                jq(this).prop('disabled', true);
-                jq(this).text("1st DNA PCR");
-            }
-            else if (concept==HIV_ANTIBODY_TEST_CONCEPT) {
-                jq(this).prop('disabled', false);
-                jq(this).text("1st Antibody at 9 months");
-            }
-            else if (concept==REPEAT_PCR_CONCEPT) {
-                jq(this).prop('disabled', true);
-                //jq(this).text("1st Antibody at 9 months");
-            }
-        });
-
-        jq('#4-test select option').each(function() {
-            var concept = parseInt(jq(this).prop('value'));
-
-            // alert(jq(this).text())
-            // alert(concept);
-            if (concept==PCR_CONCEPT) {
-                jq(this).prop('disabled', false);
-                jq(this).text("Confirmatory PCR, If antibody is +Ve");
-            }
-            else if (concept==HIV_ANTIBODY_TEST_CONCEPT) {
-                jq(this).prop('disabled', true);
-                jq(this).text("1st Antibody at 9 months");
-            }
-            else if (concept==REPEAT_PCR_CONCEPT) {
-                jq(this).prop('disabled', true);
-                //jq(this).text("1st Antibody at 9 months");
-            }
-        });
-
-        jq('#5-test select option').each(function() {
-            var concept = parseInt(jq(this).prop('value'));
-
-            // alert(jq(this).text())
-            // alert(concept);
-            if (concept==PCR_CONCEPT) {
-                jq(this).prop('disabled', false);
-                jq(this).text("Repeat Confirmatory PCR (For Rejections)");
-            }
-            else if (concept==HIV_ANTIBODY_TEST_CONCEPT) {
-                jq(this).prop('disabled', true);
-                jq(this).text("1st Antibody at 9 months");
-            }
-            else if (concept==REPEAT_PCR_CONCEPT) {
-                jq(this).prop('disabled', true);
-                //jq(this).text("1st Antibody at 9 months");
-            }
-        });
-
-        jq('#6-test select option').each(function() {
-            var concept = parseInt(jq(this).prop('value'));
-
-            // alert(jq(this).text())
-            // alert(concept);
-            if (concept==PCR_CONCEPT) {
-                jq(this).prop('disabled', true);
-                jq(this).text("1st DNA PCR");
-            }
-            else if (concept==HIV_ANTIBODY_TEST_CONCEPT) {
-                jq(this).prop('disabled', true);
-                jq(this).text("1st Antibody at 9 months");
-            }
-            else if (concept==REPEAT_PCR_CONCEPT) {
-                jq(this).prop('disabled', false);
-                //jq(this).text("1st Antibody at 9 months");
-            }
-        });
-
-
-        jq('#1-test').change(function(){
-            //alert(this.id)
-            if (getValue('1-test.value')== PCR_CONCEPT)
-            {
-                setValue('1-context_status.value',INITIAL_CONCEPT) ;
-            }
-            else
-            {
-                setValue('1-context_status.value',null);
-            }
-
-        });
-        jq('#2-test').change(function(){
-            if (getValue('2-test.value')== PCR_CONCEPT)
-            {
-                setValue('2-context_status.value',REPEAT_CONCEPT)
-            }
-            else
-            {
-                setValue('2-context_status.value',null);
-            }
-        });
-
-        jq('#3-test').change(function(){
-            if (getValue('3-test.value')== HIV_ANTIBODY_TEST_CONCEPT)
-            {
-                setValue('3-context_status.value',INITIAL_CONCEPT)
-            }
-            else
-            {
-                setValue('3-context_status.value',null);
-            }
-        });
-
-        jq('#4-test').change(function(){
-            //alert(this.id)
-            if (getValue('4-test.value')== PCR_CONCEPT)
-            {
-                setValue('4-context_status.value',CONFIRMATION_CONCEPT)
-            }
-            else
-            {
-                setValue('4-context_status.value',null);
-            }
-        });
-        jq('#5-test').change(function(){
-            //alert(this.id)
-            if (getValue('5-test.value')== PCR_CONCEPT)
-            {
-                setValue('5-context_status.value',FINAL_CONCEPT)
-            }
-            else
-            {
-                setValue('5-context_status.value',null);
-            }
-        });
-        jq('#6-test').change(function(){
-            //alert(this.id)
-            if (getValue('6-test.value')== HIV_ANTIBODY_TEST_CONCEPT)
-            {
-                setValue('6-context_status.value',FINAL_CONCEPT)
-            }
-            else
-            {
-                setValue('6-context_status.value',null);
-            }
-        });
-
-        jq('#7-test').change(function(){
-            //alert(this.id)
-        });
-
-
-    });
-
-    beforeSubmit.push(function() {
-        /* validate fields before the form is submitted */
-        /*
-        var val = getValue('weight.value');
-        if (val == null || val == '') {
-            getField('weight.error').html('Required for all patients').show();
-            return false;
-        }
-        */
-
-
-        /*TODO- validate all required fields*/
-
-
-        var today=new Date();
-        var birthDate= new Date("<lookup expression="patient.birthdate"/>").getTime();
-        var enc_date= new Date(getValue('encounter-date.value')).getTime
-
-        /* Validate Encounter Date */
-        /*this data should not be in Future */
-        if(enc_date &gt; today)
-        {
-            getField('encounter-date.error').html('Should not be greater than the Current date').show();
-            return false;
-        }
-
-        /* Encounter Date should be greater than the Patients's date of Birth    */
-        if(enc_date &lt; birthDate)
-        {
-            getField('encounter-date.error').html('Should not be less than the date of Birth').show();
-            return false;
-        }
-
-        var msInYear=1000*60*60*24*365.25;
-        var ENC_DATE=new Date(getValue('encounter-date.value'))//.getTime();
-        var birthdateMs= new Date(<lookup expression="patient.birthdate.time"/>);
-        var encounterDateMs=ENC_DATE.getTime();
-        var age = (encounterDateMs-birthdateMs)/msInYear;
-
-        if(age &gt; 3)
-        {
-            alert("HIV Exposed Infant Age should not be greater than three years ");
-            return false;
-        }
-
-        return true;
-    });
+    return true;
+});
 </script>
 <div style="display:none">
     <encounterProvider default="ae01b8ff-a4cc-4012-bcf7-72359e852e14"  />   <!-- "1cc7dc79-ad09-4897-8a1d-0b3d3226e9ee" -->
@@ -356,7 +374,7 @@
 <tr>
     <td colspan="15">HEI Unique ID Number:
         <!--<lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('HEI ID') ) $patId #end "/>-->
-        <span id="hei-id"><patient field="identifier" identifierTypeId="0691f522-dd67-4eeb-92c8-af5083baf338" required="true" /></span>
+        <span id="hei-id"><patient id="pat_id" field="identifier" identifierTypeId="0691f522-dd67-4eeb-92c8-af5083baf338" required="true" /></span>
     </td>
 </tr>
 <tr>
@@ -436,36 +454,18 @@
     <td colspan="5">         On ART at enrollment of infant
         <obs conceptId="162055AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Yes,No" style="radio" id="onART"/>
     </td>
-    <td colspan="5">If Yes enter regimen <obs conceptId="1088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  answerConceptIds="792AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,794AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,84309AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,74807AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,70056AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,80487AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,80586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,75523AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,78643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,84795AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,77995AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,160104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,160105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,86663AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,75628AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,79040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,83412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,71647AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,161363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,161364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,161361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,103166AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,104565AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,162201AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,817AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,162199AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,162200AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-                                              answerLabels="D4T/3TC/NVP,
-                                             LPV/R,
-                                             AZT/3TC,
-                                             D4T,
-                                             DDI,
-                                             ABC,
-                                             NELFINAVIR,
-                                             NVP,
-                                             EFV,
-                                             3TC,
-                                             TDF,
-                                             IDV,
-                                             AZT/3TC/EFV,
-                                             D4T/3TC/EFV,
-                                             AZT,
-                                             FTC,
-                                             LPV,
-                                             RTV,
-                                             ATV,
-                                             3TC/NVP/AZT,
-                                             3TC/D4T,
-                                             TDF/3TC,
-                                             TDF/3TC/EFV,
-                                             ABC/3TC,
-                                             EFV/FTC/TDF,
-                                             3TC/LPV/r/TDF,
-                                             ABC/3TC/AZT,
-                                             ABC/NVP/3TC,
-                                             3TC/ABC/LPV/r"/></td>
+    <td colspan="5">If Yes enter regimen <obs conceptId="1088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="794AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="LPV/r" style="checkbox" />
+        <obs conceptId="1088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="84309AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="D4T" style="checkbox" />
+        <obs conceptId="1088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="74807AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="DDI" style="checkbox" />
+        <obs conceptId="1088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="70056AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="ABC" style="checkbox" />
+        <obs conceptId="1088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="80487AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="NFV" style="checkbox" />
+        <obs conceptId="1088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="80586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="NVP" style="checkbox" /><br/>
+        <obs conceptId="1088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="75523AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="EFV" style="checkbox" />
+        <obs conceptId="1088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="78643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="3TC" style="checkbox" />
+        <obs conceptId="1088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="84795AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="TDF" style="checkbox" />
+        <obs conceptId="1088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="86663AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="AZT" style="checkbox" />
+        <obs conceptId="1088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="83412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="RTV" style="checkbox" />
+        <obs conceptId="1088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="71647AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="ATV" style="checkbox" /></td>
     <td colspan="5">Parent's CCC No. <obs conceptId="162053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" size="5"/></td>
 </tr>
 <tr>
@@ -484,132 +484,79 @@
 
                 <td style="text-align:right;">BCG</td>
                 <td>
-                    <obsgroup groupingConceptId="1421AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
-                        <obs conceptId="984AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="886AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>
-                    </obsgroup>
+                    <immunizationr vaccineConceptId="886AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" sequenceNumber="1" label="" />
                 </td>
                 <td style="text-align:right;">OPV at Birth</td>
                 <td>
-                    <obsgroup groupingConceptId="1421AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
-                        <span  style="display: none"><obs id="seq0_opv0" conceptId="1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></span>
-                        <obs id="opv0" conceptId="984AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1569AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>
-                    </obsgroup>
+                    <immunizationr vaccineConceptId="783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" sequenceNumber="0" label="" />
                 </td>
                 <td style="text-align:right;"> OPV 3</td>
                 <td>
-                    <obsgroup groupingConceptId="1421AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
-                        <span  style="display: none"><obs id="seq3_opv3" conceptId="1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></span>
-                        <obs id="opv3" conceptId="984AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1000031FACES_FACES_FACES_FACES_FACES" answerLabel="" style="checkbox"/>
-                    </obsgroup>
+                    <immunizationr vaccineConceptId="783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" sequenceNumber="3" label=""/>
                 </td>
-                <td style="text-align:right;">Measles at 6 Mths</td>
+                <td style="text-align:right;"> Measles 6 lMths</td>
                 <td>
-                    <obsgroup groupingConceptId="1421AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
-                        <span id="seq1_msl6" style="display: none"><obs conceptId="1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></span>
-                        <obs id="msl6" conceptId="984AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="36AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>
-                    </obsgroup>
-
+                    <immunizationr vaccineConceptId="36AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" sequenceNumber="1" label=""/>
                 </td>
+
             </tr>
             <tr>
                 <td style="text-align:right;">OPV 1</td>
-                <td> <obsgroup groupingConceptId="1421AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
-                    <span  style="display: none"><obs id="seq1_opv1" conceptId="1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></span>
-                    <obs id="opv1" conceptId="984AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1000026FACES_FACES_FACES_FACES_FACES" answerLabel="" style="checkbox"/>
-                </obsgroup>
+                <td> <immunizationr vaccineConceptId="783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" sequenceNumber="1" label=""/>
                 </td>
                 <td style="text-align:right;">OPV 2</td>
-                <td><obsgroup groupingConceptId="1421AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
-                    <span  style="display: none"><obs id="seq2_opv2" conceptId="1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></span>
-                    <obs id="opv2" conceptId="984AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1000030FACES_FACES_FACES_FACES_FACES" answerLabel="" style="checkbox"/>
-                </obsgroup>
+                <td><immunizationr vaccineConceptId="783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" sequenceNumber="2" label=""/>
                 </td>
                 <td style="text-align:right;"> Penta 3</td>
                 <td>
-                    <obsgroup groupingConceptId="1421AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
-                        <span id="seq1_penta3" style="display: none"><obs conceptId="1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></span>
-                        <obs id="penta3" conceptId="984AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1000034FACES_FACES_FACES_FACES_FACES" answerLabel="" style="checkbox"/>
-                    </obsgroup>
+                    <immunizationr vaccineConceptId="159694AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" sequenceNumber="3" label="" />
 
                 </td>
-                <td style="text-align:right;">Measles at 9 Mths</td>
+                <td style="text-align:right;"> Measles 9 Mths</td>
                 <td>
-                    <obsgroup groupingConceptId="1421AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
-                        <span id="seq1_msl9" style="display: none"><obs conceptId="1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></span>
-                        <obs id="msl9" conceptId="984AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1000032FACES_FACES_FACES_FACES_FACES" answerLabel="" style="checkbox"/>
-                    </obsgroup>
-
+                    <immunizationr vaccineConceptId="36AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" sequenceNumber="2" label=""/>
                 </td>
 
             </tr>
             <tr>
                 <td style="text-align:right;">Penta 1</td>
                 <td>
-                    <obsgroup groupingConceptId="1421AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
-                        <span id="seq1_penta1" style="display: none"><obs conceptId="1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></span>
-                        <obs id="penta1" conceptId="984AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="159694AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>
-                    </obsgroup>
-
-
+                    <immunizationr vaccineConceptId="159694AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" sequenceNumber="1" label="" />
                 </td>
                 <td style="text-align:right;">Penta 2</td>
                 <td>
-                    <obsgroup groupingConceptId="1421AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
-                        <span  style="display: none"><obs id="seq1_penta2" conceptId="1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></span>
-                        <obs id="penta2" conceptId="984AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1000033FACES_FACES_FACES_FACES_FACES" answerLabel="" style="checkbox"/>
-                    </obsgroup>
-
+                    <immunizationr vaccineConceptId="159694AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" sequenceNumber="2" label="" />
                 </td>
                 <td style="text-align:right;"> PCV 10-3</td>
                 <td>
-                    <obsgroup groupingConceptId="1421AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
-                        <span  style="display: none"><obs id="seq1_pcv3" conceptId="1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></span>
-                        <obs id="pcv3" conceptId="984AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1000038FACES_FACES_FACES_FACES_FACES" answerLabel="" style="checkbox"/>
-                    </obsgroup>
+                    <immunizationr vaccineConceptId="159694AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" sequenceNumber="3" label="" />
 
                 </td>
-                <td style="text-align:right;">Other (specify)</td>
+                <td style="text-align:right;"> Other (Specify)</td>
                 <td>
-                    <obsgroup groupingConceptId="1421AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
-                        <obs conceptId="984AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>
-                    </obsgroup>
-
+                    <immunizationr vaccineConceptId="5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" sequenceNumber="1" label=""/>
                 </td>
+
 
             </tr>
             <tr>
                 <td style="text-align:right;">PCV 10-1</td>
                 <td>
-                    <obsgroup groupingConceptId="1421AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
-                        <span id="seq1_pcv1" style="display: none"><obs conceptId="1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></span>
-                        <obs id="pcv1" conceptId="984AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="82215AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>
-                    </obsgroup>
-
+                    <immunizationr vaccineConceptId="82215AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" sequenceNumber="1" label="" />
                 </td>
                 <td style="text-align:right;">PCV 10-2</td>
                 <td colspan="5">
-                    <obsgroup groupingConceptId="1421AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
-                        <span  style="display: none"><obs id="seq1_pcv2" conceptId="1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></span>
-                        <obs id="pcv2" conceptId="984AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1000035FACES_FACES_FACES_FACES_FACES" answerLabel="" style="checkbox"/>
-                    </obsgroup>
+                    <immunizationr vaccineConceptId="82215AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" sequenceNumber="2" label="" />
                 </td>
             </tr>
             <tr>
                 <td style="text-align:right;">Rota 1</td>
                 <td>
-                    <obsgroup groupingConceptId="1421AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
-                        <span id="seq1_rota1" style="display: none"><obs conceptId="1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></span>
-                        <obs id="rota1" conceptId="984AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="83533AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>
-                    </obsgroup>
-
+                    <immunizationr vaccineConceptId="83533AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" sequenceNumber="1" label="" />
                 </td>
                 <td style="text-align:right;">Rota 2</td>
                 <td colspan="5">
-                    <obsgroup groupingConceptId="1421AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
-                        <span id="seq1_rota2" style="display: none"><obs conceptId="1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></span>
-                        <obs id="rota2" conceptId="984AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1000040FACES_FACES_FACES_FACES_FACES" answerLabel="" style="checkbox"/>
-                    </obsgroup>
-
+                    <immunizationr vaccineConceptId="83533AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" sequenceNumber="2" label="" />
                 </td>
 
             </tr>
@@ -633,35 +580,126 @@
                 <td style="font-weight:bold; ">Date Results Collected</td>
                 <td style="font-weight:bold; ">Comments</td>
             </tr>
-            <repeat>
-                <template>
-                    <obsgroup groupingConceptId="1361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
-                        <tr>
-                            <span  style="display: none"><obs id="{n}-context_status" conceptId="162084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></span>
-                            <td><span id="{n}-testName" >
-                                <obs id="{n}-test" conceptId="162087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1030AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1326AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-                                     answerLabels="DNA PCR Test,1st Antibody at 9 months,Final Antibody at 18 months" style="dropdown"/>
-                            </span>
-                            </td>
-                            <td><obs conceptId="159951AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" allowTime="false" /></td>
-                            <td><obs conceptId="162086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></td>
-                            <td><obs conceptId="159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
-                            <td></td>
-                            <td><obs conceptId="160082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></td>
-                            <td>Cmts</td>
-                        </tr>
-                    </obsgroup>
-                </template>
-                <render n="1" concept=" " />
-                <render n="2" concept=" " />
-                <render n="3" concept=" " />
-                <render n="4" concept=" " />
-                <render n="5" concept=" " />
-                <render n="6" concept=" " />
-                <render n="7" concept=" " />
-            </repeat>
-
-
+            <tr>
+                <obsgroup groupingConceptId="1361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                    <td>
+            	 	<span  style="display: none">
+                    	<obs id="1-context_status" conceptId="162084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+                    	<lookup id="1-context_status_val" expression="fn.latestObs(162084).valueCoded" />
+                    </span>
+                    <span id="1-testName" >
+                    	<obs id="1-test" conceptId="162087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1030AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                             answerLabels="1st DNA PCR Test" style="dropdown"/>
+                    </span>
+                    </td>
+                    <td><obs id="1-resultDate" conceptId="159951AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" allowTime="false" /></td>
+                    <td><obs conceptId="162086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></td>
+                    <td><obs conceptId="159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
+                    <td></td>
+                    <td><obs id="1-collectDate" conceptId="160082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></td>
+                    <td>Cmts</td>
+                </obsgroup>
+            </tr>
+            <tr>
+                <obsgroup groupingConceptId="1361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                    <td>
+            	 	<span  style="display: none">
+                    	<obs id="2-context_status" conceptId="162084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+                    	<lookup id="2-context_status_val" expression="fn.latestObs(162084).valueCoded" />
+                    </span>
+                    <span id="2-testName" >
+                    	<obs id="2-test" conceptId="162087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1030AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                             answerLabels="Repeat PCR (For Rejections)" style="dropdown"/>
+                    </span>
+                    </td>
+                    <td><obs id="2-resultDate" conceptId="159951AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" allowTime="false" /></td>
+                    <td><obs conceptId="162086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></td>
+                    <td><obs conceptId="159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
+                    <td></td>
+                    <td><obs id="2-collectDate" conceptId="160082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></td>
+                    <td>Cmts</td>
+                </obsgroup>
+            </tr>
+            <tr>
+                <obsgroup groupingConceptId="1361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                    <td>
+            	 	<span  style="display: none">
+                    	<obs id="3-context_status" conceptId="162084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+                    	<lookup id="3-context_status_val" expression="fn.latestObs(162084).valueCoded" />
+                    </span>
+                    <span id="3-testName" >
+                    	<obs id="3-test" conceptId="162087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                             answerLabels="1st Antibody at 9 months" style="dropdown"/>
+                    </span>
+                    </td>
+                    <td><obs id="3-resultDate" conceptId="159951AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" allowTime="false" /></td>
+                    <td><obs conceptId="162086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></td>
+                    <td><obs conceptId="159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
+                    <td></td>
+                    <td><obs id="3-collectDate" conceptId="160082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></td>
+                    <td>Cmts</td>
+                </obsgroup>
+            </tr>
+            <tr>
+                <obsgroup groupingConceptId="1361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                    <td>
+            	 	<span  style="display: none">
+                    	<obs id="4-context_status" conceptId="162084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+                    	<lookup id="4-context_status_val" expression="fn.latestObs(162084).valueCoded" />
+                    </span>
+                    <span id="4-testName" >
+                    	<obs id="4-test" conceptId="162087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1030AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                             answerLabels="Confirmatory PCR If Antibody is +Ve" style="dropdown"/>
+                    </span>
+                    </td>
+                    <td><obs id="4-resultDate" conceptId="159951AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" allowTime="false" /></td>
+                    <td><obs conceptId="162086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></td>
+                    <td><obs conceptId="159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
+                    <td></td>
+                    <td><obs id="4-collectDate" conceptId="160082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></td>
+                    <td>Cmts</td>
+                </obsgroup>
+            </tr>
+            <tr>
+                <obsgroup groupingConceptId="1361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                    <td>
+            	 	<span  style="display: none">
+                    	<obs id="5-context_status" conceptId="162084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+                    	<lookup id="5-context_status_val" expression="fn.latestObs(162084).valueCoded" />
+                    </span>
+                    <span id="1-testName" >
+                    	<obs id="5-test" conceptId="162087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1030AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                             answerLabels="Repeat Confirmatory PCR (For Rejections)" style="dropdown"/>
+                    </span>
+                    </td>
+                    <td><obs id="5-resultDate" conceptId="159951AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" allowTime="false" /></td>
+                    <td><obs conceptId="162086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></td>
+                    <td><obs conceptId="159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
+                    <td></td>
+                    <td><obs id="5-collectDate" conceptId="160082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></td>
+                    <td>Cmts</td>
+                </obsgroup>
+            </tr>
+            <tr>
+                <obsgroup groupingConceptId="1361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                    <td>
+            	 	<span  style="display: none">
+                    	<obs id="6-context_status" conceptId="162084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+                    	<lookup id="6-context_status_val" expression="fn.latestObs(162084).valueCoded" />
+                    </span>
+                    <span id="6-testName" >
+                    	<obs id="6-test" conceptId="162087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1326AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                             answerLabels="Final Antibody at 18 months" style="dropdown"/>
+                    </span>
+                    </td>
+                    <td><obs id="6-resultDate" conceptId="159951AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" allowTime="false" /></td>
+                    <td><obs conceptId="162086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></td>
+                    <td><obs conceptId="159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
+                    <td></td>
+                    <td><obs id="6-collectDate" conceptId="160082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></td>
+                    <td>Cmts</td>
+                </obsgroup>
+            </tr>
         </table>
 
     </td>
@@ -691,6 +729,7 @@
                 <td style="text-align:right"> Other (Specify)</td>
                 <td><obs conceptId="161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>________</td>
             </tr>
+
         </table>
 
     </td>

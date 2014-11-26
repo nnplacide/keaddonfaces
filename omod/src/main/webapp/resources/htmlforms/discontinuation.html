@@ -16,7 +16,7 @@
     table.Discontinuation  {
         border-collapse: collapse;
     //background-color: #dddddd;
-        }
+    }
     table.Discontinuation> tbody > tr > td, table.Discontinuation> tbody > tr > th {
         border: 1px solid black;
         vertical-align: baseline;
@@ -372,7 +372,7 @@ jq(function() {
     });
 
 
-        beforeSubmit.push(function() {
+    beforeSubmit.push(function() {
         discontinueDate = new Date(getValue('encounter-date.value')).getTime();
 
         if(discontinueDate &lt; pbirthdate){
@@ -382,7 +382,7 @@ jq(function() {
 
         if((discontinueDate &lt; regDate)&amp;&amp;(discontinueDate!="undefined")){
             getField('encounter-date.error').html('Discontinue date, should not be earlier than Registration date').show();getField('transferdate.error').html('Date of Transfer, should not be earlier than Enrollment/Registration date').show();
-                return false;
+            return false;
         }
         // alert(pbirthdate+" and "+discontinueDate);
 
@@ -392,7 +392,7 @@ jq(function() {
         var birthDate = new Date(getValue('dob.value'))//.getTime();
         var today = new Date()//.getTime();        //get current date
         var ENC_DATE=new Date(getValue('encounter-date.value'))//.getTime();
-        var birthdateMs= new Date(<lookup expression="patient.birthdate.time"/>);              
+        var birthdateMs= new Date(<lookup expression="patient.birthdate.time"/>);
         var encounterDateMs=ENC_DATE.getTime();
         var age = (encounterDateMs-birthdateMs)/msInYear;
         var wks = (encounterDateMs-birthdateMs)/msInWeek;
@@ -412,34 +412,34 @@ jq(function() {
         var transfer_date= new Date(getValue('transferdate.value')).getTime();
         var refused_date = new Date(getValue('refuseddate.value')).getTime();
 
-            if(getValue('dis_Deceased.value')== DECEASED_CONCEPT_ID)
-            {
-                if((Death_Date &lt; regDate)&amp;&amp;(Death_Date!="undefined")){
-                    getField('Deathdate.error').html('Date of Death, should not be earlier than Enrollment/Registration date').show();
-                    return false;
-                }
-
-                if((Estimate_Date &lt; regDate)&amp;&amp;(Estimate_Date!="undefined")){
-                    getField('estimateddate.error').html('Estimated Date of Death, should not be earlier than Enrollment/Registration date').show();
-                    return false;
-                }
+        if(getValue('dis_Deceased.value')== DECEASED_CONCEPT_ID)
+        {
+            if((Death_Date &lt; regDate)&amp;&amp;(Death_Date!="undefined")){
+                getField('Deathdate.error').html('Date of Death, should not be earlier than Enrollment/Registration date').show();
+                return false;
             }
 
-            if(getValue('dis_Transfer.value')== TRANSFEROUT_CONCEPT_ID)
-            {
-                if((transfer_date &lt; regDate)&amp;&amp;(transfer_date!="undefined")){
-                    getField('transferdate.error').html('Date of Transfer, should not be earlier than Enrollment/Registration date').show();
-                    return false;
-                }
+            if((Estimate_Date &lt; regDate)&amp;&amp;(Estimate_Date!="undefined")){
+                getField('estimateddate.error').html('Estimated Date of Death, should not be earlier than Enrollment/Registration date').show();
+                return false;
             }
+        }
 
-            if(getValue('dis_refusedCare.value')== REFUSEDCARE_CONCEPT_ID)
-            {
-                if((refused_date &lt; regDate)&amp;&amp;(refused_date!="undefined")){
-                    getField('refuseddate.error').html('Date Refused, should not be earlier than Enrollment/Registration date').show();
-                    return false;
-                }
+        if(getValue('dis_Transfer.value')== TRANSFEROUT_CONCEPT_ID)
+        {
+            if((transfer_date &lt; regDate)&amp;&amp;(transfer_date!="undefined")){
+                getField('transferdate.error').html('Date of Transfer, should not be earlier than Enrollment/Registration date').show();
+                return false;
             }
+        }
+
+        if(getValue('dis_refusedCare.value')== REFUSEDCARE_CONCEPT_ID)
+        {
+            if((refused_date &lt; regDate)&amp;&amp;(refused_date!="undefined")){
+                getField('refuseddate.error').html('Date Refused, should not be earlier than Enrollment/Registration date').show();
+                return false;
+            }
+        }
 
         return true;
     });
@@ -479,14 +479,16 @@ jq(function() {
 </tr>
 <tr>
     <td colspan="3">Current ARV regimen
-        <obs conceptId="1088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="792AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,794AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,84309AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,74807AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,70056AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,80487AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,80586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,75523AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,78643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,84795AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,77995AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,160105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,160104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,86663AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,75628AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,79040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,83412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,71647AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,161363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,161364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,161361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,103166AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,104565AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,162201AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,817AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,162199AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,162200AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-             answerLabels="D4T/3TC/NVP,
+        <repeat>
+            <template>
+                <obs conceptId="1088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="792AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,794AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,84309AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,74807AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,70056AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,80487AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,80586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,75523AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,78643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,84795AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,77995AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,160105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,160104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,86663AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,75628AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,79040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,83412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,71647AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,161363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,161364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,161361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,103166AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,104565AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,162201AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,817AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,162199AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,162200AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                     answerLabels="D4T/3TC/NVP,
                                              LPV/R,
                                              AZT/3TC,
                                              D4T,
                                              DDI,
                                              ABC,
-                                             NELFINAVIR,
+                                             NFV,
                                              NVP,
                                              EFV,
                                              3TC,
@@ -502,17 +504,28 @@ jq(function() {
                                              3TC/NVP/AZT,
                                              3TC/D4T,
                                              TDF/3TC,
-                                             EDF/3TC/EFV,
+                                             TDF/3TC/EFV,
                                              ABC/3TC,
                                              EFV/FTC/TDF,
                                              3TC/LPV/r/TDF,
                                              ABC/3TC/AZT,
                                              ABC/NVP/3TC,
                                              3TC/ABC/LPV/r"/>
-        <obs id="pmtct" conceptId="1148AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="PMTCT" style="checkbox"/>
+
+            </template>
+            <render n="1" concept=""/>
+            <render n="2" concept=""/>
+            <render n="3" concept=""/>
+        </repeat>
+
+        <!-- <obs id="pmtct" conceptId="1148AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="PMTCT" style="checkbox"/>  -->
+        <obs id="pmtct" conceptId="1181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1148AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="PMTCT" style="checkbox"/>
         <obs id="haart" conceptId="1181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"    answerConceptId="1185AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="HAART" style="checkbox"/>
+        <obs id="haart" conceptId="1181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"    answerConceptId="5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="NONE" style="checkbox"/>
         <!-- <obs conceptId="1648" answerConceptIds="1407,1405,1107" answerLabels="HAART,PPCT,None" id="emptim" style="radio"/>   -->
+
     </td>
+
 </tr>
 
 <tr>
@@ -578,7 +591,26 @@ jq(function() {
             </tr>
             <tr><td colspan="2">
                 Cause of Death:
-                <obs id="cod" conceptId="1599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  answerConceptIds="139071AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,114100AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,150336AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1603AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,142928AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,142933AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,133475AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,133481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,142924AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,142927AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,134612AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,142926AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,142917AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="dropdown"/>
+                <repeat>
+                    <template>
+                        <table>
+                            <tr>
+                                <td>
+                                    <obs id="cod" conceptId="1599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                         answerConceptIds="115835AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,102AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,116128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5041AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,112141AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,86AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,155010AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,114100AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,84AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,125561AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,137793AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1603AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1000071FACES_FACES_FACES_FACES_FACES,1000072FACES_FACES_FACES_FACES_FACES,1000073FACES_FACES_FACES_FACES_FACES,1000074FACES_FACES_FACES_FACES_FACES,1000075FACES_FACES_FACES_FACES_FACES,5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="dropdown"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </template>
+                    <render n="1" concept=""/>
+                    <render n="2" concept=""/>
+                    <render n="3" concept=""/>
+                </repeat>
+                Death Related to HIV:
+                <obs conceptId="162574AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="checkbox" id="cause_1"/>
+                <obs conceptId="162574AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="162573AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Possibly" style="checkbox" id="cause_2"/>
+                <obs conceptId="162574AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="No" style="checkbox" id="cause_3"/>
+                <obs conceptId="162574AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Unknown" style="checkbox" id="cause_4"/>
 
             </td>
             </tr>
@@ -787,9 +819,8 @@ jq(function() {
 
 </table>
 
-<!--
+
 <completeProgram programId="dfdc6d40-2f2f-463d-ba90-cc97350441a8" />
--->
 </div>
 
 <div class="ke-form-footer">

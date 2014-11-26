@@ -1,0 +1,182 @@
+<!--
+  ~ The contents of this file are subject to the OpenMRS Public License
+  ~ Version 1.0 (the "License"); you may not use this file except in
+  ~ compliance with the License. You may obtain a copy of the License at
+  ~ http://license.openmrs.org
+  ~
+  ~ Software distributed under the License is distributed on an "AS IS"
+  ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+  ~ License for the specific language governing rights and limitations
+  ~ under the License.
+  ~
+  ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+-->
+
+<htmlform>
+    <style type="text/css">
+        table.tbElig {
+            border-collapse: collapse;
+        //background-color: #F3F9FF;
+        }
+        table.tbElig > tbody > tr > td, table.tbICF > tbody > tr > th {
+            border: 1px solid black;
+            vertical-align: baseline;
+            padding: 4px;
+            text-align: left;
+        }
+    </style>
+    <script type="text/javascript">
+        var ADULT=15;
+        var WHO_STAGE_1_PEDS_CONCEPT_ID = 1220;
+        var WHO_STAGE_2_PEDS_CONCEPT_ID = 1221;
+        var WHO_STAGE_3_PEDS_CONCEPT_ID = 1222;
+        var WHO_STAGE_4_PEDS_CONCEPT_ID = 1223;
+        var WHO_STAGE_1_ADULT_CONCEPT_ID = 1204;
+        var WHO_STAGE_2_ADULT_CONCEPT_ID = 1205;
+        var WHO_STAGE_3_ADULT_CONCEPT_ID = 1206;
+        var WHO_STAGE_4_ADULT_CONCEPT_ID = 1207;
+        var WHO_STAGES_PEDS = [ WHO_STAGE_1_PEDS_CONCEPT_ID, WHO_STAGE_2_PEDS_CONCEPT_ID, WHO_STAGE_3_PEDS_CONCEPT_ID, WHO_STAGE_4_PEDS_CONCEPT_ID ];
+        var WHO_STAGES_ADULT = [ WHO_STAGE_1_ADULT_CONCEPT_ID, WHO_STAGE_2_ADULT_CONCEPT_ID, WHO_STAGE_3_ADULT_CONCEPT_ID, WHO_STAGE_4_ADULT_CONCEPT_ID ];
+
+        var ctxPath = typeof openmrsContextPath === 'string' ? openmrsContextPath : OPENMRS_CONTEXT_PATH;
+
+        jq.getJSON('/' + OPENMRS_CONTEXT_PATH + '/kenyaemr/patient/patientUtils/age.action', { patientId: patientId, now: encDate })
+                .done(function(data) {
+                    onPatientAgeUpdate(data.age);
+                });
+        }
+
+        /**********************************************
+         * Updates the form due to a patient age change
+         ***********************************************/
+        function onPatientAgeUpdate(age) {
+            var isPediatric = (age &lt; 15);
+            jq('#whostage select option').each(function() {
+                var concept = parseInt(jq(this).prop('value'));
+
+                if (WHO_STAGES_PEDS.indexOf(concept) >= 0) {
+                    jq(this).prop('disabled', !isPediatric);
+                }
+                else if (WHO_STAGES_ADULT.indexOf(concept) >= 0) {
+                    jq(this).prop('disabled', isPediatric);
+                }
+            });
+
+            //jq('#calculated-age').html(age + '/' + (isPediatric ? 'PEDS' : 'ADULT'));
+        }
+
+        function onEncounterDateChange()
+        {
+            //var age =  getValue('age.value')
+            var msInYear=1000*60*60*24*365.25;
+            //var birthDate = new Date(getValue('dob.value'))//.getTime();
+            var today = new Date()//.getTime();        //get current date
+            var ENC_DATE=new Date(getValue('encounter-date.value'))//.getTime();
+            var birthdateMs= new Date(<lookup expression="patient.birthdate.time"/>);
+            var encounterDateMs=ENC_DATE.getTime();
+            var age = (encounterDateMs-birthdateMs)/msInYear;
+            /*this data should not be in Future */
+            if(ENC_DATE &gt; today)
+            {
+                getField('encounter-date.error').html('Should not be greater than the Current date').show();
+            }
+            else if(ENC_DATE &lt; birthDate)
+            {
+                /* Encounter Date should be greater than the Patients's date of Birth    */
+                getField('encounter-date.error').html('Should not be less than the date of Birth').show();
+            }
+            else
+            {
+                getField('encounter-date.error').hide();
+            }
+
+        }
+
+        jq(function() {
+
+            getField('encounter-date.value').change(onEncounterDateChange);
+            onEncounterDateChange();
+
+            var valbirthdate = "<lookup  expression="patient.birthdate" />"
+            var valChangedToDateFormat = new Date(valbirthdate).getTime();
+
+
+            beforeSubmit.push(function() {
+                var valonform = getValue('art_elig_date.value');
+                var valChangedToDateFormatOnForm=new Date(valonform).getTime();
+                var ENC_DATE=new Date(getValue('encounter-date.value')).getTime();
+                return true;
+            });
+        });
+    </script>
+    <div style="display:none">
+        <encounterProvider default="ae01b8ff-a4cc-4012-bcf7-72359e852e14" />
+    </div>
+    <div class="ke-form-header">
+        <table style="width: 100%">
+            <tr>
+                <td>Date: <encounterDate id="encounter-date" showTime="false"/></td>
+                <td>Location: <encounterLocation id="site" default="GlobalProperty:kenyaemr.defaultLocation"/></td>
+            </tr>
+        </table>
+    </div>
+    <div class="ke-form-content">
+        <table  align="center"  class="tbElig">
+            <tr style="border: 0px;">
+                <td colspan="2" style="text-align: center">ARV THERAPY - Eligibility Information</td>
+            </tr>
+            <tr>
+                <td colspan="2">Date Medically Eligible
+                    <obs id="art_elig_date" conceptId="162227AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+                </td>
+
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td>
+                                Eligible Through
+                                <obs conceptId="162225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="5356AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="WHO Stage" style="checkbox"/>
+                                <obs id="whostage" conceptId="5356AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+                            </td>
+                            <td>
+                                <obs conceptId="162225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="5497AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="CD4 Count" style="checkbox"/>
+                                <obs id="cd4_count" conceptId="5497AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" size="3"/>
+                            </td>
+                            <td>
+                                <obs conceptId="162225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="730AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="CD4%" style="checkbox"/>
+                                <obs id="cd4_percent" conceptId="730AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" size="3"/>
+                                <obs conceptId="162225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="844AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="PCR" style="checkbox"/>
+                                <obs conceptId="1030AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <!-- <obs conceptId="162225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="7520" answerLabel="preconception care" style="checkbox"/>-->
+                                <obs conceptId="162225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="162226AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Test preconception care" style="checkbox"/>
+
+                                <obs conceptId="162225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="162226AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Pregnancy/Option B+" style="checkbox"/>
+                            </td>
+                            <td>
+                                <!-- <obs conceptId="162225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="7521" answerLabel="HIV infected &lt;10yrs" style="checkbox"/>-->
+                                <obs conceptId="162225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="162226AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Test HIV infected &lt;10yrs" style="checkbox"/>
+                                <obs conceptId="162225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="162224AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Research" style="checkbox"/>
+                            </td>
+                            <td>
+                                <obs conceptId="162225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="6096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Discordant" style="checkbox"/>
+                                <obs conceptId="162225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="162180AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Co-Infection" style="checkbox"/>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+    <div class="ke-form-footer">
+        <submit />
+    </div>
+</htmlform>

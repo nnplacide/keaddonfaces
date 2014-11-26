@@ -11,20 +11,17 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
+
 package org.openmrs.module.keaddonfaces.form.element;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Concept;
 import org.openmrs.Obs;
-import org.openmrs.module.htmlformentry.FormEntryContext;
-import org.openmrs.module.htmlformentry.FormEntrySession;
-import org.openmrs.module.htmlformentry.FormSubmissionError;
-import org.openmrs.module.htmlformentry.HtmlFormEntryUtil;
+import org.openmrs.module.htmlformentry.*;
 import org.openmrs.module.htmlformentry.action.FormSubmissionControllerAction;
 import org.openmrs.module.htmlformentry.element.HtmlGeneratorElement;
 import org.openmrs.module.htmlformentry.widget.CheckboxWidget;
 import org.openmrs.module.htmlformentry.widget.ErrorWidget;
-import org.openmrs.module.htmlformentry.widget.Widget;
 import org.openmrs.util.OpenmrsUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,58 +31,76 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Created with IntelliJ IDEA.
- * User: werick
- * Date: 5/7/14
- * Time: 12:03 PM
- * To change this template use File | Settings | File Templates.
+ * Submission element for immunizations
  */
+public class ImmunizationrSubmissionElement implements HtmlGeneratorElement, FormSubmissionControllerAction {
 
-public class ImmunizationSubmissionElement implements HtmlGeneratorElement , FormSubmissionControllerAction {
-    private Concept vaccineConcept;
-    private Integer sequenceNumber;
-    private String label;
     private String id;
-    private Widget widget;
+
+    private Concept vaccineConcept;
+
+    private Integer sequenceNumber;
+
+    private String label;
+
+    private CheckboxWidget widget;
 
     private ErrorWidget errorWidget;
 
     private Obs existingObsGroup;
+
+
+
+    // Question concepts
 
     // Question concepts
     private static final String IMMUNIZATION_GROUP = "1421AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     private static final String IMMUNIZATION_VACCINE = "984AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     private static final String IMMUNIZATION_SEQUENCE_NUMBER = "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 
+    //private Concept immunizationGroupConcept = HtmlFormEntryUtil.getConcept(Dictionary.IMMUNIZATION_HISTORY);
+    //private Concept vaccineQuestionConcept = HtmlFormEntryUtil.getConcept(Dictionary.IMMUNIZATIONS);
+    //private Concept sequenceNumberConcept = HtmlFormEntryUtil.getConcept(Dictionary.IMMUNIZATION_SEQUENCE_NUMBER);
+
+    private Concept immunizationGroupConcept = HtmlFormEntryUtil.getConcept(IMMUNIZATION_GROUP);
+    private Concept vaccineQuestionConcept = HtmlFormEntryUtil.getConcept(IMMUNIZATION_VACCINE);
+    private Concept sequenceNumberConcept = HtmlFormEntryUtil.getConcept(IMMUNIZATION_SEQUENCE_NUMBER);
+
     /**
      * Constructs a new immunization submission element
      * @param context the form entry context
      * @param parameters the tag parameters
      */
-
-    public ImmunizationSubmissionElement(FormEntryContext context,Map<String, String> parameters) {
+    public ImmunizationrSubmissionElement(FormEntryContext context, Map<String, String> parameters) {
         String vaccineConceptId = parameters.get("vaccineConceptId");
         if (StringUtils.isEmpty(vaccineConceptId)) {
             throw new RuntimeException("vaccineConceptId attribute required");
         }
 
-
+        id = parameters.get("id");
         vaccineConcept = HtmlFormEntryUtil.getConcept(vaccineConceptId);
         sequenceNumber = parameters.containsKey("sequenceNumber") ? Integer.parseInt(parameters.get("sequenceNumber")) : null;
         label = parameters.get("label");
 
-        widget = new CheckboxWidget();
+        widget = new CheckboxWidget(getLabel(), "true");
         errorWidget = new ErrorWidget();
 
         context.registerWidget(widget);
         context.registerErrorWidget(widget, errorWidget);
+
+        // Checkbox is checked if we can find a matching obs group
+        existingObsGroup = matchExistingObsGroup(context);
+        widget.setValue("true");
+        widget.setInitialValue(existingObsGroup != null ? Boolean.TRUE : null);
     }
 
+    /**
+     * @see org.openmrs.module.htmlformentry.element.HtmlGeneratorElement#generateHtml(org.openmrs.module.htmlformentry.FormEntryContext)
+     */
     @Override
     public String generateHtml(FormEntryContext context) {
         boolean viewMode = context.getMode().equals(FormEntryContext.Mode.VIEW);
         StringBuilder sb = new StringBuilder();
-
 
         if (id != null) {
             sb.append("<span id=\"" + id + "\">");
@@ -95,17 +110,6 @@ public class ImmunizationSubmissionElement implements HtmlGeneratorElement , For
 
         sb.append(widget.generateHtml(context));
 
-        if (label != null) {
-            sb.append(label);
-        } else {
-            sb.append(vaccineConcept.getName().getName());
-
-            if (sequenceNumber != null) {
-                sb.append("-");
-                sb.append(sequenceNumber);
-            }
-        }
-
         if (!viewMode) {
             sb.append(errorWidget.generateHtml(context));
         }
@@ -114,18 +118,57 @@ public class ImmunizationSubmissionElement implements HtmlGeneratorElement , For
             sb.append("</span>");
         }
 
-
         return sb.toString();
     }
 
+    /**
+     * Gets the label to use for this control
+     * @return the label
+     */
+    protected String getLabel() {
+        if (label != null) {
+            return label;
+        }
+
+        String ret = vaccineConcept.getName().getName();
+        if (sequenceNumber != null) {
+            ret += "-" + sequenceNumber;
+        }
+        return ret;
+    }
+
+    /**
+     * @see org.openmrs.module.htmlformentry.action.FormSubmissionControllerAction#validateSubmission(org.openmrs.module.htmlformentry.FormEntryContext, javax.servlet.http.HttpServletRequest)
+     */
     @Override
-    public Collection<FormSubmissionError> validateSubmission(FormEntryContext formEntryContext, HttpServletRequest httpServletRequest) {
+    public Collection<FormSubmissionError> validateSubmission(FormEntryContext context, HttpServletRequest httpServletRequest) {
         return Collections.emptyList();
     }
 
+    /**
+     * @see org.openmrs.module.htmlformentry.action.FormSubmissionControllerAction#handleSubmission(org.openmrs.module.htmlformentry.FormEntrySession, javax.servlet.http.HttpServletRequest)
+     */
     @Override
-    public void handleSubmission(FormEntrySession formEntrySession, HttpServletRequest httpServletRequest) {
-        // TODO
+    public void handleSubmission(FormEntrySession session, HttpServletRequest request) {
+        boolean checked = widget.getValue(session.getContext(), request) != null;
+
+        if (checked && existingObsGroup == null) {
+            try {
+                Obs group = new Obs();
+                group.setConcept(immunizationGroupConcept);
+
+                session.getSubmissionActions().beginObsGroup(group);
+                session.getSubmissionActions().createObs(vaccineQuestionConcept, vaccineConcept, null, null, null);
+                session.getSubmissionActions().createObs(sequenceNumberConcept, sequenceNumber, null, null, null);
+                session.getSubmissionActions().endObsGroup();
+            }
+            catch (InvalidActionException e) {
+                e.printStackTrace();
+            }
+        }
+        else if (!checked && existingObsGroup != null) {
+            session.getSubmissionActions().getObsToVoid().add(existingObsGroup);
+        }
     }
 
     /**
@@ -134,10 +177,6 @@ public class ImmunizationSubmissionElement implements HtmlGeneratorElement , For
      * @return the obs or null
      */
     protected Obs matchExistingObsGroup(FormEntryContext context) {
-        Concept immunizationGroupConcept = HtmlFormEntryUtil.getConcept(IMMUNIZATION_GROUP);
-        Concept immunizationVaccineConcept = HtmlFormEntryUtil.getConcept(IMMUNIZATION_VACCINE);
-        Concept immunizationSequenceNumberConcept = HtmlFormEntryUtil.getConcept(IMMUNIZATION_SEQUENCE_NUMBER);
-
         for (Map.Entry<Obs, Set<Obs>> entry : context.getExistingObsInGroups().entrySet()) {
             Obs group = entry.getKey();
 
@@ -151,10 +190,10 @@ public class ImmunizationSubmissionElement implements HtmlGeneratorElement , For
 
             // Look through obs group members to find vaccine and sequence number
             for (Obs memberObs : entry.getValue()) {
-                if (memberObs.getConcept().equals(immunizationVaccineConcept)) {
+                if (memberObs.getConcept().equals(vaccineQuestionConcept)) {
                     vaccineAnswer = memberObs.getValueCoded();
                 }
-                else if (memberObs.getConcept().equals(immunizationSequenceNumberConcept)) {
+                else if (memberObs.getConcept().equals(sequenceNumberConcept)) {
                     sequenceNumberAnswer = memberObs.getValueNumeric().intValue();
                 }
             }
@@ -168,5 +207,4 @@ public class ImmunizationSubmissionElement implements HtmlGeneratorElement , For
 
         return null;
     }
-
 }

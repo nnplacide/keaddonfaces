@@ -1,15 +1,18 @@
 package org.openmrs.module.keaddonfaces.metadata;
 
+import org.openmrs.PatientIdentifierType;
+import org.openmrs.module.kenyaemr.Metadata;
 import org.openmrs.module.kenyaemr.metadata.CommonMetadata;
 import org.openmrs.module.kenyaemr.metadata.HivMetadata;
 import org.openmrs.module.kenyaemr.metadata.MchMetadata;
 import org.openmrs.module.kenyaemr.metadata.TbMetadata;
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
-import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.encounterType;
-import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.form;
-
 import org.openmrs.module.metadatadeploy.bundle.Requires;
 import org.springframework.stereotype.Component;
+
+import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.encounterType;
+import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.form;
+import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.patientIdentifierType;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,9 +28,10 @@ public class FacesMetadata extends AbstractMetadataBundle {
     public static class _EncounterType {
 
         public static final String ADHERENCE = "155c23a5-a6e3-4d33-aceb-7a1a735c51de";
-        //public static final String ARV_THERAPY_ENCOUNTER = "aeaaa866-7ed1-455c-9002-ba40e67a9882";
+        public static final String ARV_ELIGIBILITY_ENCOUNTER = "aeaaa866-7ed1-455c-9002-ba40e67a9882";
         public static final String COUNSELLING = "6eb40e54-1a73-4adf-be2a-464731cf842b";
         public static final String CONGENITAL_SCREENING = "f5768c5a-a543-4da9-a4b1-aee21406a39f";
+        public static final String SCREENING_VISIT = "855ca272-c4d3-4cec-8e42-bd9d37531b00";
        // public static final String DISCONTINUATION = "2bdada65-4c72-4a48-8730-859890e25cee";
        // public static final String EXAMPLE = "d69dedbd-3933-4e44-8292-bea939ce980a";
         //public static final String PSC_INITIAL = "3e87713a-1ccb-4ca3-a5eb-5a962f63d1b0";
@@ -40,13 +44,24 @@ public class FacesMetadata extends AbstractMetadataBundle {
 
         public static final String ADHERENCE = "db64f32b-1ce5-4767-a0d1-45eeb6b81eb8";
         public static final String LAB_FORM = "82cffa17-55db-4fb9-ab88-983ae26979d8";
-       // public static final String EXAMPLE = "b694b1bc-2086-47dd-a4ad-ba48f9471e4b";
+        public static final String ART_ELIBILITY_FORM = "fc1b79a3-de7c-4423-81f4-9b61cbd4b2ef";
         public static final String COUNSELLING_FORM = "8ced7cda-b13b-43ea-ada2-4c47fb94c751";
         public static final String HEI_INITIAL_FORM = "a938c14d-1ca8-456e-b992-f44b37a55ae2";
         public static final String HEI_FOLLOWUP_FORM = "38b3108e-624c-4dc7-89de-0903679c53e2";
         public static final String DISCONTINUATION_FORM = "e4fce01e-3bbe-40c1-9578-30935d43b335";
         public static final String TB_ICF_FORM = "d292bba8-f559-4948-866e-8b502eb12c68";
         public static final String CONGENITAL_SCREENING_FORM = "42a1122e-27bc-470a-af94-bac85d8a229f";
+        public static final String CRF1_FORM = "e3bbfac4-d32f-4946-8167-eba6e9aab1aa";
+    }
+
+    public static final class _PatientIdentifierType {
+        //public static final String NATIONAL_ID = Metadata.IdentifierType.NATIONAL_ID;
+        //public static final String OLD_ID = Metadata.IdentifierType.OLD;
+        //public static final String OPENMRS_ID = Metadata.IdentifierType.MEDICAL_RECORD_NUMBER;
+        public static final String PATIENT_CLINIC_NUMBER = Metadata.IdentifierType.PATIENT_CLINIC_NUMBER;
+        public static final String HEI_ID_NUMBER = Metadata.IdentifierType.HEI_UNIQUE_NUMBER;
+        public static final String UNIQUE_PATIENT_NUMBER = Metadata.IdentifierType.UNIQUE_PATIENT_NUMBER;
+        public static final String SEARCH_ID = "02c0d163-0373-41f3-8f92-434b13184c77";
     }
 
     /**
@@ -61,7 +76,8 @@ public class FacesMetadata extends AbstractMetadataBundle {
         install(encounterType("Congenital Abnormality Screening", "Encounter type that involves Screening Infants for Congenital Abnormality", _EncounterType.CONGENITAL_SCREENING));
        // install(encounterType("HEI Initial", "Out-patient Initial visit for HEI patients at the PSC", MchMetadata._EncounterType.HEI_INITIAL));
         //install(encounterType("HEI Followup", "Out-patient followup visit for HEI patients at the PSC", _EncounterType.HEI_FOLLOWUP));
-        //install(encounterType("Example encounter", "Just an example", _EncounterType.EXAMPLE));
+        install(encounterType("Art Eligibility encounter", "Art Eligibility", _EncounterType.ARV_ELIGIBILITY_ENCOUNTER));
+        install(encounterType("Screening encounter", "Screening Visit", _EncounterType.SCREENING_VISIT));
 
 
         //Install forms
@@ -74,7 +90,25 @@ public class FacesMetadata extends AbstractMetadataBundle {
         install(form("HEI Follow-Up Card: Growth, Nutrition and Development Monitoring", null, MchMetadata._EncounterType.MCHCS_CONSULTATION, "1", _Form.HEI_FOLLOWUP_FORM));
         install(form("Laboratory investigation form", null, CommonMetadata._EncounterType.LAB_RESULTS, "1", _Form.LAB_FORM));
         install(form("TB ICF form", null, TbMetadata._EncounterType.TB_SCREENING, "1", _Form.TB_ICF_FORM));
+        install(form("Art Eligibility form", null, _EncounterType.ARV_ELIGIBILITY_ENCOUNTER, "1", _Form.ART_ELIBILITY_FORM));
+        install(form("CRF1-Screening Visit form", null, _EncounterType.SCREENING_VISIT, "1", _Form.CRF1_FORM));
 
        // install(form("Example form", null, _EncounterType.EXAMPLE, "1", _Form.EXAMPLE));
+
+        //update Identifiers
+        install(patientIdentifierType("Patient Clinic Number", "Assigned to the patient at a clinic service (not globally unique)",
+                "^[0-9]{5}(SDC|SDH|SGO|SHU|SKG|SKI|SKS|SKT|SKU|SLA|SLW|SMB|SMG|SMS|SNA|SNG|SNG|SNN|SNR|SNS|SNT|SNW|SNY|SOB|SOG|SON|SPO|SRE|SRI|SRO|SSE|SSK|SSN|STA|STM|STO|STU|SUG|SUS|SWK|SYO)-[0-9]$",
+                "12345KLM-9", null,
+                PatientIdentifierType.LocationBehavior.REQUIRED, false, _PatientIdentifierType.PATIENT_CLINIC_NUMBER));
+        install(patientIdentifierType("HEI ID Number", "Assigned to a child patient when enrolling into HEI","^E[0-9]{5}(SDH|SKS|SKT|SMB|SMG|SNN|SNR|SNT|SNW|SOB|SOG|SSK|SSN|STM|STU|SUG|SUS|SWK)-[0-9]$",
+                "E54109KLM-8", null,
+                PatientIdentifierType.LocationBehavior.NOT_USED, false, _PatientIdentifierType.HEI_ID_NUMBER));
+        install(patientIdentifierType("Unique Patient Number", "Assigned to every HIV patient", "^[0-9]{5}-[0-9]{5}$", "Facility code followed by sequential number",
+                null, PatientIdentifierType.LocationBehavior.NOT_USED, false, _PatientIdentifierType.UNIQUE_PATIENT_NUMBER));
+
+        install(patientIdentifierType("SEARCH ID Number", "Assigned to a patient when enrolling into SEARCH Study",
+                null, null, null,
+                PatientIdentifierType.LocationBehavior.NOT_USED, false, _PatientIdentifierType.SEARCH_ID));
+
     }
 }

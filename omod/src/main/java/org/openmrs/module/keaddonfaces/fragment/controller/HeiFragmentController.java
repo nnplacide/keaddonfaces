@@ -45,7 +45,8 @@ public class HeiFragmentController {
         //String[] specialFacesFormUuids = { HivMetadata._Form.HIV_ENROLLMENT, HivMetadata._Form.FAMILY_HISTORY };
         String[]specialFacesFormUuids = {
                 FacesMetadata._Form.DISCONTINUATION_FORM,
-                FacesMetadata._Form.HEI_INITIAL_FORM
+                FacesMetadata._Form.HEI_INITIAL_FORM,
+                FacesMetadata._Form.ART_ELIBILITY_FORM
         };
 
         List<SimpleObject> facesAvailableForms = new ArrayList<SimpleObject>();

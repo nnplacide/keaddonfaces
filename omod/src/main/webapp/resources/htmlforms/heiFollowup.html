@@ -106,6 +106,12 @@
                 return false;
             }
 
+            if(ENC_DATE &gt; new Date(getValue('tca.value')).getTime())
+            {
+                getField('tca.error').html('Should not be less than the Visit date').show();
+                return false;
+            }
+
             return true;
         });
     </script>
@@ -177,8 +183,24 @@
 
             </tr>
             <tr>
-                <td><span id="enc_date"></span></td>
-                <td><span id="age_wks"></span>(wks)<br/> <span id="age_mths"></span>(Mths)<br/><span id="age_yrs"></span>(Yrs)<br/><i>fill only one</i></td>
+                <td>
+                    <ifMode mode="ENTER">
+                        <span id="enc_date"></span>
+                    </ifMode>
+                    <ifMode mode="EDIT">
+                        <span id="enc_date"></span>
+                    </ifMode>
+
+                </td>
+                <td>
+                    <ifMode mode="ENTER">
+                        <span id="age_wks"></span>(wks)<br/> <span id="age_mths"></span>(Mths)<br/><span id="age_yrs"></span>(Yrs)<br/><i>fill only one</i>
+                    </ifMode>
+                    <ifMode mode="EDIT">
+                        <span id="age_wks"></span>(wks)<br/> <span id="age_mths"></span>(Mths)<br/><span id="age_yrs"></span>(Yrs)<br/><i>fill only one</i>
+                    </ifMode>
+
+                </td>
                 <td><obs id="temp" conceptId="5088" size="3"/></td>
                 <td><obs id="weight" conceptId="5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" size="3"/></td>
                 <td><obs id="height" conceptId="5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" size="3"/></td>
@@ -200,7 +222,11 @@
 
 
             </tr>
-
+            <tr>
+                <td colspan="15" style="background-color: #696969; color: #ffffff;text-align:center;">
+                    Kindly Review the Face Page and Make Any Updates and Save the Changes
+                </td>
+            </tr>
 
             </tbody>
         </table>
