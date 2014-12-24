@@ -38,7 +38,141 @@
 
     <!-- Forms -->
 
+    <!-- SEARCH STUDY FORMS -->
 
+
+    <bean id="keaddonfaces.form.crf_1_screeningVisit" class="org.openmrs.module.kenyacore.form.FormDescriptor">
+        <property name="targetUuid" value="e3bbfac4-d32f-4946-8167-eba6e9aab1aa" />
+        <property name="apps">
+            <set>
+                <ref bean="kenyaemr.app.clinician" />
+                <ref bean="kenyaemr.app.chart" />
+                <ref bean="keaddonfaces.app.faces" />
+            </set>
+        </property>
+        <property name="icon" value="keaddonfaces:forms/generic.png" />
+        <property name="htmlform" value="keaddonfaces:search/crf_1_screeningVisit.html" />
+    </bean>
+
+    <bean id="keaddonfaces.form.crf_2_screeningChecklist" class="org.openmrs.module.kenyacore.form.FormDescriptor">
+        <property name="targetUuid" value="2f7062a8-8a27-4a77-9803-e8a98ed280af" />
+        <property name="apps">
+            <set>
+                <ref bean="kenyaemr.app.clinician" />
+                <ref bean="kenyaemr.app.chart" />
+                <ref bean="keaddonfaces.app.faces" />
+            </set>
+        </property>
+        <property name="icon" value="keaddonfaces:forms/generic.png" />
+        <property name="htmlform" value="keaddonfaces:search/crf_2_screeningChecklist.html" />
+    </bean>
+
+    <bean id="keaddonfaces.form.crf_3_week0Enroll" class="org.openmrs.module.kenyacore.form.FormDescriptor">
+        <property name="targetUuid" value="44a3c3ec-01e0-4b9e-bfdb-e4267a06ee53" />
+        <property name="apps">
+            <set>
+                <ref bean="kenyaemr.app.clinician" />
+                <ref bean="kenyaemr.app.chart" />
+                <ref bean="keaddonfaces.app.faces" />
+            </set>
+        </property>
+        <property name="icon" value="keaddonfaces:forms/generic.png" />
+        <property name="htmlform" value="keaddonfaces:search/crf_3_week0Enroll.html" />
+    </bean>
+
+    <bean id="keaddonfaces.form.crf_4_week4Visit" class="org.openmrs.module.kenyacore.form.FormDescriptor">
+        <property name="targetUuid" value="75fff7d6-5366-4dff-821a-e02c5ddabb2e" />
+        <property name="apps">
+            <set>
+                <ref bean="kenyaemr.app.clinician" />
+                <ref bean="kenyaemr.app.chart" />
+                <ref bean="keaddonfaces.app.faces" />
+            </set>
+        </property>
+        <property name="icon" value="keaddonfaces:forms/generic.png" />
+        <property name="htmlform" value="keaddonfaces:search/crf_4_week4Visit.html" />
+    </bean>
+
+    <bean id="keaddonfaces.form.crf_5_routineFollowup" class="org.openmrs.module.kenyacore.form.FormDescriptor">
+        <property name="targetUuid" value="306df212-0a42-4ffa-8004-aca30262cf5b" />
+        <property name="apps">
+            <set>
+                <ref bean="kenyaemr.app.clinician" />
+                <ref bean="kenyaemr.app.chart" />
+                <ref bean="keaddonfaces.app.faces" />
+            </set>
+        </property>
+        <property name="icon" value="keaddonfaces:forms/generic.png" />
+        <property name="htmlform" value="keaddonfaces:search/crf_5_routineFollowup.html" />
+    </bean>
+
+    <bean id="keaddonfaces.form.crf_6_clinicalOfficer" class="org.openmrs.module.kenyacore.form.FormDescriptor">
+        <property name="targetUuid" value="b8946ef2-de6d-4397-9949-3111163b2690" />
+        <property name="apps">
+            <set>
+                <ref bean="kenyaemr.app.clinician" />
+                <ref bean="kenyaemr.app.chart" />
+                <ref bean="keaddonfaces.app.faces" />
+            </set>
+        </property>
+        <property name="icon" value="keaddonfaces:forms/generic.png" />
+        <property name="htmlform" value="keaddonfaces:search/crf_6_clinicalOfficer.html" />
+    </bean>
+
+    <bean id="keaddonfaces.form.crf_7_diagnosis" class="org.openmrs.module.kenyacore.form.FormDescriptor">
+        <property name="targetUuid" value="edba1afb-7c79-4c8a-9634-112f9ca497e7" />
+        <property name="apps">
+            <set>
+                <ref bean="kenyaemr.app.clinician" />
+                <ref bean="kenyaemr.app.chart" />
+                <ref bean="keaddonfaces.app.faces" />
+            </set>
+        </property>
+        <property name="icon" value="keaddonfaces:forms/generic.png" />
+        <property name="htmlform" value="keaddonfaces:search/crf_7_diagnosis.html" />
+    </bean>
+
+    <bean id="keaddonfaces.form.crf_8_artInitiateChange" class="org.openmrs.module.kenyacore.form.FormDescriptor">
+        <property name="targetUuid" value="83854537-abc1-4ad3-ba80-49131c7de3b0" />
+        <property name="apps">
+            <set>
+                <ref bean="kenyaemr.app.clinician" />
+                <ref bean="kenyaemr.app.chart" />
+                <ref bean="keaddonfaces.app.faces" />
+            </set>
+        </property>
+        <property name="icon" value="keaddonfaces:forms/generic.png" />
+        <property name="htmlform" value="keaddonfaces:search/crf_8_artInitiateChange.html" />
+    </bean>
+
+    <bean id="keaddonfaces.form.crf_9_adverseEvent" class="org.openmrs.module.kenyacore.form.FormDescriptor">
+        <property name="targetUuid" value="6aa79120-517c-4392-bf68-73269f2ca7c7" />
+        <property name="apps">
+            <set>
+                <ref bean="kenyaemr.app.clinician" />
+                <ref bean="kenyaemr.app.chart" />
+                <ref bean="keaddonfaces.app.faces" />
+            </set>
+        </property>
+        <property name="icon" value="keaddonfaces:forms/generic.png" />
+        <property name="htmlform" value="keaddonfaces:search/crf_9_adverseEvent.html" />
+    </bean>
+
+    <bean id="keaddonfaces.form.crf_11_subjectWithdrawal" class="org.openmrs.module.kenyacore.form.FormDescriptor">
+        <property name="targetUuid" value="5e61252d-6e82-445e-8f75-a1ff8e77189e" />
+        <property name="apps">
+            <set>
+                <ref bean="kenyaemr.app.clinician" />
+                <ref bean="kenyaemr.app.chart" />
+                <ref bean="keaddonfaces.app.faces" />
+            </set>
+        </property>
+        <property name="icon" value="keaddonfaces:forms/generic.png" />
+        <property name="htmlform" value="keaddonfaces:search/crf_11_subjectWithdrawal.html" />
+    </bean>
+
+
+    <!-- FACES -->
     <bean id="keaddonfaces.form.adherence" class="org.openmrs.module.kenyacore.form.FormDescriptor">
         <property name="targetUuid" value="db64f32b-1ce5-4767-a0d1-45eeb6b81eb8" />
         <property name="apps">
@@ -89,20 +223,6 @@
         <property name="htmlform" value="keaddonfaces:discontinuation.html" />
     </bean>
 
-    <bean id="keaddonfaces.form.crf1Form" class="org.openmrs.module.kenyacore.form.FormDescriptor">
-        <property name="targetUuid" value="e3bbfac4-d32f-4946-8167-eba6e9aab1aa" />
-        <property name="apps">
-            <set>
-                <ref bean="kenyaemr.app.clinician" />
-                <ref bean="keaddonfaces.app.faces" />
-                <ref bean="kenyaemr.app.chart" />
-            </set>
-        </property>
-        <property name="icon" value="keaddonfaces:forms/generic.png" />
-        <property name="htmlform" value="keaddonfaces:/search/crf1Form.html" />
-    </bean>
-
-
     <bean id="keaddonfaces.form.artEligibilityForm" class="org.openmrs.module.kenyacore.form.FormDescriptor">
         <property name="targetUuid" value="fc1b79a3-de7c-4423-81f4-9b61cbd4b2ef" />
         <property name="apps">
@@ -114,6 +234,8 @@
         <property name="icon" value="keaddonfaces:forms/generic.png" />
         <property name="htmlform" value="keaddonfaces:artEligibilityForm.html" />
     </bean>
+
+
 
     <bean id="keaddonfaces.form.heiEnrollment" class="org.openmrs.module.kenyacore.form.FormDescriptor">
         <property name="targetUuid" value="a938c14d-1ca8-456e-b992-f44b37a55ae2" />
@@ -181,6 +303,8 @@
                 <!--<ref bean="keaddonfaces.form.heiFollowup" />-->
                 <ref bean="keaddonfaces.form.labInvestigation" />
                 <ref bean="keaddonfaces.form.tb_icf" />
+
+
             </set>
         </property>
 
@@ -191,6 +315,17 @@
                     <set>
                         <ref bean="keaddonfaces.form.adherence" />
                         <ref bean="keaddonfaces.form.counselling" />
+                        <ref bean="keaddonfaces.form.crf_1_screeningVisit" />
+                        <ref bean="keaddonfaces.form.crf_2_screeningChecklist" />
+                        <ref bean="keaddonfaces.form.crf_3_week0Enroll" />
+                        <ref bean="keaddonfaces.form.crf_4_week4Visit" />
+                        <ref bean="keaddonfaces.form.crf_5_routineFollowup" />
+                        <ref bean="keaddonfaces.form.crf_6_clinicalOfficer" />
+                        <ref bean="keaddonfaces.form.crf_7_diagnosis" />
+                        <ref bean="keaddonfaces.form.crf_8_artInitiateChange" />
+                        <ref bean="keaddonfaces.form.crf_9_adverseEvent" />
+                        <ref bean="keaddonfaces.form.crf_11_subjectWithdrawal" />
+                        <ref bean="keaddonfaces.form.artEligibilityForm" />
                     </set>
                 </entry>
             </map>
@@ -201,8 +336,8 @@
             <set>
                 <ref bean="kenyaemr.common.form.progressNote" />
                 <ref bean="kenyaemr.common.form.clinicalEncounter" />
-                <ref bean="kenyaemr.common.form.labResults" />
-                <!--<ref bean="kenyaemr.common.form.tbScreening" />-->
+                <!--<ref bean="kenyaemr.common.form.labResults" />-->
+                <ref bean="kenyaemr.common.form.tbScreening" />
                 <ref bean="kenyaemr.common.form.otherMedications" />
                 <ref bean="kenyaemr.hiv.form.clinicalEncounterAddendum" />
                

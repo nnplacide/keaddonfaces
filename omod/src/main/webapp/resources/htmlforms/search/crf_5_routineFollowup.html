@@ -1,0 +1,1035 @@
+<!--
+  ~ The contents of this file are subject to the OpenMRS Public License
+  ~ Version 1.0 (the "License"); you may not use this file except in
+  ~ compliance with the License. You may obtain a copy of the License at
+  ~ http://license.openmrs.org
+  ~
+  ~ Software distributed under the License is distributed on an "AS IS"
+  ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+  ~ License for the specific language governing rights and limitations
+  ~ under the License.
+  ~
+  ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+-->
+<htmlform>
+
+<style type="text/css">
+    table.screen {
+        border-collapse: collapse;
+    }
+    table.screen > tbody > tr > td, table.screen > tbody > tr > th {
+        border: 1px solid black;
+        vertical-align: baseline;
+        padding: 4px;
+    }
+</style>
+
+<script type="text/javascript">
+var YES_CONCEPT_ID = 1065;
+var NO_CONCEPT_ID = 1066;
+var OTHER_CONCEPT_ID = 5622;
+var NONE_CONCEPT_ID = 1118;
+var ADULT =15;
+var QUANTITY2_CONCEPT_ID = 1183;
+var G6WEEKS_CONCEPT_ID = 1000126;
+var L6WEEKS_CONCEPT_ID = 1000128;
+var SAE_CONCEPT_ID = 148568;
+var GRADE234_CONCEPT_ID = 162694;
+var CBC_CONCEPT_ID = 1019;
+var HGB_CONCEPT_ID = 21;
+var CREATININE_CONCEPT_ID = 790;
+var GLUCOSE_CONCEPT_ID = 887;
+var ALT_CONCEPT_ID = 654;
+var AST_CONCEPT_ID = 653;
+var BILIRUBIN_CONCEPT_ID = 655;
+var BILIRUBIND_CONCEPT_ID = 1297;
+var PHOSPH_CONCEPT_ID = 785;
+var CD4CD8_CONCEPT_ID = 854;
+var CD4_CONCEPT_ID = 5497;
+var CD4PERCENT_CONCEPT_ID = 730;
+var HCG_CONCEPT_ID = 45;
+var TB_CONCEPT_ID = 307;
+var RNA_CONCEPT_ID = 856;
+var MALARIA_CONCEPT_ID = 32;
+
+
+/* Skipping Patterns and dropped fields*/
+
+function onHOSPChange()
+{
+    if (getValue('hosp.value')== YES_CONCEPT_ID)
+    {
+        $j('#hospDays').show();
+        $j('#hospLocation').show();
+        $j('#hospReason').show();
+        $j('#O_cd4cd8').hide();
+        $j('#R_cd4').hide();
+        $j('#R_cd4Percent').hide();
+        $j('#R_cd8').hide();
+        $j('#R_cd8Percent').hide();
+    }
+    else if (getValue('hosp.value')== NO_CONCEPT_ID)
+    {
+        $j('#who234disease').hide();
+        $j('#O_cd4cd8').hide();
+        $j('#R_cd4').hide();
+        $j('#R_cd4Percent').hide();
+        $j('#R_cd8').hide();
+        $j('#R_cd8Percent').hide();
+    }
+    else
+    {
+        $j('#hospDays').hide();
+        $j('#hospLocation').hide();
+        $j('#hospReason').hide();
+        $j('#O_cd4cd8').hide();
+        $j('#R_cd4').hide();
+        $j('#R_cd4Percent').hide();
+        $j('#R_cd8').hide();
+        $j('#R_cd8Percent').hide();
+    }
+}
+
+function onSYMPTChange()
+{
+    if (getValue('sympt.value')== NO_CONCEPT_ID)
+    {
+        $j('#symptoms').hide();
+        $j('#sever').hide();
+    }
+    else
+    {
+        $j('#symptoms').hide();
+        $j('#sever').hide();
+    }
+}
+
+function onREPRODUCTChange()
+{
+
+    if (getValue('reproduct.value')== NO_CONCEPT_ID)
+    {
+        $j('#pregnantY').hide();
+        $j('#pregnantN').hide();
+        $j('#lmpG6weeks').hide();
+        $j('#lmpL6weeks').hide();
+        setValue('lmpG6weeks.value', '')
+        setValue('lmpL6weeks.value', '')
+        setValue('pregnantY.value', '')
+        setValue('pregnantN.value', '')
+    }
+    else
+    {
+        $j('#pregnantY').show();
+        $j('#pregnantN').show();
+        $j('#lmpG6weeks').show();
+        $j('#lmpL6weeks').show();
+    }
+}
+
+function onWHO234Change()
+{
+    if (getValue('who234.value')== YES_CONCEPT_ID)
+    {
+        $j('#who234disease').show();
+    }
+    else
+    {
+        $j('#who234disease').hide();
+    }
+}
+
+function onSUSPECTSAEChange()
+{
+
+    if (getValue('suspectSae.value')== SAE_CONCEPT_ID)
+    {
+        $j('#sae').show();
+    }
+    else
+    {
+        $j('#sae').hide();
+    }
+}
+
+function onSUSPECT234Change()
+{
+
+    if (getValue('suspect234.value')== GRADE234_CONCEPT_ID)
+    {
+        $j('#illness234').show();
+    }
+    else
+    {
+        $j('#illness234').hide();
+    }
+}
+
+function onREFEROTHERChange()
+{
+
+    if (getValue('referOther.value')== OTHER_CONCEPT_ID)
+    {
+        $j('#otherSpecify').show();
+    }
+    else
+    {
+        $j('#otherSpecify').hide();
+    }
+}
+
+function onARVQUANTChange()
+{
+    if (getValue('arvQuant.value')== QUANTITY2_CONCEPT_ID)
+    {
+        $j('#arv3').hide();
+        $j('#med3').hide();
+    }
+    else
+    {
+        $j('#arv3').show();
+        $j('#med3').show();
+    }
+}
+
+function onLABChange()
+{
+    if (getValue('lab.value')== NONE_CONCEPT_ID)
+    {
+        $j('#laboratory').hide();
+    }
+    else
+    {
+        $j('#laboratory').show();
+    }
+}
+
+function onO_CBCChange()
+{
+
+    if (getValue('O_cbc.value')== NO_CONCEPT_ID)
+    {
+        $j('#R_wbc').hide();
+        $j('#R_hgb').hide();
+        $j('#R_platelet').hide();
+        $j('#R_neutrophil').hide();
+        $j('#R_neutrophilPercent').hide();
+    }
+    else if (getValue('O_cbc.value')== CBC_CONCEPT_ID)
+    {
+        $j('#R_wbc').show();
+        $j('#R_hgb').show();
+        $j('#R_platelet').show();
+        $j('#R_neutrophil').show();
+        $j('#R_neutrophilPercent').show();
+    }
+    else
+    {
+        $j('#R_wbc').hide();
+        $j('#R_hgb').hide();
+        $j('#R_platelet').hide();
+        $j('#R_neutrophil').hide();
+        $j('#R_neutrophilPercent').hide();
+    }
+}
+
+function onO_ALTChange()
+{
+
+    if (getValue('O_alt.value')== NO_CONCEPT_ID)
+    {
+        $j('#R_alt').hide();
+    }
+    else if (getValue('O_alt.value')== ALT_CONCEPT_ID)
+    {
+        $j('#R_alt').show();
+    }
+    else
+    {
+        $j('#R_alt').hide();
+    }
+}
+
+function onO_ASTChange()
+{
+
+    if (getValue('O_ast.value')== NO_CONCEPT_ID)
+    {
+        $j('#R_ast').hide();
+    }
+    else if (getValue('O_ast.value')== AST_CONCEPT_ID)
+    {
+        $j('#R_ast').show();
+    }
+    else
+    {
+        $j('#R_ast').hide();
+    }
+}
+
+function onO_BILIRUBINChange()
+{
+
+    if (getValue('O_bilirubin.value')== NO_CONCEPT_ID)
+    {
+        $j('#R_bilirubin').hide();
+    }
+    else if (getValue('O_bilirubin.value')== BILIRUBIN_CONCEPT_ID)
+    {
+        $j('#R_bilirubin').show();
+    }
+    else
+    {
+        $j('#R_bilirubin').hide();
+    }
+}
+
+function onO_BILIRUBINDChange()
+{
+
+    if (getValue('O_bilirubinD.value')== NO_CONCEPT_ID)
+    {
+        $j('#R_bilirubinD').hide();
+    }
+    else if (getValue('O_bilirubinD.value')== BILIRUBIND_CONCEPT_ID)
+    {
+        $j('#R_bilirubinD').show();
+    }
+    else
+    {
+        $j('#R_bilirubinD').hide();
+    }
+}
+
+function onO_PHOSPHChange()
+{
+
+    if (getValue('O_phosph.value')== NO_CONCEPT_ID)
+    {
+        $j('#R_phosph').hide();
+    }
+    else if (getValue('O_phosph.value')== PHOSPH_CONCEPT_ID)
+    {
+        $j('#R_phosph').show();
+    }
+    else
+    {
+        $j('#R_phosph').hide();
+    }
+}
+
+function onO_SERUMChange()
+{
+
+    if (getValue('O_serum.value')== NO_CONCEPT_ID)
+    {
+        $j('#R_sodium').hide();
+        $j('#R_potassium').hide();
+        $j('#R_cl').hide();
+        $j('#R_co2').hide();
+    }
+    else if (getValue('O_serum.value')== SERUM_CONCEPT_ID)
+    {
+        $j('#R_sodium').show();
+        $j('#R_potassium').show();
+        $j('#R_cl').show();
+        $j('#R_co2').show();
+    }
+    else
+    {
+        $j('#R_sodium').hide();
+        $j('#R_potassium').hide();
+        $j('#R_cl').hide();
+        $j('#R_co2').hide();
+    }
+}
+function onO_BUNChange()
+{
+
+    if (getValue('O_bun.value')== NO_CONCEPT_ID)
+    {
+        $j('#R_bun').hide();
+    }
+    else if (getValue('O_bun.value')== BUN_CONCEPT_ID)
+    {
+        $j('#R_bun').show();
+    }
+    else
+    {
+        $j('#R_bun').hide();
+    }
+}
+
+function onO_HCGChange()
+{
+
+    if (getValue('O_hcg.value')== NO_CONCEPT_ID)
+    {
+        $j('#R_hcg').hide();
+    }
+    else if (getValue('O_hcg.value')== HCG_CONCEPT_ID)
+    {
+        $j('#R_hcg').show();
+    }
+    else
+    {
+        $j('#R_hcg').hide();
+    }
+}
+
+function onO_CREATININEChange()
+{
+
+    if (getValue('O_creatinine.value')== NO_CONCEPT_ID)
+    {
+        $j('#R_creatinine').hide();
+    }
+    else if (getValue('O_creatinine.value')== CREATININE_CONCEPT_ID)
+    {
+        $j('#R_creatinine').show();
+    }
+    else
+    {
+        $j('#R_creatinine').hide();
+    }
+}
+
+function onO_TBChange()
+{
+
+    if (getValue('O_tb.value')== NO_CONCEPT_ID)
+    {
+        $j('#R_tb').hide();
+    }
+    else if (getValue('O_tb.value')== TB_CONCEPT_ID)
+    {
+        $j('#R_tb').show();
+    }
+    else
+    {
+        $j('#R_tb').hide();
+    }
+}
+
+function onO_MALARIAChange()
+{
+
+    if (getValue('O_malaria.value')== NO_CONCEPT_ID)
+    {
+        $j('#R_malaria').hide();
+    }
+    else if (getValue('O_malaria.value')== MALARIA_CONCEPT_ID)
+    {
+        $j('#R_malaria').show();
+    }
+    else
+    {
+        $j('#R_malaria').hide();
+    }
+}
+
+function onO_GLUCOSEChange()
+{
+
+    if (getValue('O_glucose.value')== NO_CONCEPT_ID)
+    {
+        $j('#R_glucose').hide();
+    }
+    else if (getValue('O_glucose.value')== GLUCOSE_CONCEPT_ID)
+    {
+        $j('#R_glucose').show();
+    }
+    else
+    {
+        $j('#R_glucose').hide();
+    }
+}
+
+function onO_RNAChange()
+{
+
+    if (getValue('O_rna.value')== NO_CONCEPT_ID)
+    {
+        $j('#R_rna').hide();
+        $j('#rnasign').hide();
+    }
+    else if (getValue('O_rna.value')== RNA_CONCEPT_ID)
+    {
+        $j('#R_rna').show();
+        $j('#rnasign').show();
+    }
+    else
+    {
+        $j('#R_rna').hide();
+        $j('#rnasign').show();
+    }
+}
+
+function validateTCA()
+{
+    /* Validate TCA (Return visit date or Next appointment date) */
+    /*this data should be in Future but not more than 90 days from the currect date*/
+
+    var enc_date= new Date("<lookup expression="patient.encounterDate"/>").getTime();
+    var tca_date= new Date(getValue('tca.value')).getTime();
+    var NIGHTY_DAYS = 90 * 24 * 60 * 60 * 1000;
+    var future_tca=enc_date + NIGHTY_DAYS;
+    if(typeof tca_date != "undefined" || tca_date != null || tca_date != '')
+    {
+        if(tca_date &lt;= enc_date)
+        {
+            getField('tca.error').html('Should not be less than the Encounter Date').show();
+        }
+        //check if the tca is greater than 90 days from the enc date
+        else if(tca_date &gt; future_tca )
+        {
+            getField('tca.error').html('Should not be more than 90 days from Encounter Date').show();
+        }
+        else
+        {
+            getField('tca.error').hide();
+        }
+    }
+}
+
+/* Form Skipping Pattern based on the selected value*/
+$j(function(){
+    $j('#hosp input').click(onHOSPChange);
+    $j('#sympt input').click(onSYMPTChange);
+    $j('#reproduct input').click(onREPRODUCTChange);
+    $j('#who234 input').click(onWHO234Change);
+    $j('#suspectSae input').click(onSUSPECTSAEChange);
+    $j('#suspect234 input').click(onSUSPECT234Change);
+    $j('#referOther input').click(onREFEROTHERChange);
+    $j('#arvQuant input').click(onARVQUANTChange);
+    $j('#lab input').click(onLABChange);
+    $j('#O_cbc input').click(onO_CBCChange);
+    $j('#O_alt input').click(onO_ALTChange);
+    $j('#O_ast input').click(onO_ASTChange);
+    $j('#O_bilirubin input').click(onO_BILIRUBINChange);
+    $j('#O_bilirubinD input').click(onO_BILIRUBINDChange);
+    $j('#O_serum input').click(onO_SERUMChange);
+    $j('#O_phosph input').click(onO_PHOSPHChange);
+    $j('#O_bun input').click(onO_BUNChange);
+    $j('#O_hcg input').click(onO_HCGChange);
+    $j('#O_creatinine input').click(onO_CREATININEChange);
+    $j('#O_tb input').click(onO_TBChange);
+    $j('#O_glucose input').click(onO_GLUCOSEChange);
+    $j('#O_rna input').click(onO_RNAChange);
+    $j('#rnasign input').click(onO_RNAChange);
+    $j('#O_malaria input').click(onO_MALARIAChange);
+
+    /*validate Fields by avoiding invalide feed*/
+    getField('tca.value').change(validateTCA);
+    getField('pregnantY.value').change(function(){
+        if(getValue('pregnantY.value')== YES_CONCEPT_ID)
+            setValue('pregnantN.value', '')
+    });
+    getField('pregnantN.value').change(function(){
+        if(getValue('pregnantN.value')== NO_CONCEPT_ID)
+            setValue('pregnantY.value', '')
+    });
+    getField('lmpG6weeks.value').change(function(){
+        if(getValue('lmpG6weeks.value')== G6WEEKS_CONCEPT_ID)
+            setValue('lmpL6weeks.value', '')
+    });
+    getField('lmpL6weeks.value').change(function(){
+        if(getValue('lmpL6weeks.value')== L6WEEKS_CONCEPT_ID)
+            setValue('lmpG6weeks.value', '')
+    });
+    getField('suspectSae.value').change(function(){
+        if(getValue('suspectSae.value')== SAE_CONCEPT_ID)
+            setValue('sae.value', '')
+    });
+    getField('suspect234.value').change(function(){
+        if(getValue('suspect234.value')== GRADE234_CONCEPT_ID)
+            setValue('dise.value', '')
+    });
+    getField('referOther.value').change(function(){
+        if(getValue('referOther.value')== OTHER_CONCEPT_ID)
+            setValue('otherSpecify.value', '')
+    });
+
+    onHOSPChange();
+    onSYMPTChange();
+    onREPRODUCTChange();
+    onWHO234Change();
+    onSUSPECTSAEChange();
+    onSUSPECT234Change();
+    onREFEROTHERChange();
+    onARVQUANTChange();
+    onLABChange();
+    onO_CBCChange();
+    onO_ALTChange();
+    onO_ASTChange();
+    onO_BILIRUBINChange();
+    onO_BILIRUBINDChange();
+    onO_SERUMChange();
+    onO_PHOSPHChange();
+    onO_BUNChange();
+    onO_HCGChange();
+    onO_CREATININEChange();
+    onO_TBChange();
+    onO_MALARIAChange();
+    onO_RNAChange();
+    onO_GLUCOSEChange();
+    validateTCA();
+});
+</script>
+
+<div style="display:none">
+    <encounterProvider default="ae01b8ff-a4cc-4012-bcf7-72359e852e14" />
+</div>
+<div class="ke-form-header">
+    <table style="width: 100%">
+        <tr>
+            <td>Date: <encounterDate id="encounter-date" showTime="false"/></td>
+            <td>Enrolled at: <encounterLocation id="site" default="GlobalProperty:kenyaemr.defaultLocation"/></td>
+        </tr>
+    </table>
+
+</div>
+<div class="ke-form-content">
+<table class="screen" align="center" width="970px">
+<tbody>
+<tr>
+    <td style="background-color: #696969; color: #ffffff;">
+        <a name="page1"></a>
+        SEARCH High CD4+ ART Delivery - ROUTINE FOLLOW-UP VISIT FORM (1)
+        <obs id="visittype" conceptId="1186AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="text" /> Visit week # (12,24,48,96,120,144)
+    </td>
+</tr>
+<!--
+<tr>
+    <td>
+        <table width="100%">
+            <td rowspan="2" width="25%"></td>
+            <td rowspan="2" width="25%"></td>
+            <td rowspan="2" width="35%">Participant initials:<lookup class="value" expression="patient.personName"/></td>
+            <td style="background-color:lightcyan;">Clinic ID:<lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('Faces ID') ) $patId #end "/></td>
+            <tr>
+                <td style="background-color:lightcyan;">SEARCH ID:<lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('SEARCH ID') ) $patId #end "/></td>
+            </tr>
+        </table>
+    </td>
+</tr>
+-->
+<tr>
+    <td style="background-color: #696969; color: #ffffff;" align="center">
+        ROUTINE FOLLOW-UP VISIT FORM (1)
+    </td>
+</tr>
+<tr>
+    <td>
+        <table class="screen" width="98%" align="center">
+            <tr>
+                <td align="center" colspan="5"><strong>HOSPITALIZATION</strong></td>
+            </tr>
+            <tr>
+                <td>Hospitalization?<br/>If yes, this is an SAE; record on Adverse Event Form</td>
+                <td><obs id="hosp" conceptId="1792AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Yes,No" style="radio"/></td>
+                <td><em>If yes, # of days:</em><br/><obs id="hospDays" conceptId="1647AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
+                <td><em>Location:</em><br/><obs id="hospLocation" conceptId="1772AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="text"/></td>
+                <td><em>reasons:</em><br/><obs id="hospReason" conceptId="1655AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="text"/></td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+        <table>
+            <tr>
+                <td style="font-weight:bold"><sub>If hospitalization occurred, complete the rest of form, attach Clinical Officer Follow-Up Visit Form and escort participant to the clinical officer</sub></td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+        <table class="screen" width="98%" align="center">
+            <tr>
+                <td colspan="10" align="center"><strong>SYMPTOM SCREEN</strong><obs id="sympt" conceptId="1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="No,Yes" style="dropdown"/>current symptoms</td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+                        <span id="symptoms">
+                        <table class="screen" width="98%" align="center">
+                            <tr style="font-weight:bold;" align="center">
+                                <td>Symptoms</td>
+                                <td>Grade 3,4/SAE<sup>*</sup></td>
+                                <td>Symptoms</td>
+                                <td>Grade 3,4/SAE<sup>*</sup></td>
+                            </tr>
+                            <repeat>
+                                <template>
+                                    <obsgroup groupingConceptId="1727AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                                        <tr>
+                                            <td><obs conceptId="1728AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  answerConceptIds="512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,122496AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,114403AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Cutaneous rash, Dyspnea, Unintentional weight loss, Pain, Nausea" answerSeparator="&lt;br /&gt;" style="dropdown"/></td>      <!-- Symptoms name column1 -->
+                                            <td><obs conceptId="160759AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Yes,No" style="radio"/></td>     <!-- Symptom grade 3,4 SAE -->
+                                            <td><obs conceptId="1728AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  answerConceptIds="122983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,116743AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Vomiting, Diarrhea, Insomnia, Other" answerSeparator="&lt;br /&gt;" style="dropdown"/></td>      <!-- Symptoms name column5 -->
+                                            <td><obs conceptId="160759AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  answerConceptIds="1065,1066" answerLabels="Yes,No" style="radio"/></td>     <!-- Symptom grade 3,4 SAE -->
+                                        </tr>
+                                    </obsgroup>
+                                </template>
+                                <render n="1" concept=" " />
+                                <render n="2" concept=" " />
+                                <render n="3" concept=" " />
+                                <render n="4" concept=" " />
+                                <render n="5" concept=" " />
+                            </repeat>
+                        </table>
+                    </span>
+    </td>
+</tr>
+<tr>
+    <td>
+                  <span id="sever">
+                    <table>
+                        <td><sup>*</sup>Severity:</td>
+                        <td><strong>Grade 3:</strong> severe<br/><strong>Grade 4:</strong> Life-threatening</td>
+                        <td><strong>SAE:</strong></td>
+                        <td><em>one or more of<br/>the following</em></td>
+                        <td>
+                            <ul>
+                                <li>Hospitalization</li>
+                                <li>Disability or permanent damage</li>
+                                <li>Birth defect</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>Required intervention to prevent permanent damage or disability</li>
+                                <li>Other serious event that without intervention could result in death</li>
+                                <li>Hospitalization or other life-threatening event</li>
+                            </ul>
+                        </td>
+                    </table>
+                  </span>
+    </td>
+</tr>
+<tr>
+    <td>
+        <table class="screen" width="98%" align="center">
+            <tr>
+                <td colspan="3" align="center"><strong>PREGNANCY SCREEN</strong><obs id="reproduct" conceptId="160560AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Not woman of reproductive potential"/></td>
+            </tr>
+            <tr>
+                <td>Does the participant think she may have become pregnant?</td>
+                <td><obs id="pregnantY" conceptId="1000165FACES_FACES_FACES_FACES_FACES" answerConceptId="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="checkbox"/></td>
+                <td><obs id="pregnantN" conceptId="1000165FACES_FACES_FACES_FACES_FACES" answerConceptId="1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="No" style="checkbox"/></td>
+            </tr>
+            <tr>
+                <td>When was the participant’s last menstrual period?</td>
+                <td><obs id="lmpG6weeks" conceptId="160596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1000128FACES_FACES_FACES_FACES_FACES" answerLabel="&gt;6 weeks ago"  style="checkbox"/></td>
+                <td><obs id="lmpL6weeks" conceptId="160596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1000126FACES_FACES_FACES_FACES_FACES" answerLabel="&lt;6 weeks ago"  style="checkbox"/></td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+        <table>
+            <tr>
+                <td><strong>If pregnancy is suspected, perform urine HCG.  If positive, complete the rest of form, attach Clinical Officer Follow-Up Visit Form and escort participant to the clinical officer.</strong></td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+        <table width="100%">
+            <tr>
+                <td> &lt;- Previous Page</td>
+                <td> <b> Page 1 </b></td>
+                <td> <a href="#page2">Page 2</a></td>
+                <td> <a href="#page3">Page 3</a></td>
+                <td> <a href="#page2">Next Page -&gt;</a></td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td style="background-color: #696969; color: #ffffff;" align="center">
+        <a name="page2"></a>
+        ROUTINE FOLLOW-UP VISIT FORM (2)
+    </td>
+</tr>
+<tr>
+    <td>
+        <table class="screen" width="98%" align="center">
+            <tr>
+                <td colspan="4"  style="font-weight:bold;" align="center">ADHERENCE ASSESSMENT</td>
+            </tr>
+            <tr align="center">
+                <td>3-Day Adherence</td>
+                <td>ARV #1</td>
+                <td>ARV #2</td>
+                <td>ARV #3<obs id="arvQuant" conceptId="1181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1183AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="No 3rd med" style="checkbox"/></td>
+            </tr>
+            <tr align="center">
+                <td align="left">Medication code</td>
+                <td><obs id="arv1" conceptId="1000129FACES_FACES_FACES_FACES_FACES" type="numeric"/></td> <!--chose to use a numeric concept for the ARV code to be entered-->
+                <td><obs id="arv2" conceptId="1000130FACES_FACES_FACES_FACES_FACES" type="numeric"/></td> <!--chose to use a numeric concept for the ARV code to be entered-->
+                <td><obs id="arv3" conceptId="1000131FACES_FACES_FACES_FACES_FACES" type="numeric"/></td> <!--chose to use a numeric concept for the ARV code to be entered-->
+            </tr>
+            <repeat>
+                <template>
+                    <obsgroup groupingConceptId="161881AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                        <tr align="center">
+                            <td align="left"><obs id="adherenceQ" conceptId="1164AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  answerConceptIds="160855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1160AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1161AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1162AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Expected doses per day, Number of doses missed yesterday, Number of doses missed day before yesterday, Number of doses missed day before that" answerSeparator="&lt;br /&gt;" style="dropdown"/></td>
+                            <td><obs id="med1" conceptId="1000129FACES_FACES_FACES_FACES_FACES" default="0"/></td>
+                            <td><obs id="med2" conceptId="1000130FACES_FACES_FACES_FACES_FACES" default="0"/></td>
+                            <td><obs id="med3" conceptId="1000131FACES_FACES_FACES_FACES_FACES"/></td>
+                        </tr>
+                    </obsgroup>
+                </template>
+                <render n="1" concept=" " />
+                <render n="2" concept=" " />
+                <render n="3" concept=" " />
+                <render n="4" concept=" " />
+            </repeat>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+        <table class="screen"  width="98%" align="center">
+            <tr>
+                <td width="50%" style="font-weight:bold;">WHO Stage 2, 3, 4 Illness or Targeted Medical Condition at this visit?<br/><em>Refer to Clinical Endpoints Study sheet</em></td>
+                <td width="50%" align="center"><obs id="who234" conceptId="162694AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Yes,No" style="radio"/></td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+                       <span id="who234disease">
+                       <table class="screen" width="98%">
+                           <tr style="font-weight:bold" align="center">
+                               <td>position</td>
+                               <td>Disease or condition</td>
+                               <td>Code</td>
+                               <td>Description of symptoms and diagnosis</td>
+                           </tr>
+                           <repeat>
+                               <template>
+                                   <obsgroup groupingConceptId="160167AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                                       <tr>
+                                           <td><obs conceptId="1639AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="numeric"/> </td>		<!--Position 1, 2 and 3-->
+                                           <td width="45%"><obs id="dise" conceptId="6042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="dropdown"/></td>
+                                           <td width="10%"><obs id="disecode" conceptId="161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="numeric"/></td>
+                                           <td width="45%"><obs id="disedescript" conceptId="161602AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="text"/></td>
+                                       </tr>
+                                   </obsgroup>
+                               </template>
+                               <render n="1" concept=" " />
+                               <render n="2" concept=" " />
+                               <render n="3" concept=" " />
+                           </repeat>
+                       </table>
+                        </span>
+    </td>
+</tr>
+<tr>
+    <td>
+        <table class="screen" width="98%" align="center">
+            <tr>
+                <td colspan="3" align="center"><strong>DISPOSITION</strong> <em>Check all that apply</em></td>
+            </tr>
+            <tr>
+                <td>ART continued, participant referred to laboratory<br/>and pharmacy for completion of routine visit</td>
+                <td><obs id="labPharma" conceptId="160433AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="160521AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/></td>
+                <td style="background-color: #696969;"></td>
+            </tr>
+            <tr>
+                <td>Participant referred to clinical officer for suspected<br/>grade 3/ 4 adverse event or SAE</td>
+                <td><obs id="suspectSae" conceptId="160433AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="148568AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/></td>
+                <td>Adverse event(s):
+                    <obs id="sae" conceptId="160759AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="dropdown"/>
+                </td>
+            </tr>
+            <tr>
+                <td width="45%">Participant referred to clinical officer for suspected<br/>WHO Stage 2, 3, 4 illness</td>
+                <td width="10%"><obs id="suspect234" conceptId="160433AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="162694AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/></td>
+                <td width="45%"><span id="dise">Illness(s):
+                                <obs id="illness234" conceptId="1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="dropdown"/></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Participant referred to clinical officer for other<br/>reason</td>
+                <td><obs id="referOther" conceptId="160433AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/></td>
+                <td>Other reason:<obs id="otherSpecify" conceptId="1887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+        <table width="100%">
+            <tr>
+                <td> <a href="#page1">&lt;- Previous Page</a></td>
+                <td> <a href="#page1">Page 1</a></td>
+                <td><b>Page 2</b></td>
+                <td> <a href="#page3">Page 3</a></td>
+                <td> <a href="#page3">Next Page -&gt;</a></td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td style="background-color: #696969; color: #ffffff;" align="center">
+        <a name="page3"></a>
+        ROUTINE FOLLOW-UP VISIT FORM (3)
+    </td>
+</tr>
+<tr>
+    <td>
+        <table class="screen"  width="98%" align="center">
+            <tr>
+                <td colspan="8" align="center">LAB TESTS <obs id="lab" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Not done" style="radio"/></td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+                        <span id="laboratory">
+                        <table class="screen"  width="98%" align="center">
+                            <tr style="font-weight: bold;" align="center">
+                                <td height="20" colspan="2">Test</td>
+                                <td>Ordered?</td>
+                                <td>Result</td>
+                                <td colspan="2">Test</td>
+                                <td width="15%">Ordered?</td>
+                                <td>Result</td>
+                            </tr>
+                            <tr>
+                                <td height="20" colspan="2">HGB</td>
+                                <td valign="middle"><obs id="O_cbc" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1019AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/></td>
+                                <td><obs id="R_hgb" conceptId="21AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>μL</td>
+                                <td height="20" colspan="2">Glucose</td>
+                                <td width="12%"><obs id="O_glucose" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/></td>
+                                <td width="10%"><obs id="R_glucose" conceptId="887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>mg/dL</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="5" align="bottom">
+                                    <div style="float: inside;
+                                       -moz-transform: rotate(270deg);  /* FF3.5+ */
+                                       -o-transform: rotate(270deg);  /* Opera 10.5 */
+                                       -webkit-transform: rotate(270deg);  /* Saf3.1+, Chrome */
+                                       filter:  progid:DXImageTransform.Microsoft.BasicImage(rotation=3);  /* IE6,IE7 */
+                                       -ms-filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3); /* IE8 */">Liver
+                                    </div>
+                                </td>
+                                <td>ALT</td>
+                                <td><obs id="O_alt" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/></td>
+                                <td><obs id="R_alt" conceptId="654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>U/L</td>
+                                <td colspan="2">Pregnancy HCG</td>
+                                <td><obs id="O_hcg" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="45AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/></td>
+                                <td><obs id="R_hcg" conceptId="45AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Positive,Negative" answerSeparator="&lt;br /&gt;" style="radio"/></td>
+                            </tr>
+                            <tr>
+                                <td>AST<br/>(as indicated)</td>
+                                <td><obs id="O_ast" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="653AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/></td>
+                                <td><obs id="R_ast" conceptId="653AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>U/L</td>
+                                <td colspan="2">Tuberculosis test</td>
+                                <td><obs id="O_tb" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="307AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/></td>
+                                <td><obs id="R_tb" conceptId="307AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Positive,Negative" answerSeparator="&lt;br /&gt;" style="radio"/></td>
+                            </tr>
+                            <tr>
+                                <td>Total bilirubin <br/>(as indicated)</td>
+                                <td><obs id="O_bilirubin" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="655AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/></td>
+                                <td><obs id="R_bilirubin" conceptId="655AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>mg/dL</td>
+                                <td colspan="2">HIV RNA<br/>(if CHC non-participant only):</td>
+                                <td width="13%"><obs id="O_rna" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="856AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/></td>
+                                <td width="10%"><obs id="rnasign" conceptId="1305AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1302AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1301AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="&lt;,="/><obs id="R_rna" conceptId="856AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>/mL</td>
+                            </tr>
+                            <tr>
+                                <td>Direct bilirubin<br/>(as indicated)</td>
+                                <td><obs id="O_bilirubinD" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1297AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/></td>
+                                <td><obs id="R_bilirubinD" conceptId="1297AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>mg/dL</td>
+                                <td rowspan="2"  style="background-color: #696969;">
+                                    <div style="float: left;
+                                       -moz-transform: rotate(270deg);  /* FF3.5+ */
+                                       -o-transform: rotate(270deg);  /* Opera 10.5 */
+                                       -webkit-transform: rotate(270deg);  /* Saf3.1+, Chrome */
+                                       filter:  progid:DXImageTransform.Microsoft.BasicImage(rotation=3);  /* IE6,IE7 */
+                                       -ms-filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3); /* IE8 */">CD4
+                                    </div>
+                                </td>
+                                <td height="20" style="background-color: #696969;">CD4 cell count</td>
+                                <td rowspan="2" style="background-color: #696969;"><obs id="O_cd4cd8" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="854AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/></td>
+                                <td style="background-color: #696969;"><obs id="R_cd4" conceptId="5497AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>cells/uL</td>
+                            </tr>
+                            <tr>
+                                <td>Alkaline phosphatase<br/>(as indicated)</td>
+                                <td><obs id="O_phosph" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/></td>
+                                <td><obs id="R_phosph" conceptId="785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>/μL</td>
+                                <td height="20" style="background-color: #696969;">CD4%</td>
+                                <td style="background-color: #696969;"><obs id="R_cd4Percent" conceptId="730AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>%</td>
+                            </tr>
+                            <tr>
+                                <td height="20" colspan="2">Creatinine</td>
+                                <td><obs id="O_creatinine" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="790AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/></td>
+                                <td><obs id="R_creatinine" conceptId="790AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>mg/dL</td>
+                                <td colspan="2">Optional: Malaria</td>
+                                <td><obs id="O_malaria" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="32AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/></td>
+                                <td><obs id="R_malaria" conceptId="32AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Positive,Negative" answerSeparator="&lt;br /&gt;" style="radio"/></td>
+                            </tr>
+                            <tr>
+                                <td height="20" colspan="2">Other:</td>
+                                <td>Yes No</td>
+                                <td></td>
+                                <td colspan="2">Other:</td>
+                                <td>Yes No</td>
+                                <td></td>
+                            </tr>
+                        </table>
+                        </span>
+    </td>
+</tr>
+<tr>
+    <td>
+        <table>
+            <td>Next scheduled visit: <obs id="tca" conceptId="5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" allowFutureDates="true"/></td>
+            <tr>
+                <td></td>
+                <td align="right">
+
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+        <table width="100%">
+            <tr>
+                <td> <a href="#page2">&lt;- Previous Page</a></td>
+                <td> <a href="#page1">Page 1</a></td>
+                <td><a href="#page2">Page 2</a></td>
+                <td><b>Page 3</b></td>
+                <td> Next Page -&gt;</td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td style="text-align:center;">
+        <div class="ke-form-buttons">
+            <submit />
+        </div>
+    </td>
+</tr>
+<table>
+    <tr>
+        <td style="font-style: italic;">Version 2.0; 12 December 2013</td>
+    </tr>
+</table>
+</tbody>
+</table>
+</div>
+</htmlform>

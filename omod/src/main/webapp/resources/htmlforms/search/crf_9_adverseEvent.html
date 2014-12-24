@@ -1,0 +1,163 @@
+<!--
+      ~ The contents of this file are subject to the OpenMRS Public License
+      ~ Version 1.0 (the "License"); you may not use this file except in
+      ~ compliance with the License. You may obtain a copy of the License at
+      ~ http://license.openmrs.org
+      ~
+      ~ Software distributed under the License is distributed on an "AS IS"
+      ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+      ~ License for the specific language governing rights and limitations
+      ~ under the License.
+      ~
+      ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+    -->
+<htmlform>
+
+    <style type="text/css">
+        table.screen {
+            border-collapse: collapse;
+        }
+        table.screen > tbody > tr > td, table.screen > tbody > tr > th {
+            border: 1px solid black;
+            vertical-align: baseline;
+            padding: 4px;
+        }
+    </style>
+
+    <div style="display:none">
+        <encounterProvider default="ae01b8ff-a4cc-4012-bcf7-72359e852e14" />
+    </div>
+    <div class="ke-form-header">
+        <table style="width: 100%">
+            <tr>
+                <td>Date: <encounterDate id="encounter-date" showTime="false"/></td>
+                <td>Enrolled at: <encounterLocation id="site" default="GlobalProperty:kenyaemr.defaultLocation"/></td>
+            </tr>
+        </table>
+
+    </div>
+    <div class="ke-form-content">
+        <table class="screen" align="center" width="970px">
+
+        <tbody>
+        <tr>
+            <td style="background-color: #696969; color: #ffffff;">
+                <a name="page1"></a>
+                SEARCH Hihg CD4+ ART Delivery - ADVERSE EVENT FORM
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table width="100%">
+                    <td width="25%"></td>
+                    <td></td>
+                    <td rowspan="2" width="35%">Participant initials:<lookup class="value" expression="patient.personName"/></td>
+                    <td style="background-color:lightcyan;">Clinic ID:<lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('Faces ID') ) $patId #end "/></td>
+                    <tr>
+                        <td style="background-color:lightcyan;">SEARCH ID:<lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('SEARCH ID') ) $patId #end "/></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="background-color: #696969; color: #ffffff;" align="center">
+                <strong>ADVERSE EVENT FORM</strong> RECORD ONLY GRADE 3 AND 4 AE’S and SERIOUS ADVERSE EVENTS (SAE’S)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="screen"  width="98%" align="center">
+                    <tr style="background-color: #696969; font-weight: bold; font-style: italic;">
+                        <td colspan="13">To be completed by study clinician on date event recorded</td>
+                        <td colspan="5">To be completed by clinical officer</td>
+                    </tr>
+                    <tr style="font-weight: bold;">
+                        <td rowspan="2">Position</td>
+                        <td rowspan="2">Event</td>
+                        <td rowspan="2">AE<br/>Code</td>
+                        <td rowspan="2">Start date</td>
+                        <td rowspan="2">Date event<br/>recorded</td>
+                        <td rowspan="2">Max Severity<sup>*</sup></td>
+                        <td colspan="6">Relationship to Study Drug<sup>§</sup> Enter ART</td>
+                        <td rowspan="2">SAE<br/>(Y/N)</td>
+                        <td rowspan="2">Un-<br/>expect.<br/>(Y/N)</td>
+                        <td colspan="3">Event Reported?(Y/N)</td>
+                        <td rowspan="2">Outcome<sup>#</sup></td>
+                        <td rowspan="2">Stop date</td>
+                    </tr>
+                    <tr style="background-color: #696969; font-weight: bold; font-style: italic;">
+                        <td><obs id="arv1" conceptId="1000129FACES_FACES_FACES_FACES_FACES"/></td>
+                        <td><obs id="arv2" conceptId="1000130FACES_FACES_FACES_FACES_FACES"/></td>
+                        <td><obs id="arv3" conceptId="1000131FACES_FACES_FACES_FACES_FACES"/></td>
+                        <td><obs id="arv4" conceptId="1000159FACES_FACES_FACES_FACES_FACES"/></td>
+                        <td><obs id="arv5" conceptId="1000160FACES_FACES_FACES_FACES_FACES"/></td>
+                        <td><obs id="arv6" conceptId="1000161FACES_FACES_FACES_FACES_FACES"/></td>
+                        <td>UG</td>
+                        <td>KE</td>
+                        <td>US</td>
+                    </tr>
+                    <repeat>
+                        <template>
+                            <obsgroup groupingConceptId="120214AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                                <tr>
+                                    <td><obs conceptId="1639AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="numeric"/> </td>		<!--Position-->
+                                    <td><obs id="ae" conceptId="160759AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="dropdown"/></td>
+                                    <td><obs id="aeCode" conceptId="161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
+                                    <td><obs id="startDate" conceptId="162601AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
+                                    <td><obs id="RecordDate" conceptId="160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
+                                    <td><obs id="severity" conceptId="162642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,155136AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,160432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="1 = mild,2=moderate,3 = severe,4 = life-threatening,5 = death" answerSeparator="&lt;br /&gt;" style="dropdown"/></td>
+                                    <td><obs id="relation1" conceptId="1000141FACES_FACES_FACES_FACES_FACES" answerConceptIds="159421AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,159420AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,159405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,159419AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,159407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1000135FACES_FACES_FACES_FACES_FACES,1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="1=definitely related,2=probably related,3=possibly related,4=unlikely related,5=not related,6=pending,N/A=not on drug" style="dropdown"/></td>
+                                    <td><obs id="relation2" conceptId="1000142FACES_FACES_FACES_FACES_FACES" answerConceptIds="159421AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,159420AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,159405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,159419AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,159407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1000135FACES_FACES_FACES_FACES_FACES,1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="1=definitely related,2=probably related,3=possibly related,4=unlikely related,5=not related,6=pending,N/A=not on drug" style="dropdown"/></td>
+                                    <td><obs id="relation3" conceptId="1000143FACES_FACES_FACES_FACES_FACES" answerConceptIds="159421AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,159420AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,159405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,159419AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,159407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1000135FACES_FACES_FACES_FACES_FACES,1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="1=definitely related,2=probably related,3=possibly related,4=unlikely related,5=not related,6=pending,N/A=not on drug" style="dropdown"/></td>
+                                    <td><obs id="relation4" conceptId="1000144FACES_FACES_FACES_FACES_FACES" answerConceptIds="159421AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,159420AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,159405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,159419AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,159407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1000135FACES_FACES_FACES_FACES_FACES,1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="1=definitely related,2=probably related,3=possibly related,4=unlikely related,5=not related,6=pending,N/A=not on drug" style="dropdown"/></td>
+                                    <td><obs id="relation5" conceptId="1000145FACES_FACES_FACES_FACES_FACES" answerConceptIds="159421AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,159420AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,159405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,159419AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,159407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1000135FACES_FACES_FACES_FACES_FACES,1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="1=definitely related,2=probably related,3=possibly related,4=unlikely related,5=not related,6=pending,N/A=not on drug" style="dropdown"/></td>
+                                    <td><obs id="relation6" conceptId="1000146FACES_FACES_FACES_FACES_FACES" answerConceptIds="159421AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,159420AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,159405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,159419AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,159407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1000135FACES_FACES_FACES_FACES_FACES,1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="1=definitely related,2=probably related,3=possibly related,4=unlikely related,5=not related,6=pending,N/A=not on drug" style="dropdown"/></td>
+                                    <td><obs id="sae" conceptId="1000149FACES_FACES_FACES_FACES_FACES" answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Y,N" style="dropdown"/></td>
+                                    <td><obs id="expected" conceptId="1000151FACES_FACES_FACES_FACES_FACES" answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Y,N" style="dropdown"/></td>
+                                    <td><obs id="report1" conceptId="1000109FACES_FACES_FACES_FACES_FACES" answerConceptIds="1000163FACES_FACES_FACES_FACES_FACES,1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Y,N" style="checkbox"/></td> <!-- report to Uganda  -->
+                                    <td><obs id="report2" conceptId="1000109FACES_FACES_FACES_FACES_FACES" answerConceptIds="1000162FACES_FACES_FACES_FACES_FACES,1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Y,N" style="checkbox"/></td> <!-- -- report to Kenya -->
+                                    <td><obs id="report3" conceptId="1000109FACES_FACES_FACES_FACES_FACES" answerConceptIds="1000164FACES_FACES_FACES_FACES_FACES,1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Y,N" style="checkbox"/></td> <!-- report to US -->
+                                    <td><obs id="outcome" conceptId="1000133FACES_FACES_FACES_FACES_FACES" answerConceptIds="159791AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,119844AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,843AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1000140FACES_FACES_FACES_FACES_FACES,160432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA," answerLabels="1 = recovered/resolved,2 = recovering/resolving,3 = not recovered/not resolved,4 = recovered/resolved with sequelae,5 = death,6 = unknown" style="dropdown"/></td>
+                                    <td><obs id="stopDate" conceptId="162602AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
+                                </tr>
+                            </obsgroup>
+                        </template>
+                        <render n="1" concept=" " />
+                        <render n="2" concept=" " />
+                        <render n="3" concept=" " />
+                        <render n="4" concept=" " />
+                        <render n="5" concept=" " />
+                        <render n="6" concept=" " />
+                        <render n="7" concept=" " />
+                        <render n="8" concept=" " />
+                        <render n="9" concept=" " />
+                        <render n="10" concept=" " />
+                    </repeat>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <td></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align:center;">
+                <div class="ke-form-buttons">
+                    <submit />
+                </div>
+            </td>
+        </tr>
+        <table>
+            <tr>
+                <td style="font-style: italic;">Version 1.1; 25 June 2013</td>
+            </tr>
+        </table>
+        </tbody>
+    </table>
+        </div>
+</htmlform>

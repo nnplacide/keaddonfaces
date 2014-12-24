@@ -32,6 +32,14 @@ public class FacesMetadata extends AbstractMetadataBundle {
         public static final String COUNSELLING = "6eb40e54-1a73-4adf-be2a-464731cf842b";
         public static final String CONGENITAL_SCREENING = "f5768c5a-a543-4da9-a4b1-aee21406a39f";
         public static final String SCREENING_VISIT = "855ca272-c4d3-4cec-8e42-bd9d37531b00";
+        public static final String CHECKLIST_VISIT = "11e1c136-f17d-46bd-82c0-99e3a5b6cbab";
+        public static final String WEEK0_VISIT = "1da99510-c983-44ec-9c39-96dc4ef20f3e";
+        public static final String WEEK4_VISIT = "46106ab5-56aa-4bba-943b-3d75e561ac63";
+        public static final String SEARCHRFV = "802ad8cf-1afa-4d89-aa30-b3cae0de1b15";
+        public static final String SUBJECTWITHDRAWAL = "a02a55d3-dcbd-4d90-80c5-88791362ed64";
+        public static final String ADVERSE_EVENT = "90426a8e-0c5a-43bc-81f8-6d3f874c81ff";
+
+
        // public static final String DISCONTINUATION = "2bdada65-4c72-4a48-8730-859890e25cee";
        // public static final String EXAMPLE = "d69dedbd-3933-4e44-8292-bea939ce980a";
         //public static final String PSC_INITIAL = "3e87713a-1ccb-4ca3-a5eb-5a962f63d1b0";
@@ -42,6 +50,7 @@ public class FacesMetadata extends AbstractMetadataBundle {
 
     public static class _Form {
 
+        //form uuids
         public static final String ADHERENCE = "db64f32b-1ce5-4767-a0d1-45eeb6b81eb8";
         public static final String LAB_FORM = "82cffa17-55db-4fb9-ab88-983ae26979d8";
         public static final String ART_ELIBILITY_FORM = "fc1b79a3-de7c-4423-81f4-9b61cbd4b2ef";
@@ -52,6 +61,15 @@ public class FacesMetadata extends AbstractMetadataBundle {
         public static final String TB_ICF_FORM = "d292bba8-f559-4948-866e-8b502eb12c68";
         public static final String CONGENITAL_SCREENING_FORM = "42a1122e-27bc-470a-af94-bac85d8a229f";
         public static final String CRF1_FORM = "e3bbfac4-d32f-4946-8167-eba6e9aab1aa";
+        public static final String CRF2_FORM = "2f7062a8-8a27-4a77-9803-e8a98ed280af";
+        public static final String CRF3_FORM = "44a3c3ec-01e0-4b9e-bfdb-e4267a06ee53";
+        public static final String CRF4_FORM = "75fff7d6-5366-4dff-821a-e02c5ddabb2e";
+        public static final String CRF5_FORM = "306df212-0a42-4ffa-8004-aca30262cf5b";
+        public static final String CRF6_FORM = "b8946ef2-de6d-4397-9949-3111163b2690";
+        public static final String CRF7_FORM = "edba1afb-7c79-4c8a-9634-112f9ca497e7";
+        public static final String CRF8_FORM = "83854537-abc1-4ad3-ba80-49131c7de3b0";
+        public static final String CRF9_FORM = "6aa79120-517c-4392-bf68-73269f2ca7c7";
+        public static final String CRF11_FORM = "5e61252d-6e82-445e-8f75-a1ff8e77189e";
     }
 
     public static final class _PatientIdentifierType {
@@ -77,7 +95,16 @@ public class FacesMetadata extends AbstractMetadataBundle {
        // install(encounterType("HEI Initial", "Out-patient Initial visit for HEI patients at the PSC", MchMetadata._EncounterType.HEI_INITIAL));
         //install(encounterType("HEI Followup", "Out-patient followup visit for HEI patients at the PSC", _EncounterType.HEI_FOLLOWUP));
         install(encounterType("Art Eligibility encounter", "Art Eligibility", _EncounterType.ARV_ELIGIBILITY_ENCOUNTER));
-        install(encounterType("Screening encounter", "Screening Visit", _EncounterType.SCREENING_VISIT));
+
+
+        //Search Encounter Types
+        install(encounterType("Screening Encounter", "Screening Visit", _EncounterType.SCREENING_VISIT));
+        install(encounterType("Checklist Encounter", "checklist", _EncounterType.CHECKLIST_VISIT));
+        install(encounterType("Adverse Event Encounter", "Adverse Event Encounter for study participant", _EncounterType.ADVERSE_EVENT));
+        install(encounterType("Week0 Encounter", "Enrollment Visit at Week zero", _EncounterType.WEEK0_VISIT));
+        install(encounterType("Week4 Encounter", "Followup visit for study participant at week four", _EncounterType.WEEK4_VISIT));
+        install(encounterType("Subject Withdrawal Encounter", "Subject withdrawal from study", _EncounterType.SUBJECTWITHDRAWAL));
+        install(encounterType("Search Routine Followup", "Routine followup for study participant", _EncounterType.SEARCHRFV));
 
 
         //Install forms
@@ -91,9 +118,18 @@ public class FacesMetadata extends AbstractMetadataBundle {
         install(form("Laboratory investigation form", null, CommonMetadata._EncounterType.LAB_RESULTS, "1", _Form.LAB_FORM));
         install(form("TB ICF form", null, TbMetadata._EncounterType.TB_SCREENING, "1", _Form.TB_ICF_FORM));
         install(form("Art Eligibility form", null, _EncounterType.ARV_ELIGIBILITY_ENCOUNTER, "1", _Form.ART_ELIBILITY_FORM));
-        install(form("CRF1-Screening Visit form", null, _EncounterType.SCREENING_VISIT, "1", _Form.CRF1_FORM));
 
-       // install(form("Example form", null, _EncounterType.EXAMPLE, "1", _Form.EXAMPLE));
+        //Installing SEARCH CRFs
+        install(form("CRF1-Screening Visit form", null, _EncounterType.SCREENING_VISIT, "1", _Form.CRF1_FORM));
+        install(form("CRF2-Screening Checklist form", null, _EncounterType.CHECKLIST_VISIT, "1", _Form.CRF2_FORM));
+        install(form("CRF3-Week o Enrollment", null, _EncounterType.WEEK0_VISIT, "1", _Form.CRF3_FORM));
+        install(form("CRF4-Week 4 Visit", null, _EncounterType.WEEK4_VISIT, "1", _Form.CRF4_FORM));
+        install(form("CRF5-Routine Followup", null, _EncounterType.SEARCHRFV, "1", _Form.CRF5_FORM));
+        install(form("CRF6-Clinical Officer", null, HivMetadata._EncounterType.HIV_CONSULTATION, "1", _Form.CRF6_FORM));
+        install(form("CRF7-Diagnosis", null, HivMetadata._EncounterType.HIV_CONSULTATION, "1", _Form.CRF7_FORM));
+        install(form("CRF8-ART Initiate or Change", null, HivMetadata._EncounterType.HIV_CONSULTATION, "1", _Form.CRF8_FORM));
+        install(form("CRF9-Adverse Event", null, _EncounterType.ADVERSE_EVENT, "1", _Form.CRF9_FORM));
+        install(form("CRF11-Subject Withdrawal", null, _EncounterType.SUBJECTWITHDRAWAL, "1", _Form.CRF11_FORM));
 
         //update Identifiers
         install(patientIdentifierType("Patient Clinic Number", "Assigned to the patient at a clinic service (not globally unique)",

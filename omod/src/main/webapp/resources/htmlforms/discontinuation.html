@@ -452,7 +452,7 @@ jq(function() {
 <div class="ke-form-header">
     <table style="width: 100%">
         <tr>
-            <td>Date: <encounterDate id="encounter-date" showTime="false"/></td>
+            <td>Date: <encounterDate id="encounter-date" showTime="true"/></td>
             <td>Enrolled at: <encounterLocation id="site" default="GlobalProperty:kenyaemr.defaultLocation"/></td>
         </tr>
     </table>
@@ -590,28 +590,42 @@ jq(function() {
                 <td>Estimated Date of Death<obs conceptId="1544AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" id="estimateddate"/></td>
             </tr>
             <tr><td colspan="2">
-                Cause of Death:
-                <repeat>
-                    <template>
-                        <table>
-                            <tr>
-                                <td>
-                                    <obs id="cod" conceptId="1599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-                                         answerConceptIds="115835AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,102AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,116128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5041AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,112141AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,86AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,155010AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,114100AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,84AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,125561AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,137793AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1603AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1000071FACES_FACES_FACES_FACES_FACES,1000072FACES_FACES_FACES_FACES_FACES,1000073FACES_FACES_FACES_FACES_FACES,1000074FACES_FACES_FACES_FACES_FACES,1000075FACES_FACES_FACES_FACES_FACES,5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="dropdown"/>
-                                </td>
-                            </tr>
-                        </table>
-                    </template>
-                    <render n="1" concept=""/>
-                    <render n="2" concept=""/>
-                    <render n="3" concept=""/>
-                </repeat>
-                Death Related to HIV:
-                <obs conceptId="162574AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="checkbox" id="cause_1"/>
-                <obs conceptId="162574AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="162573AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Possibly" style="checkbox" id="cause_2"/>
-                <obs conceptId="162574AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="No" style="checkbox" id="cause_3"/>
-                <obs conceptId="162574AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Unknown" style="checkbox" id="cause_4"/>
+                <table>
+                    <tr>
+                        <td>
+                            Cause of Death:
+                            <repeat>
+                                <template>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <obs id="cod" conceptId="1599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerConceptIds="115835AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,102AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,116128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5041AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,112141AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,86AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,155010AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,114100AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,84AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,125561AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,137793AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1603AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1000071FACES_FACES_FACES_FACES_FACES,1000072FACES_FACES_FACES_FACES_FACES,1000073FACES_FACES_FACES_FACES_FACES,1000074FACES_FACES_FACES_FACES_FACES,1000075FACES_FACES_FACES_FACES_FACES,5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="dropdown"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </template>
+                                <render n="1" concept=""/>
+                                <render n="2" concept=""/>
+                                <render n="3" concept=""/>
+                            </repeat>
 
+                        </td>
+                        <td style="vertical-align: text-top; text-align: right;">
+                            <obs conceptId="1599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  answerConceptId="1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"   style="checkbox"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            Death Related to HIV:
+                            <obs conceptId="162574AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="checkbox" id="cause_1"/>
+                            <obs conceptId="162574AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="162573AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Possibly" style="checkbox" id="cause_2"/>
+                            <obs conceptId="162574AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="No" style="checkbox" id="cause_3"/>
+                            <obs conceptId="162574AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Unknown" style="checkbox" id="cause_4"/>
+
+                        </td>
+                    </tr>
+                </table>
             </td>
             </tr>
             <tr>
