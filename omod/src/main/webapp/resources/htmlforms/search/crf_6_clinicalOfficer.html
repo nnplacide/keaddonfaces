@@ -50,6 +50,7 @@ var RNA_CONCEPT_ID = 856;
 var MALARIA_CONCEPT_ID = 32;
 var RETURN_CONCEPT_ID = 159490;
 var HOSPITALI_CONCEPT_ID = 1794;
+var ABNORMAL_CONCEPT_ID = 1116;
 
 
 /* Skipping Patterns and dropped fields*/
@@ -58,13 +59,13 @@ function onSYMPTChange()
 {
     if (getValue('sympt.value')== NO_CONCEPT_ID)
     {
-        $j('#symptoms').hide();
-        $j('#sever').hide();
+        jq('#symptoms').hide();
+        jq('#sever').hide();
     }
     else
     {
-        $j('#symptoms').hide();
-        $j('#sever').hide();
+        jq('#symptoms').hide();
+        jq('#sever').hide();
     }
 }
 
@@ -72,21 +73,21 @@ function onHOSPChange()
 {
     if (getValue('hosp.value')== YES_CONCEPT_ID)
     {
-        $j('#hospDays').show();
-        $j('#hospLocation').show();
-        $j('#hospReason').show();
+        jq('#hospDays').show();
+        jq('#hospLocation').show();
+        jq('#hospReason').show();
     }
     else if (getValue('hosp.value')== NO_CONCEPT_ID)
     {
-        $j('#hospDays').hide();
-        $j('#hospLocation').hide();
-        $j('#hospReason').hide();
+        jq('#hospDays').hide();
+        jq('#hospLocation').hide();
+        jq('#hospReason').hide();
     }
     else
     {
-        $j('#hospDays').hide();
-        $j('#hospLocation').hide();
-        $j('#hospReason').hide();
+        jq('#hospDays').hide();
+        jq('#hospLocation').hide();
+        jq('#hospReason').hide();
     }
 }
 
@@ -94,11 +95,11 @@ function onASSESSChange()
 {
     if (getValue('assess.value')== ABNORMAL_CONCEPT_ID)
     {
-        $j('#assessment').hide();
+        jq('#assessment').hide();
     }
     else
     {
-        $j('#assessment').hide();
+        jq('#assessment').hide();
     }
 }
 
@@ -106,15 +107,15 @@ function onWHO234Change()
 {
     if (getValue('who234.value')== YES_CONCEPT_ID)
     {
-        $j('#who234disease').show();
+        jq('#who234disease').show();
     }
     else if (getValue('who234.value')== NO_CONCEPT_ID)
     {
-        $j('#who234disease').hide();
+        jq('#who234disease').hide();
     }
     else
     {
-        $j('#who234disease').hide();
+        jq('#who234disease').hide();
     }
 }
 
@@ -123,11 +124,11 @@ function onDISPORETURNChange()
 
     if (getValue('dispoReturn.value')== RETURN_CONCEPT_ID)
     {
-        $j('#dispoReturnDate').show();
+        jq('#dispoReturnDate').show();
     }
     else
     {
-        $j('#dispoReturnDate').hide();
+        jq('#dispoReturnDate').hide();
     }
 }
 
@@ -136,11 +137,11 @@ function onDISPOHOSPChange()
 
     if (getValue('dispoHosp.value')== HOSPITALI_CONCEPT_ID)
     {
-        $j('#dispoHospLocation').show();
+        jq('#dispoHospLocation').show();
     }
     else
     {
-        $j('#dispoHospLocation').hide();
+        jq('#dispoHospLocation').hide();
     }
 }
 
@@ -148,11 +149,11 @@ function onLABChange()
 {
     if (getValue('lab.value')== NONE_CONCEPT_ID)
     {
-        $j('#laboratory').hide();
+        jq('#laboratory').hide();
     }
     else
     {
-        $j('#laboratory').show();
+        jq('#laboratory').show();
     }
 }
 
@@ -161,27 +162,27 @@ function onO_CBCChange()
 
     if (getValue('O_cbc.value')== NO_CONCEPT_ID)
     {
-        $j('#R_wbc').hide();
-        $j('#R_hgb').hide();
-        $j('#R_platelet').hide();
-        $j('#R_neutrophil').hide();
-        $j('#R_neutrophilPercent').hide();
+        jq('#R_wbc').hide();
+        jq('#R_hgb').hide();
+        jq('#R_platelet').hide();
+        jq('#R_neutrophil').hide();
+        jq('#R_neutrophilPercent').hide();
     }
     else if (getValue('O_cbc.value')== CBC_CONCEPT_ID)
     {
-        $j('#R_wbc').show();
-        $j('#R_hgb').show();
-        $j('#R_platelet').show();
-        $j('#R_neutrophil').show();
-        $j('#R_neutrophilPercent').show();
+        jq('#R_wbc').show();
+        jq('#R_hgb').show();
+        jq('#R_platelet').show();
+        jq('#R_neutrophil').show();
+        jq('#R_neutrophilPercent').show();
     }
     else
     {
-        $j('#R_wbc').hide();
-        $j('#R_hgb').hide();
-        $j('#R_platelet').hide();
-        $j('#R_neutrophil').hide();
-        $j('#R_neutrophilPercent').hide();
+        jq('#R_wbc').hide();
+        jq('#R_hgb').hide();
+        jq('#R_platelet').hide();
+        jq('#R_neutrophil').hide();
+        jq('#R_neutrophilPercent').hide();
     }
 }
 
@@ -190,15 +191,15 @@ function onO_ALTChange()
 
     if (getValue('O_alt.value')== NO_CONCEPT_ID)
     {
-        $j('#R_alt').hide();
+        jq('#R_alt').hide();
     }
     else if (getValue('O_alt.value')== ALT_CONCEPT_ID)
     {
-        $j('#R_alt').show();
+        jq('#R_alt').show();
     }
     else
     {
-        $j('#R_alt').hide();
+        jq('#R_alt').hide();
     }
 }
 
@@ -207,15 +208,15 @@ function onO_ASTChange()
 
     if (getValue('O_ast.value')== NO_CONCEPT_ID)
     {
-        $j('#R_ast').hide();
+        jq('#R_ast').hide();
     }
     else if (getValue('O_ast.value')== AST_CONCEPT_ID)
     {
-        $j('#R_ast').show();
+        jq('#R_ast').show();
     }
     else
     {
-        $j('#R_ast').hide();
+        jq('#R_ast').hide();
     }
 }
 
@@ -224,15 +225,15 @@ function onO_BILIRUBINChange()
 
     if (getValue('O_bilirubin.value')== NO_CONCEPT_ID)
     {
-        $j('#R_bilirubin').hide();
+        jq('#R_bilirubin').hide();
     }
     else if (getValue('O_bilirubin.value')== BILIRUBIN_CONCEPT_ID)
     {
-        $j('#R_bilirubin').show();
+        jq('#R_bilirubin').show();
     }
     else
     {
-        $j('#R_bilirubin').hide();
+        jq('#R_bilirubin').hide();
     }
 }
 
@@ -241,15 +242,15 @@ function onO_BILIRUBINDChange()
 
     if (getValue('O_bilirubinD.value')== NO_CONCEPT_ID)
     {
-        $j('#R_bilirubinD').hide();
+        jq('#R_bilirubinD').hide();
     }
     else if (getValue('O_bilirubinD.value')== BILIRUBIND_CONCEPT_ID)
     {
-        $j('#R_bilirubinD').show();
+        jq('#R_bilirubinD').show();
     }
     else
     {
-        $j('#R_bilirubinD').hide();
+        jq('#R_bilirubinD').hide();
     }
 }
 
@@ -258,15 +259,15 @@ function onO_PHOSPHChange()
 
     if (getValue('O_phosph.value')== NO_CONCEPT_ID)
     {
-        $j('#R_phosph').hide();
+        jq('#R_phosph').hide();
     }
     else if (getValue('O_phosph.value')== PHOSPH_CONCEPT_ID)
     {
-        $j('#R_phosph').show();
+        jq('#R_phosph').show();
     }
     else
     {
-        $j('#R_phosph').hide();
+        jq('#R_phosph').hide();
     }
 }
 
@@ -275,24 +276,24 @@ function onO_CD4CD8Change()
 
     if (getValue('O_cd4cd8.value')== NO_CONCEPT_ID)
     {
-        $j('#R_cd4').hide();
-        $j('#R_cd4Percent').hide();
-        $j('#R_cd8').hide();
-        $j('#R_cd8Percent').hide();
+        jq('#R_cd4').hide();
+        jq('#R_cd4Percent').hide();
+        jq('#R_cd8').hide();
+        jq('#R_cd8Percent').hide();
     }
     else if (getValue('O_cd4cd8.value')== CD4CD8_CONCEPT_ID)
     {
-        $j('#R_cd4').show();
-        $j('#R_cd4Percent').show();
-        $j('#R_cd8').show();
-        $j('#R_cd8Percent').show();
+        jq('#R_cd4').show();
+        jq('#R_cd4Percent').show();
+        jq('#R_cd8').show();
+        jq('#R_cd8Percent').show();
     }
     else
     {
-        $j('#R_cd4').hide();
-        $j('#R_cd4Percent').hide();
-        $j('#R_cd8').hide();
-        $j('#R_cd8Percent').hide();
+        jq('#R_cd4').hide();
+        jq('#R_cd4Percent').hide();
+        jq('#R_cd8').hide();
+        jq('#R_cd8Percent').hide();
     }
 }
 
@@ -301,24 +302,24 @@ function onO_SERUMChange()
 
     if (getValue('O_serum.value')== NO_CONCEPT_ID)
     {
-        $j('#R_sodium').hide();
-        $j('#R_potassium').hide();
-        $j('#R_cl').hide();
-        $j('#R_co2').hide();
+        jq('#R_sodium').hide();
+        jq('#R_potassium').hide();
+        jq('#R_cl').hide();
+        jq('#R_co2').hide();
     }
     else if (getValue('O_serum.value')== SERUM_CONCEPT_ID)
     {
-        $j('#R_sodium').show();
-        $j('#R_potassium').show();
-        $j('#R_cl').show();
-        $j('#R_co2').show();
+        jq('#R_sodium').show();
+        jq('#R_potassium').show();
+        jq('#R_cl').show();
+        jq('#R_co2').show();
     }
     else
     {
-        $j('#R_sodium').hide();
-        $j('#R_potassium').hide();
-        $j('#R_cl').hide();
-        $j('#R_co2').hide();
+        jq('#R_sodium').hide();
+        jq('#R_potassium').hide();
+        jq('#R_cl').hide();
+        jq('#R_co2').hide();
     }
 }
 function onO_BUNChange()
@@ -326,15 +327,15 @@ function onO_BUNChange()
 
     if (getValue('O_bun.value')== NO_CONCEPT_ID)
     {
-        $j('#R_bun').hide();
+        jq('#R_bun').hide();
     }
     else if (getValue('O_bun.value')== BUN_CONCEPT_ID)
     {
-        $j('#R_bun').show();
+        jq('#R_bun').show();
     }
     else
     {
-        $j('#R_bun').hide();
+        jq('#R_bun').hide();
     }
 }
 
@@ -343,15 +344,15 @@ function onO_HCGChange()
 
     if (getValue('O_hcg.value')== NO_CONCEPT_ID)
     {
-        $j('#R_hcg').hide();
+        jq('#R_hcg').hide();
     }
     else if (getValue('O_hcg.value')== HCG_CONCEPT_ID)
     {
-        $j('#R_hcg').show();
+        jq('#R_hcg').show();
     }
     else
     {
-        $j('#R_hcg').hide();
+        jq('#R_hcg').hide();
     }
 }
 
@@ -360,15 +361,15 @@ function onO_CREATININEChange()
 
     if (getValue('O_creatinine.value')== NO_CONCEPT_ID)
     {
-        $j('#R_creatinine').hide();
+        jq('#R_creatinine').hide();
     }
     else if (getValue('O_creatinine.value')== CREATININE_CONCEPT_ID)
     {
-        $j('#R_creatinine').show();
+        jq('#R_creatinine').show();
     }
     else
     {
-        $j('#R_creatinine').hide();
+        jq('#R_creatinine').hide();
     }
 }
 
@@ -377,15 +378,15 @@ function onO_TBChange()
 
     if (getValue('O_tb.value')== NO_CONCEPT_ID)
     {
-        $j('#R_tb').hide();
+        jq('#R_tb').hide();
     }
     else if (getValue('O_tb.value')== TB_CONCEPT_ID)
     {
-        $j('#R_tb').show();
+        jq('#R_tb').show();
     }
     else
     {
-        $j('#R_tb').hide();
+        jq('#R_tb').hide();
     }
 }
 
@@ -394,32 +395,28 @@ function onO_MALARIAChange()
 
     if (getValue('O_malaria.value')== NO_CONCEPT_ID)
     {
-        $j('#R_malaria').hide();
+        jq('#R_malaria').hide();
     }
     else if (getValue('O_malaria.value')== MALARIA_CONCEPT_ID)
     {
-        $j('#R_malaria').show();
+        jq('#R_malaria').show();
     }
     else
     {
-        $j('#R_malaria').hide();
+        jq('#R_malaria').hide();
     }
 }
 
 function onO_GLUCOSEChange()
 {
 
-    if (getValue('O_glucose.value')== NO_CONCEPT_ID)
+    if (getValue('O_glucose.value')== GLUCOSE_CONCEPT_ID)
     {
-        $j('#R_glucose').hide();
-    }
-    else if (getValue('O_glucose.value')== GLUCOSE_CONCEPT_ID)
-    {
-        $j('#R_glucose').show();
+        jq('#R_glucose').show();
     }
     else
     {
-        $j('#R_glucose').hide();
+        jq('#R_glucose').hide();
     }
 }
 
@@ -428,42 +425,42 @@ function onO_RNAChange()
 
     if (getValue('O_rna.value')== NO_CONCEPT_ID)
     {
-        $j('#R_rna').hide();
+        jq('#R_rna').hide();
     }
     else if (getValue('O_rna.value')== RNA_CONCEPT_ID)
     {
-        $j('#R_rna').show();
+        jq('#R_rna').show();
     }
     else
     {
-        $j('#R_rna').hide();
+        jq('#R_rna').hide();
     }
 }
 
 /* Form Skipping Pattern based on the selected value*/
-$j(function(){
-    $j('#hosp input').click(onHOSPChange);
-    $j('#sympt input').click(onSYMPTChange);
-    $j('#who234 input').click(onWHO234Change);
-    $j('#assess input').click(onASSESSChange); //if the clinical assessment table is determined to be required the trigger will be shifted to #assess
-    $j('#dispoReturn input').click(onDISPORETURNChange);
-    $j('#dispoHosp input').click(onDISPOHOSPChange);
-    $j('#lab input').click(onLABChange);
-    $j('#O_cbc input').click(onO_CBCChange);
-    $j('#O_alt input').click(onO_ALTChange);
-    $j('#O_ast input').click(onO_ASTChange);
-    $j('#O_bilirubin input').click(onO_BILIRUBINChange);
-    $j('#O_bilirubinD input').click(onO_BILIRUBINDChange);
-    $j('#O_serum input').click(onO_SERUMChange);
-    $j('#O_phosph input').click(onO_PHOSPHChange);
-    $j('#O_cd4cd8 input').click(onO_CD4CD8Change);
-    $j('#O_bun input').click(onO_BUNChange);
-    $j('#O_hcg input').click(onO_HCGChange);
-    $j('#O_creatinine input').click(onO_CREATININEChange);
-    $j('#O_tb input').click(onO_TBChange);
-    $j('#O_glucose input').click(onO_GLUCOSEChange);
-    $j('#O_rna input').click(onO_RNAChange);
-    $j('#O_malaria input').click(onO_MALARIAChange);
+jq(function(){
+    jq('#hosp input').click(onHOSPChange);
+    jq('#sympt input').click(onSYMPTChange);
+    jq('#who234 input').click(onWHO234Change);
+    jq('#assess input').click(onASSESSChange); //if the clinical assessment table is determined to be required the trigger will be shifted to #assess
+    jq('#dispoReturn input').click(onDISPORETURNChange);
+    jq('#dispoHosp input').click(onDISPOHOSPChange);
+    jq('#lab input').click(onLABChange);
+    jq('#O_cbc input').click(onO_CBCChange);
+    jq('#O_alt input').click(onO_ALTChange);
+    jq('#O_ast input').click(onO_ASTChange);
+    jq('#O_bilirubin input').click(onO_BILIRUBINChange);
+    jq('#O_bilirubinD input').click(onO_BILIRUBINDChange);
+    jq('#O_serum input').click(onO_SERUMChange);
+    jq('#O_phosph input').click(onO_PHOSPHChange);
+    jq('#O_cd4cd8 input').click(onO_CD4CD8Change);
+    jq('#O_bun input').click(onO_BUNChange);
+    jq('#O_hcg input').click(onO_HCGChange);
+    jq('#O_creatinine input').click(onO_CREATININEChange);
+    jq('#O_tb input').click(onO_TBChange);
+    jq('#O_glucose input').click(onO_GLUCOSEChange);
+    jq('#O_rna input').click(onO_RNAChange);
+    jq('#O_malaria input').click(onO_MALARIAChange);
 
     /*validate Fields by avoiding invalid feed*/
 
@@ -506,12 +503,12 @@ $j(function(){
 </div>
 <div class="ke-form-content">
 
-<table class="screen" align="center" width="1000px">
+<table class="screen" align="center" width="1100px">
 <tbody>
 <tr>
     <td style="background-color: #696969; color: #ffffff;">
         <a name="page1"></a>
-        SEARCH High CD4+ ART Delivery - CLINICAL OFFICER FOLLOW-UP VISIT FORM (1)
+        CRF-6- CLINICAL OFFICER FOLLOW-UP VISIT FORM (1)
     </td>
 </tr>
 <!--
@@ -520,10 +517,17 @@ $j(function(){
         <table width="100%">
             <td rowspan="2" width="25%"></td>
             <td rowspan="2" width="25%"></td>
-            <td rowspan="2" width="35%">Participant initials:<lookup class="value" expression="patient.personName"/></td>
-            <td style="background-color:lightcyan;">Clinic ID:<lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('Faces ID') ) $patId #end "/></td>
+            <td rowspan="2" width="35%">
+                Participant initials:<lookup class="value" expression="patient.personName"/>
+            </td>
+            <td style="background-color:lightcyan;">
+                Clinic ID:<lookup class="value"
+                complexExpression="#foreach( $patId in $patientIdentifiers.get('Faces ID') ) $patId #end "/>
+            </td>
             <tr>
-                <td style="background-color:lightcyan;">SEARCH ID:<lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('SEARCH ID') ) $patId #end "/></td>
+                <td style="background-color:lightcyan;">
+                    SEARCH ID:<lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('SEARCH ID') ) $patId #end "/>
+                </td>
             </tr>
         </table>
     </td>
@@ -548,7 +552,22 @@ $j(function(){
                 <template>
                     <obsgroup id="FUvisit" groupingConceptId="31AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
                         <tr>
-                            <td><obs id="FUtype" conceptId="160530AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  answerConceptIds="160523AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,160101AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,159491AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Converted from Routine FU Visit,Unscheduled clinical officer consultation,Scheduled clinical officer visit ,Missed regular visit (indicate which missed visit),Other" answerSeparator="&lt;br /&gt;" style="dropdown"/></td>
+                            <td><obs id="FUtype"
+                                     conceptId="160530AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerConceptIds="
+										160523AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+										160101AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+										1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+										159491AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+										5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerLabels="
+										Converted from Routine FU Visit,
+										Unscheduled clinical officer consultation,
+										Scheduled clinical officer visit ,
+										Missed regular visit (indicate which missed visit),
+										Other"
+                                     answerSeparator="&lt;br /&gt;" style="dropdown"/>
+                            </td>
                             <td><obs id="FUreason" conceptId="160430AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
                         </tr>
                     </obsgroup>
@@ -571,100 +590,150 @@ $j(function(){
     <td>
         <table class="screen" width="98%" align="center">
             <tr>
-                <td colspan="8" align="center"><strong>SYMPTOM SCREEN</strong><obs id="sympt" conceptId="1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="" style="radio"/>No current symptoms <obs id="symptdone" conceptId="1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Not done" style="radio"/>..............Not done or Done</td>
+                <td colspan="10" align="center"><strong>SYMPTOM SCREEN</strong><obs id="sympt" conceptId="1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                                                    answerConceptIds="1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="" style="radio"/>No current symptoms
+                </td>
             </tr>
         </table>
     </td>
 </tr>
-<tr>
+<tr align="center">
     <td>
 	                <span id="symptoms">
-	                <table>
+                       <div style="float: left; padding-right: 2px">
+                           <table class="screen" width="98%" align="center">
+                               <obsgroup groupingConceptId="1727AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                                   <tr style="font-weight:bold;" align="center">
+                                       <td>Symptoms</td>
+                                       <td>Absent</td>
+                                       <td>Severity<sup>*</sup></td>
+                                       <td>AE Log?</td>
+                                       <td>Duration</td>
+                                       <td>Day</td>
+                                   </tr>
+                                   <repeat>
+                                       <template>
+                                           <tr>
+                                               <td><obs conceptId="1728AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                        answerConceptIds="
+												   512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												   122496AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												   832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												   114403AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												   5978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                        answerLabels="Cutaneous rash, Dyspnea, Unintentional weight loss, Pain, Nausea"
+                                                        answerSeparator="&lt;br /&gt;" style="dropdown"/>
+                                               </td>      <!-- Symptoms name column1 -->
+                                               <td><obs conceptId="1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                        answerConceptId="1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                        answerLabel="" style="checkbox"/>
+                                               </td>     <!-- Symptom Absence column2 -->
+                                               <td><obs conceptId="162642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                        answerConceptIds="
+												   1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												   1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												   1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												   155136AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                        answerLabels="1 = mild,2=moderate,3 = severe,4 = life-threatening"
+                                                        answerSeparator="&lt;br /&gt;" style="dropdown"/>
+                                               </td>      <!-- Symptom severity column3 -->
+                                               <td><obs conceptId="160029AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                        answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                        answerLabels="" style="radio"/>
+                                               </td>     <!-- Symptom AE Log column4 -->
+                                               <td><obs conceptId="1731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>     <!-- Symptom duration column5 -->
+                                               <td><obs conceptId="1732AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                        answerConceptId="1072AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel=""/>
+                                               </td>     <!-- Symptom duration type=days column6 -->
+                                           </tr>
+                                       </template>
+                                       <render n="1" concept=" " />
+                                       <render n="2" concept=" " />
+                                       <render n="3" concept=" " />
+                                       <render n="4" concept=" " />
+                                       <render n="5" concept=" " />
+                                   </repeat>
+                               </obsgroup>
+                           </table>
+                       </div>
+                    <div style="float: left">
+                        <table class="screen" width="98%" align="center">
+                            <obsgroup groupingConceptId="1727AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                                <tr style="font-weight:bold;" align="center">
+                                    <td>Symptoms</td>
+                                    <td>Absent</td>
+                                    <td>Severity<sup>*</sup></td>
+                                    <td>AE Log?</td>
+                                    <td>Duration</td>
+                                    <td>Day</td>
+                                </tr>
+                                <repeat>
+                                    <template>
+                                        <tr>
+                                            <td><obs conceptId="1728AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerConceptIds="
+												122983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												116743AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerLabels="Vomiting, Diarrhea, Insomnia, Other"
+                                                     answerSeparator="&lt;br /&gt;" style="dropdown"/></td>      <!-- Symptoms name column7 -->
+                                            <td><obs conceptId="1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerConceptId="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerLabel="" style="checkbox"/></td>     <!-- Symptom Absence column8 -->
+                                            <td><obs conceptId="162642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerConceptIds="
+												1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												162693AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerLabels="1 = mild,2=moderate,3 = severe,4 = life-threatening"
+                                                     answerSeparator="&lt;br /&gt;" style="dropdown"/></td>      <!-- Symptom severity column9 -->
+                                            <td><obs conceptId="160029AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerLabels="" style="radio"/>
+                                            </td>     <!-- Symptom AE Log column10 -->
+                                            <td><obs conceptId="1731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>     <!-- Symptom duration column11 -->
+                                            <td><obs conceptId="1732AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerConceptId="1072AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel=""/>
+                                            </td>     <!-- Symptom duration type=days column12 -->
+                                        </tr>
+                                    </template>
+                                    <render n="1" concept=" " />
+                                    <render n="2" concept=" " />
+                                    <render n="3" concept=" " />
+                                    <render n="4" concept=" " />
+                                    <render n="5" concept=" " />
+                                </repeat>
+                            </obsgroup>
+                        </table>
+                    </div>
+                </span>
+    </td>
+</tr>
+<tr>
+    <td>
+				<span id="sever">
+					<table>
                         <tr>
-                            <td>
-                                <div style="float: left; padding-right: 2px">
-                                    <table class="screen" width="98%" align="center">
-                                        <obsgroup groupingConceptId="1727AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
-                                            <tr style="font-weight:bold;" align="center">
-                                                <td>Symptoms</td>
-                                                <td>Absent</td>
-                                                <td>Severity<sup>*</sup></td>
-                                                <td>AE Log?</td>
-                                                <td>Duration<br/>(days)</td>
-                                            </tr>
-                                            <repeat>
-                                                <template>
-                                                    <tr>
-                                                        <td><obs conceptId="1728AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  answerConceptIds="512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,122496AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,114403AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Cutaneous rash, Dyspnea, Unintentional weight loss, Pain, Nausea" answerSeparator="&lt;br /&gt;" style="dropdown"/></td>      <!-- Symptoms name column1 -->
-                                                        <td><obs conceptId="1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  answerConceptIds="1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="" style="radio"/></td>     <!-- Symptom Absence column2 -->
-                                                        <td><obs conceptId="162642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  answerConceptIds="1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,155136AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="1 = mild,2=moderate,3 = severe,4 = life-threatening" answerSeparator="&lt;br /&gt;" style="dropdown"/></td>      <!-- Symptom severity column3 -->
-                                                        <td><obs conceptId="160029AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="" style="radio"/></td>     <!-- Symptom AE Log column4 -->
-                                                        <td><obs conceptId="1731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>     <!-- Symptom duration column4 -->
-                                                    </tr>
-                                                </template>
-                                                <render n="1" concept=" " />
-                                                <render n="2" concept=" " />
-                                                <render n="3" concept=" " />
-                                                <render n="4" concept=" " />
-                                                <render n="5" concept=" " />
-                                            </repeat>
-                                        </obsgroup>
-                                    </table>
-                                </div>
-                            </td>
-                            <td>
-                                <div style="float: right">
-                                    <table class="screen" width="98%" align="center">
-                                        <obsgroup groupingConceptId="159615AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
-                                            <tr style="font-weight:bold;" align="center">
-                                                <td>Symptoms</td>
-                                                <td>Absent</td>
-                                                <td>Severity<sup>*</sup></td>
-                                                <td>AE Log?</td>
-                                                <td>Duration<br/>(days)</td>
-                                            </tr>
-                                            <repeat>
-                                                <template>
-                                                    <tr>
-                                                        <td><obs conceptId="1728AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  answerConceptIds="122983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,116743AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Vomiting, Diarrhea, Insomnia, Other" answerSeparator="&lt;br /&gt;" style="dropdown"/></td>      <!-- Symptoms name column5 -->
-                                                        <td><obs conceptId="1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="" style="radio"/></td>     <!-- Symptom Absence column6 -->
-                                                        <td><obs conceptId="162642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  answerConceptIds="1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,155136AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="1 = mild,2=moderate,3 = severe,4 = life-threatening" answerSeparator="&lt;br /&gt;" style="dropdown"/></td>      <!-- Symptom severity column7 -->
-                                                        <td><obs conceptId="160029AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="" style="radio"/></td>     <!-- Symptom AE Log column4 -->
-                                                        <td><obs conceptId="1731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>     <!-- Symptom duration column8 -->
-                                                    </tr>
-                                                </template>
-                                                <render n="1" concept=" " />
-                                                <render n="2" concept=" " />
-                                                <render n="3" concept=" " />
-                                                <render n="4" concept=" " />
-                                                <render n="5" concept=" " />
-                                            </repeat>
-                                        </obsgroup>
-                                    </table>
-                                </div>
+                            <td><em>
+                                *Severity:	Rank on scale of 1-4:     1 = mild;     2 = moderate;     3 = severe;     4 = life-threatening</em>
+                                If grade 3/4 or SAE, record on Adverse Event Form
                             </td>
                         </tr>
                     </table>
-                     </span>
+				</span>
     </td>
 </tr>
 <tr>
     <td>
-                        <span id="sever">
-                            <table>
-                                <tr>
-                                    <td><em>*Severity:	Rank on scale of 1-4:     1 = mild;     2 = moderate;     3 = severe;     4 = life-threatening</em> If grade 3/4 or SAE, record on Adverse Event Form</td>
-                                </tr>
-                            </table>
-                        </span>
-    </td>
-</tr>
-<tr>
-    <td>
-        <table class="screen" align="center" width="98%">
+        <table class="screen" width="98%" align="center">
             <tr>
                 <td>Hospitalization?<br/>If yes, this is an SAE; record on Adverse Event Form</td>
-                <td><obs id="hosp" conceptId="1792AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Yes,No" style="radio"/></td>
+                <td><obs id="hosp" conceptId="1792AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerLabels="Yes,No" style="radio"/>
+                </td>
                 <td><em>If yes, # of days:</em><br/><obs id="hospDays" conceptId="1647AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
                 <td><em>Location:</em><br/><obs id="hospLocation" conceptId="1772AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="text"/></td>
                 <td><em>reasons:</em><br/><obs id="hospReason" conceptId="1655AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="text"/></td>
@@ -700,40 +769,63 @@ $j(function(){
     <td>
         <table class="screen" width="98%" align="center">
             <tr>
-                <td colspan="8" align="center"><em>CLINICAL ASSESSMENT</em><obs id="assess" conceptId="1069" answerConceptId="1116" answerLabel="" style="radio"/>No abnormal finding</td>
+                <td colspan="8" align="center"><em>CLINICAL ASSESSMENT</em><obs id="assess"
+                                                                                conceptId="1069"
+                                                                                answerConceptId="1116" answerLabel="" style="radio"/>No abnormal finding
+                </td>
             </tr>
         </table>
     </td>
 </tr>
 <tr>
     <td>
-	                <span id="assessment">
-                       <div style="float: left; padding-right: 2px">
-                           <table class="screen" width="98%" align="center">
-                               <obsgroup groupingConceptId="160168AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
-                                   <tr style="font-weight:bold;" align="center">
-                                       <td>System</td>
-                                       <td>Normal</td>
-                                       <td>Abnormal finding(s)</td>
-                                       <td>Severity<sup>*</sup></td>
-                                   </tr>
-                                   <repeat>
-                                       <template>
-                                           <tr>
-                                               <td><obs conceptId="1069AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  answerConceptIds="1122AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1124AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1071AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Throat and mouth, Heart, Lungs" answerSeparator="&lt;br /&gt;" style="dropdown"/></td>      <!-- System under review column1 -->
-                                               <td><obs conceptId="1119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="" style="radio"/></td>     <!-- is the diagnosis normal column2 -->
-                                               <td><obs conceptId="161602AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>      <!-- Diagnosis abnormality details column 3-->
-                                               <td><obs conceptId="162642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  answerConceptIds="1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,155136AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="1 = mild,2=moderate,3 = severe,4 = life-threatening" answerSeparator="&lt;br /&gt;" style="dropdown"/></td>      <!-- diagnosis severity column4 -->
-                                           </tr>
-                                       </template>
-                                       <render n="1" concept=" " />
-                                       <render n="2" concept=" " />
-                                       <render n="3" concept=" " />
-                                   </repeat>
-                               </obsgroup>
-                           </table>
-                       </div>
-                    <div style="float: left">
+				<span id="assessment">
+					<div style="float: left; padding-right: 2px">
+                        <table class="screen" width="98%" align="center">
+                            <obsgroup groupingConceptId="160168AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                                <tr style="font-weight:bold;" align="center">
+                                    <td>System</td>
+                                    <td>Normal</td>
+                                    <td>Abnormal finding(s)</td>
+                                    <td>Severity<sup>*</sup></td>
+                                </tr>
+                                <repeat>
+                                    <template>
+                                        <tr>
+                                            <td><obs conceptId="1069AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerConceptIds="
+												1122AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												1124AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												1071AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerLabels="Throat and mouth, Heart, Lungs"
+                                                     answerSeparator="&lt;br /&gt;" style="dropdown"/>
+                                            </td>      <!-- System under review column1 -->
+                                            <td><obs conceptId="162737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerConceptIds="1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerLabels="" style="radio"/>
+                                            </td>     <!-- is the diagnosis normal column2 -->
+                                            <td>
+                                                <obs conceptId="161602AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+                                            </td>      <!-- Diagnosis abnormality details column 3-->
+                                            <td><obs conceptId="162642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerConceptIds="
+												1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												155136AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerLabels="1 = mild,2=moderate,3 = severe,4 = life-threatening"
+                                                     answerSeparator="&lt;br /&gt;" style="dropdown"/>
+                                            </td>      <!-- diagnosis severity column4 -->
+                                        </tr>
+                                    </template>
+                                    <render n="1" concept=" " />
+                                    <render n="2" concept=" " />
+                                    <render n="3" concept=" " />
+                                </repeat>
+                            </obsgroup>
+                        </table>
+                    </div>
+					<div style="float: left">
                         <table class="screen" width="98%" align="center">
                             <obsgroup groupingConceptId="159947AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
                                 <tr style="font-weight:bold;" align="center">
@@ -745,10 +837,30 @@ $j(function(){
                                 <repeat>
                                     <template>
                                         <tr>
-                                            <td><obs conceptId="1069AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  answerConceptIds="1120AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1125AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Skin, Abdomen, Other" answerSeparator="&lt;br /&gt;" style="dropdown"/></td>      <!-- System under review column4 -->
-                                            <td><obs conceptId="1119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="" style="radio"/></td>     <!-- is the diagnosis normal column6 -->
-                                            <td><obs conceptId="161602AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>      <!-- Diagnosis abnormality details column 7-->
-                                            <td><obs conceptId="162642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  answerConceptIds="1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,155136AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="1 = mild,2=moderate,3 = severe,4 = life-threatening" answerSeparator="&lt;br /&gt;" style="dropdown"/></td>      <!-- diagnosis severity column8 -->
+                                            <td><obs conceptId="1069AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerConceptIds="
+												1120AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												1125AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerLabels="Skin, Abdomen, Other"
+                                                     answerSeparator="&lt;br /&gt;" style="dropdown"/>
+                                            </td>      <!-- System under review column5 -->
+                                            <td><obs conceptId="162737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerConceptIds="1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerLabels="" style="radio"/>
+                                            </td>     <!-- is the diagnosis normal column6 -->
+                                            <td>
+                                                <obs conceptId="161602AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+                                            </td>      <!-- Diagnosis abnormality details column 7-->
+                                            <td><obs conceptId="162642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerConceptIds="
+												1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												155136AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerLabels="1 = mild,2=moderate,3 = severe,4 = life-threatening"
+                                                     answerSeparator="&lt;br /&gt;" style="dropdown"/>
+                                            </td>      <!-- diagnosis severity column8 -->
                                         </tr>
                                     </template>
                                     <render n="1" concept=" " />
@@ -758,14 +870,16 @@ $j(function(){
                             </obsgroup>
                         </table>
                     </div>
-                    </span>
+				</span>
     </td>
 </tr>
 <tr>
     <td>
         <table>
             <tr>
-                <td style="font-style: italic;">*Severity:	Rank on scale of 1-4:     1 = mild;     2 = moderate;     3 = severe;     4 = life-threatening</td>
+                <td style="font-style: italic;">
+                    *Severity:	Rank on scale of 1-4:     1 = mild;     2 = moderate;     3 = severe;     4 = life-threatening
+                </td>
             </tr>
         </table>
     </td>
@@ -774,39 +888,62 @@ $j(function(){
     <td>
         <table class="screen"  width="98%" align="center">
             <tr>
-                <td width="50%" style="font-weight:bold;">WHO Stage 2, 3, 4 Illness or Targeted Medical Condition at this visit?<br/><em>Refer to Clinical Endpoints Study sheet</em></td>
-                <td width="50%" align="center"><obs id="who234" conceptId="162694AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Yes,No" style="radio"/></td>
+                <td width="50%" style="font-weight:bold;">
+                    WHO Stage 2, 3, 4 Illness or Targeted Medical Condition at this visit?<br/><em>
+                    Refer to Clinical Endpoints Study sheet</em>
+                </td>
+                <td width="50%" align="center"><obs id="who234"
+                                                    conceptId="162876AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                    answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                    answerLabels="Yes,No" style="radio"/>
+                </td>
             </tr>
         </table>
     </td>
 </tr>
 <tr>
     <td>
-                       <span id="who234disease">
-                       <table class="screen" width="98%">
-                           <tr style="font-weight:bold" align="center">
-                               <td>position</td>
-                               <td>Disease or condition</td>
-                               <td>Code</td>
-                               <td>Description of symptoms and diagnosis</td>
-                           </tr>
-                           <repeat>
-                               <template>
-                                   <obsgroup groupingConceptId="160167AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
-                                       <tr>
-                                           <td><obs conceptId="1639AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="numeric"/> </td>		<!--Position 1, 2 and 3-->
-                                           <td width="45%"><obs id="dise" conceptId="6042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="dropdown"/></td>
-                                           <td width="10%"><obs id="disecode" conceptId="161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="numeric"/></td>
-                                           <td width="45%"><obs id="disedescript" conceptId="161602AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="text"/></td>
-                                       </tr>
-                                   </obsgroup>
-                               </template>
-                               <render n="1" concept=" " />
-                               <render n="2" concept=" " />
-                               <render n="3" concept=" " />
-                           </repeat>
-                       </table>
-                        </span>
+			   <span id="who234disease">
+				   <table class="screen" width="98%">
+                       <tr style="font-weight:bold" align="center">
+                           <td>position</td>
+                           <td>Disease or condition</td>
+                           <td>Code</td>
+                           <td>Description of symptoms and diagnosis</td>
+                       </tr>
+                       <repeat>
+                           <template>
+                               <obsgroup groupingConceptId="160167AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                                   <tr>
+                                       <td>
+                                           <obs conceptId="1815AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="numeric"/>
+                                       </td>		<!--Position 1, 2 and 3-->
+                                       <td width="45%">
+                                           <obs id="dise"
+                                                conceptId="6042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                answerConceptIds="1215,5340,146299,145771,1294,1216,
+												151985,5040,158274,130021,832,111721,110170,132387,122043,
+												823,5018,145343,111103,121849,148762,143326,141623,136458,
+												136162,135761,123084,119910,119481,119288,118983,117543,116506,
+												116128,115432,115327,6032,5354,5337,5334,5048,5046,5044,5043,5044,5042,
+												5038,5035,5034,5032,5027,1249,1217,999,5339,42"
+                                                style="dropdown"/>
+                                       </td> <!--Diagnosis-->
+                                       <td width="10%">
+                                           <obs id="disecode" conceptId="161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="numeric"/>
+                                       </td> <!--Code-->
+                                       <td width="45%">
+                                           <obs id="disedescript" conceptId="161602AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="text"/>
+                                       </td> <!--Descr-->
+                                   </tr>
+                               </obsgroup>
+                           </template>
+                           <render n="1" concept=" " />
+                           <render n="2" concept=" " />
+                           <render n="3" concept=" " />
+                       </repeat>
+                   </table>
+				</span>
     </td>
 </tr>
 <tr>
@@ -817,32 +954,59 @@ $j(function(){
             </tr>
             <tr>
                 <td>No action taken, ART continuing</td>
-                <td><obs id="dispoART" conceptId="159488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1257AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="" style="radio"/></td>
+                <td><obs id="dispoART"
+                         conceptId="159488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerConceptIds="1257AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerLabels="" style="radio"/>
+                </td>
                 <td>Schedule next Routine Follow Up Visit</td>
             </tr>
             <tr>
                 <td>Study medication(s) withheld</td>
-                <td><obs id="dispoWithheld" conceptId="159488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="" style="radio"/></td>
+                <td><obs id="dispoWithheld"
+                         conceptId="159488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerConceptIds="1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerLabels="" style="radio"/>
+                </td>
                 <td>Record on ART Initiation/Change Form</td>
             </tr>
             <tr>
                 <td>Study medication(s) switched</td>
-                <td><obs id="dispoSwitch" conceptId="159488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1258AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="" style="radio"/></td>
+                <td><obs id="dispoSwitch"
+                         conceptId="159488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerConceptIds="1258AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerLabels="" style="radio"/>
+                </td>
                 <td>Record on ART Initiation/Change Form</td>
             </tr>
             <tr>
                 <td>Return for follow up Clinical Officer Visit</td>
-                <td><obs id="dispoReturn" conceptId="159488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="159490AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="" style="radio"/></td>
-                <td>Date of return visit:<obs id="dispoReturnDate" conceptId="5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" allowFutureDates="true"/></td>
+                <td><obs id="dispoReturn"
+                         conceptId="159488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerConceptIds="159490AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerLabels="" style="radio"/></td>
+                <td>Date of return visit:<obs id="dispoReturnDate"
+                                              conceptId="5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" allowFutureDates="true"/>
+                </td>
             </tr>
             <tr>
                 <td>Requires hospitalization</td>
-                <td><obs id="dispoHosp" conceptId="159488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1794AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="" style="radio"/></td>
-                <td>Hospital or clinic participant admitted to:<obs id="dispoHospLocation" conceptId="161550AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="text"/></td>
+                <td><obs id="dispoHosp"
+                         conceptId="159488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerConceptIds="1794AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerLabels="" style="radio"/>
+                </td>
+                <td>Hospital or clinic participant admitted to:<obs id="dispoHospLocation"
+                                                                    conceptId="161550AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="text"/>
+                </td>
             </tr>
             <tr>
                 <td>Participant discontinued from study</td>
-                <td><obs id="dispoDiscont" conceptId="159488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="160121AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="" style="radio"/></td>
+                <td><obs id="dispoDiscont"
+                         conceptId="159488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerConceptIds="160121AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerLabels="" style="radio"/>
+                </td>
                 <td>Complete Participant Withdrawal Form</td>
             </tr>
         </table>
@@ -871,106 +1035,147 @@ $j(function(){
     <td>
         <table class="screen"  width="98%" align="center">
             <tr>
-                <td colspan="8" align="center">LAB TESTS <obs id="lab" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Not done" style="radio"/></td>
+                <td colspan="8" align="center">LAB TESTS <obs id="lab" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                              answerConceptIds="1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                              answerLabels="Not done" style="radio"/>
+                </td>
             </tr>
         </table>
     </td>
 </tr>
 <tr>
     <td>
-                        <span id="laboratory">
-                        <table class="screen"  width="98%" align="center">
-                            <tr style="font-weight: bold;" align="center">
-                                <td height="20" colspan="2">Test</td>
-                                <td>Ordered?</td>
-                                <td>Result</td>
-                                <td colspan="2">Test</td>
-                                <td width="15%">Ordered?</td>
-                                <td>Result</td>
-                            </tr>
-                            <tr>
-                                <td height="20" colspan="2">HGB</td>
-                                <td valign="middle"><obs id="O_cbc" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1019AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/></td>
-                                <td><obs id="R_hgb" conceptId="21AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>μL</td>
-                                <td height="20" colspan="2">Glucose</td>
-                                <td width="12%"><obs id="O_glucose" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/></td>
-                                <td width="10%"><obs id="R_glucose" conceptId="887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>mg/dL</td>
-                            </tr>
-                            <tr>
-                                <td rowspan="5" align="bottom">
-                                    <div style="float: inside;
-                                       -moz-transform: rotate(270deg);  /* FF3.5+ */
-                                       -o-transform: rotate(270deg);  /* Opera 10.5 */
-                                       -webkit-transform: rotate(270deg);  /* Saf3.1+, Chrome */
-                                       filter:  progid:DXImageTransform.Microsoft.BasicImage(rotation=3);  /* IE6,IE7 */
-                                       -ms-filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3); /* IE8 */">Liver
-                                    </div>
-                                </td>
-                                <td>ALT</td>
-                                <td><obs id="O_alt" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/></td>
-                                <td><obs id="R_alt" conceptId="654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>U/L</td>
-                                <td colspan="2">Pregnancy HCG</td>
-                                <td><obs id="O_hcg" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="45AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/></td>
-                                <td><obs id="R_hcg" conceptId="45AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Positive,Negative" answerSeparator="&lt;br /&gt;" style="radio"/></td>
-                            </tr>
-                            <tr>
-                                <td>AST<br/>(as indicated)</td>
-                                <td><obs id="O_ast" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="653AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/></td>
-                                <td><obs id="R_ast" conceptId="653AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>U/L</td>
-                                <td colspan="2">Tuberculosis test</td>
-                                <td><obs id="O_tb" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="307AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/></td>
-                                <td><obs id="R_tb" conceptId="307AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Positive,Negative" answerSeparator="&lt;br /&gt;" style="radio"/></td>
-                            </tr>
-                            <tr>
-                                <td>Total bilirubin <br/>(as indicated)</td>
-                                <td><obs id="O_bilirubin" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="655AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/></td>
-                                <td><obs id="R_bilirubin" conceptId="655AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>mg/dL</td>
-                                <td colspan="2">HIV RNA<br/>(if CHC non-participant only):</td>
-                                <td width="13%"><obs id="O_rna" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="856AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/></td>
-                                <td width="10%"><obs id="rnasign" conceptId="1305AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1302AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1301AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="&lt;,="/><obs id="R_rna" conceptId="856AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>/mL</td>
-                            </tr>
-                            <tr>
-                                <td>Direct bilirubin<br/>(as indicated)</td>
-                                <td><obs id="O_bilirubinD" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1297AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/></td>
-                                <td><obs id="R_bilirubinD" conceptId="1297AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>mg/dL</td>
-                                <td rowspan="2"  style="background-color: #696969;">
-                                    <div style="float: left;
-                                       -moz-transform: rotate(270deg);  /* FF3.5+ */
-                                       -o-transform: rotate(270deg);  /* Opera 10.5 */
-                                       -webkit-transform: rotate(270deg);  /* Saf3.1+, Chrome */
-                                       filter:  progid:DXImageTransform.Microsoft.BasicImage(rotation=3);  /* IE6,IE7 */
-                                       -ms-filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3); /* IE8 */">CD4
-                                    </div>
-                                </td>
-                                <td height="20" style="background-color: #696969;">CD4 cell count</td>
-                                <td rowspan="2" style="background-color: #696969;"><obs id="O_cd4cd8" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="854AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/></td>
-                                <td style="background-color: #696969;"><obs id="R_cd4" conceptId="5497AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>cells/uL</td>
-                            </tr>
-                            <tr>
-                                <td>Alkaline phosphatase<br/>(as indicated)</td>
-                                <td><obs id="O_phosph" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/></td>
-                                <td><obs id="R_phosph" conceptId="785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>/μL</td>
-                                <td height="20" style="background-color: #696969;">CD4%</td>
-                                <td style="background-color: #696969;"><obs id="R_cd4Percent" conceptId="730AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>%</td>
-                            </tr>
-                            <tr>
-                                <td height="20" colspan="2">Creatinine</td>
-                                <td><obs id="O_creatinine" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="790AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/></td>
-                                <td><obs id="R_creatinine" conceptId="790AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>mg/dL</td>
-                                <td colspan="2">Optional: Malaria</td>
-                                <td><obs id="O_malaria" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="32AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/></td>
-                                <td><obs id="R_malaria" conceptId="32AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Positive,Negative" answerSeparator="&lt;br /&gt;" style="radio"/></td>
-                            </tr>
-                            <tr>
-                                <td height="20" colspan="2">Other:</td>
-                                <td>Yes No</td>
-                                <td></td>
-                                <td colspan="2">Other:</td>
-                                <td>Yes No</td>
-                                <td></td>
-                            </tr>
-                        </table>
-                        </span>
+				<span id="laboratory">
+					<table class="screen"  width="98%" align="center">
+                        <tr style="font-weight: bold;" align="center">
+                            <td height="20" colspan="2">Test</td>
+                            <td>Ordered?</td>
+                            <td>Result</td>
+                            <td colspan="2">Test</td>
+                            <td width="15%">Ordered?</td>
+                            <td>Result</td>
+                        </tr>
+                        <tr>
+                            <td height="20" colspan="2">HGB</td>
+                            <td valign="middle"><obs id="O_cbc" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerConceptId="1019AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/>
+                            </td>
+                            <td><obs id="R_hgb" conceptId="21AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>μL</td>
+                            <td height="20" colspan="2">Glucose</td>
+                            <td width="12%"><obs id="O_glucose" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                 answerConceptId="887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/>
+                            </td>
+                            <td width="10%"><obs id="R_glucose" conceptId="887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>mg/dL</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="5" align="bottom">
+                                <div style="float: inside;
+								   -moz-transform: rotate(270deg);  /* FF3.5+ */
+								   -o-transform: rotate(270deg);  /* Opera 10.5 */
+								   -webkit-transform: rotate(270deg);  /* Saf3.1+, Chrome */
+								   filter:  progid:DXImageTransform.Microsoft.BasicImage(rotation=3);  /* IE6,IE7 */
+								   -ms-filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3); /* IE8 */">Liver
+                                </div>
+                            </td>
+                            <td>ALT</td>
+                            <td><obs id="O_alt" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerConceptId="654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/>
+                            </td>
+                            <td><obs id="R_alt" conceptId="654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>U/L</td>
+                            <td colspan="2">Pregnancy HCG</td>
+                            <td><obs id="O_hcg" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerConceptId="45AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/>
+                            </td>
+                            <td><obs id="R_hcg" conceptId="45AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerConceptIds="703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerLabels="Positive,Negative" answerSeparator="&lt;br /&gt;" style="radio"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>AST<br/>(as indicated)</td>
+                            <td><obs id="O_ast" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerConceptId="653AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/>
+                            </td>
+                            <td><obs id="R_ast" conceptId="653AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>U/L</td>
+                            <td colspan="2">Tuberculosis test</td>
+                            <td><obs id="O_tb" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerConceptId="307AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/>
+                            </td>
+                            <td><obs id="R_tb" conceptId="307AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerConceptIds="703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerLabels="Positive,Negative" answerSeparator="&lt;br /&gt;" style="radio"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Total bilirubin <br/>(as indicated)</td>
+                            <td><obs id="O_bilirubin" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerConceptId="655AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/>
+                            </td>
+                            <td><obs id="R_bilirubin" conceptId="655AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>mg/dL</td>
+                            <td colspan="2">HIV RNA<br/>(if CHC non-participant only):</td>
+                            <td width="13%"><obs id="O_rna" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                 answerConceptId="856AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/>
+                            </td>
+                            <td width="10%"><obs id="rnasign" conceptId="1305AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                 answerConceptIds="1302AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1301AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                 answerLabels="&lt;,="/><obs id="R_rna" conceptId="856AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>/mL
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Direct bilirubin<br/>(as indicated)</td>
+                            <td><obs id="O_bilirubinD" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerConceptId="1297AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/>
+                            </td>
+                            <td><obs id="R_bilirubinD" conceptId="1297AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>mg/dL</td>
+                            <td rowspan="2"  style="background-color: #696969;">
+                                <div style="float: left;
+								   -moz-transform: rotate(270deg);  /* FF3.5+ */
+								   -o-transform: rotate(270deg);  /* Opera 10.5 */
+								   -webkit-transform: rotate(270deg);  /* Saf3.1+, Chrome */
+								   filter:  progid:DXImageTransform.Microsoft.BasicImage(rotation=3);  /* IE6,IE7 */
+								   -ms-filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3); /* IE8 */">CD4
+                                </div>
+                            </td>
+                            <td height="20" style="background-color: #696969;">CD4 cell count</td>
+                            <td rowspan="2" style="background-color: #696969;"><obs id="O_cd4cd8" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                                                    answerConceptId="854AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/>
+                            </td>
+                            <td style="background-color: #696969;"><obs id="R_cd4" conceptId="5497AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>cells/uL</td>
+                        </tr>
+                        <tr>
+                            <td>Alkaline phosphatase<br/>(as indicated)</td>
+                            <td><obs id="O_phosph" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerConceptId="785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/>
+                            </td>
+                            <td><obs id="R_phosph" conceptId="785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>/μL</td>
+                            <td height="20" style="background-color: #696969;">CD4%</td>
+                            <td style="background-color: #696969;"><obs id="R_cd4Percent" conceptId="730AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>%</td>
+                        </tr>
+                        <tr>
+                            <td height="20" colspan="2">Creatinine</td>
+                            <td><obs id="O_creatinine" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerConceptId="790AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/>
+                            </td>
+                            <td><obs id="R_creatinine" conceptId="790AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>mg/dL</td>
+                            <td colspan="2">Optional: Malaria</td>
+                            <td><obs id="O_malaria" conceptId="1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerConceptId="32AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="radio"/>
+                            </td>
+                            <td><obs id="R_malaria" conceptId="32AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerConceptIds="703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerLabels="Positive,Negative" answerSeparator="&lt;br /&gt;" style="radio"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="20" colspan="2">Other:</td>
+                            <td>Yes No</td>
+                            <td></td>
+                            <td colspan="2">Other:</td>
+                            <td>Yes No</td>
+                            <td></td>
+                        </tr>
+                    </table>
+				</span>
     </td>
 </tr>
 <tr>

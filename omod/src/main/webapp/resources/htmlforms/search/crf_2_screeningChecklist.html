@@ -31,15 +31,13 @@ var UNKNOWN_CONCEPT_ID = 1067;
 var POSITIVE_CONCEPT_ID = 703;
 var NEGATIVE_CONCEPT_ID = 664;
 var NOTDONE_CONCEPT_ID = 1402;
-var CD350G_CONCEPT_ID = 1000114;
-var CD350L_CONCEPT_ID = 1000113;
 var NOTEST_CONCEPT_ID = 1118;
 
 /* Skipping Patterns and dropped fields*/
 function onCD4L350Change()
 {
 
-    if (getValue('cd4L350.value')== CD350G_CONCEPT_ID || getValue('cd4L350.value')== CD350L_CONCEPT_ID)
+    if (getValue('cd4L350.value')== NO_CONCEPT_ID || getValue('cd4L350.value')== YES_CONCEPT_ID)
     {
         jq('#cd4').show();
     }
@@ -56,7 +54,7 @@ function onCD4L350Change()
 function onCD4G350Change()
 {
 
-    if (getValue('cd4G350.value')== CD350G_CONCEPT_ID || getValue('cd4G350.value')== CD350L_CONCEPT_ID)
+    if (getValue('cd4G350.value')== NO_CONCEPT_ID || getValue('cd4G350.value')== YES_CONCEPT_ID)
     {
         jq('#cd4').show();
     }
@@ -73,7 +71,7 @@ function onCD4G350Change()
 function onCD4NChange()
 {
 
-    if (getValue('cd4G350.value')== CD350G_CONCEPT_ID || getValue('cd4G350.value')== CD350L_CONCEPT_ID)
+    if (getValue('cd4G350.value')== NO_CONCEPT_ID || getValue('cd4G350.value')== YES_CONCEPT_ID)
     {
         jq('#cd4').show();
     }
@@ -119,12 +117,12 @@ jq(function(){
         setValue('confirmD.value', '')
     });
     getField('cd4G350.value').change(function(){
-        if(getValue('cd4G350.value')== CD350G_CONCEPT_ID)
+        if(getValue('cd4G350.value')== NO_CONCEPT_ID)
             setValue('cd4L350.value', '')
         setValue('cd4N.value', '')
     });
     getField('cd4L350.value').change(function(){
-        if(getValue('cd4L350.value')== CD350L_CONCEPT_ID)
+        if(getValue('cd4L350.value')== YES_CONCEPT_ID)
             setValue('cd4G350.value', '')
         setValue('cd4N.value', '')
     });
@@ -198,11 +196,11 @@ jq(function(){
             setValue('hivtestP.value', '')
     });
     getField('R_cd4G350.value').change(function(){
-        if(getValue('R_cd4G350.value')== CD350G_CONCEPT_ID)
+        if(getValue('R_cd4G350.value')== NO_CONCEPT_ID)
             setValue('R_cd4L350.value', '')
     });
     getField('R_cd4L350.value').change(function(){
-        if(getValue('R_cd4L350.value')== CD350L_CONCEPT_ID)
+        if(getValue('R_cd4L350.value')== YES_CONCEPT_ID)
             setValue('R_cd4G350.value', '')
     });
     getField('R_altY.value').change(function(){
@@ -267,48 +265,60 @@ jq(function(){
 </div>
 <div class="ke-form-content">
 <table class="screen" align="center" width="970px">
-    <tbody>
-    <tr>
-        <td style="background-color: #696969; color: #ffffff;">
-            <a name="page1"></a>
-            SEARCH High CD4+ ART Delivery - SCREENING AND ENROLLMENT CHECKLIST FORM
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <table width="100%">
-                <td rowspan="2" width="25%">Date review began <obs conceptId="1711AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
-                <td rowspan="2" width="25%"></td>
-                <td rowspan="2" width="35%"></td>
-                <td style="background-color:lightcyan;">Clinic ID:<lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('Faces ID') ) $patId #end "/></td>
-                <tr>
-                    <td style="background-color:lightcyan;">SEARCH ID:<lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('SEARCH ID') ) $patId #end "/></td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    <tr>
-        <td style="background-color: #696969; color: #ffffff;" align="center">
-            INITIAL SCREENING INTERVIEW
-        </td>
-    </tr>
-    <tr>
-        <td><span id="uniselect">
-                    <table width="98%" class="screen" align="center">
+<tbody>
+<tr>
+    <td style="background-color: #696969; color: #ffffff;">
+        <a name="page1"></a>
+        SEARCH High CD4+ ART Delivery - SCREENING AND ENROLLMENT CHECKLIST FORM
+    </td>
+</tr>
+<tr>
+    <td>
+        <table width="100%">
+            <td rowspan="2" width="25%">Date review began <obs conceptId="1711AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
+            <td rowspan="2" width="25%"></td>
+            <td rowspan="2" width="35%"></td>
+            <td style="background-color:lightcyan;">
+                Clinic ID:<lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('Faces ID') ) $patId #end "/>
+            </td>
+            <tr>
+                <td style="background-color:lightcyan;">
+                    SEARCH ID:<lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('SEARCH ID') ) $patId #end "/>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td style="background-color: #696969; color: #ffffff;" align="center">
+        INITIAL SCREENING INTERVIEW
+    </td>
+</tr>
+<tr>
+    <td>
+        	<span id="uniselect">
+                	<table width="98%" class="screen" align="center">
                         <tr>
                             <td colspan="4">
-                                <div style="float:left; padding-right: 5%">Gender:</div>
+                                <div style="float:left; padding-right: 5%">
+                                    Gender:
+                                </div>
                                 <div style="float:left; padding-right: 5%">
                                     <lookup class="value" expression="patient.gender" />
                                 </div>
                                 <div style="float:left">
-                                    Date Of Birth:<lookup class="value" complexExpression="#if( \$patient.birthdateEstimated ) ~#end"/> <lookup class="value" expression="patient.birthdate"/>Age: <lookup class="value" expression="patient.age"/><br/>
+                                    Date Of Birth:
+                                    <lookup class="value" complexExpression="#if( \$patient.birthdateEstimated ) ~#end"/>
+                                    <lookup class="value" expression="patient.birthdate"/>
+                                    Age: <lookup class="value" expression="patient.age"/><br/>
                                     <em>(From medical record or participant report)</em>
                                 </div>
                             </td>
                             <td colspan="2" style="font-style:italic">
                                 <div style="float:right">
-                                    When any box in the &quot;Exclude&quot; column is ticked, patient is ineligible. Complete the section and proceed to the eligibility question at the bottom. If patient not excluded, proceed to the next section.
+                                    When any box in the &quot;Exclude&quot; column is ticked, patient is ineligible.
+                                    Complete the section and proceed to the eligibility question at the bottom.
+                                    If patient not excluded, proceed to the next section.
                                 </div>
                             </td>
                         </tr>
@@ -319,153 +329,213 @@ jq(function(){
                         </tr>
                         <tr>
                             <td colspan="4">Ability and willingness to give informed written     consent/assent </td>
-                            <td width="23%"><obs id="consentY" conceptId="162696AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="checkbox"/></td>
-                            <td width="17%" style="background-color: #696969;"><obs id="consentN" conceptId="162696AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="No" style="checkbox"/></td>
+                            <td width="23%">
+                                <obs id="consentY" conceptId="162696AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerConceptId="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerLabel="Yes" style="checkbox"/>
+                            </td>
+                            <td width="17%" style="background-color: #696969;">
+                                <obs id="consentN" conceptId="162696AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerConceptId="1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="No" style="checkbox"/>
+                            </td>
                         </tr>
                         <tr>
                             <td>Confirmed HIV-1 infection:</td>
                             <td colspan="3">
-                                ●  CHC card result à NO RETEST <br/>
-                                ●  Clinic     or other non-CHC testing site à RETEST<br/>
-                                ●  New infection or never tested à RETEST</td>
+                                ●  CHC card result &#8594; NO RETEST <br/>
+                                ●  Clinic     or other non-CHC testing site &#8594; RETEST<br/>
+                                ●  New infection or never tested &#8594; RETEST</td>
                             <td width="23%">
-                                <obs id="confirmP" conceptId="159936AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>Positive by <u>CHC card</u> result<br/>
-                                <obs id="confirmD" conceptId="159936AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1402AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>No test in record or positive by <u>non-CHC testing facility</u><em>(testing done below)</em></td>
+                                <obs id="confirmP" conceptId="159936AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerConceptId="703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerLabel="" style="checkbox"/>Positive by <u>CHC card</u> result<br/>
+                                <obs id="confirmD" conceptId="159936AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerConceptId="1402AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerLabel="" style="checkbox"/>
+                                No test in record or positive by <u>non-CHC testing facility</u><em>(testing done below)</em></td>
                             <td width="17%" style="background-color: #696969;">
-                                <obs id="confirmN" conceptId="159936AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>Negative by <u>CHC card</u> result</td>
+                                <obs id="confirmN" conceptId="159936AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerConceptId="664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/>
+                                Negative by <u>CHC card</u> result</td>
                         </tr>
                         <tr>
                             <td colspan="4">CD4+ cell count within last 6 months<br/>
                                 Result (if available):____<obs id="cd4" conceptId="5497AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>_____</td>
                             <td width="23%">
-                                <obs id="cd4G350" conceptId="1941AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1000114FACES_FACES_FACES_FACES_FACES" answerLabel="&gt;350" style="checkbox"/><br/>
-                                <obs id="cd4N" conceptId="1941AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="No Test" style="checkbox"/><br/>
+                                <obs id="cd4G350" conceptId="162850AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerConceptId="1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="&gt;350" style="checkbox"/><br/>
+                                <obs id="cd4N" conceptId="162851AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerConceptId="1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="No Test" style="checkbox"/><br/>
                                 (<em>testing done below</em>)</td>
                             <td width="17%" style="background-color: #696969;">
-                                <obs id="cd4L350" conceptId="1941AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1000113FACES_FACES_FACES_FACES_FACES" answerLabel="&lt;=350" style="checkbox"/><sup>*</sup></td>
+                                <obs id="cd4L350" conceptId="162850AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerConceptId="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="&lt;=350" style="checkbox"/><sup>*</sup></td>
                         </tr>
                         <tr>
                             <td colspan="4">Willing to initiate ART</td>
-                            <td width="23%"><obs id="willY" conceptId="162695AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="checkbox"/></td>
-                            <td width="17%" style="background-color: #696969;"><obs id="willN" conceptId="162695AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="No" style="checkbox"/></td>
+                            <td width="23%"><obs id="willY" conceptId="162695AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                 answerConceptId="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="checkbox"/></td>
+                            <td width="17%" style="background-color: #696969;"><obs id="willN" conceptId="162695AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                                                    answerConceptId="1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="No" style="checkbox"/></td>
                         </tr>
                         <tr>
                             <td colspan="4">Ability to swallow oral medications</td>
-                            <td width="23%"><obs id="swallowY" conceptId="1000105FACES_FACES_FACES_FACES_FACES" answerConceptId="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="checkbox"/></td>
-                            <td width="17%" style="background-color: #696969;"><obs id="swallowN" conceptId="1000105FACES_FACES_FACES_FACES_FACES" answerConceptId="1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="No" style="checkbox"/><sup>*</sup></td>
+                            <td width="23%"><obs id="swallowY" conceptId="162823AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                 answerConceptId="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="checkbox"/></td>
+                            <td width="17%" style="background-color: #696969;"><obs id="swallowN" conceptId="162823AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                                                    answerConceptId="1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="No" style="checkbox"/><sup>*</sup></td>
                         </tr>
                         <tr>
                             <td colspan="4">Already taking ART</td>
-                            <td width="23%"><obs id="artN" conceptId="1088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="No" style="checkbox"/></td>
-                            <td width="17%" style="background-color: #696969;"><obs id="artY" conceptId="1088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="checkbox"/></td>
+                            <td width="23%"><obs id="artN" conceptId="1088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                 answerConceptId="1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="No" style="checkbox"/></td>
+                            <td width="17%" style="background-color: #696969;"><obs id="artY" conceptId="1088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                                                    answerConceptId="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="checkbox"/></td>
                         </tr>
                         <tr>
                             <td colspan="4">Allergy to prescribed ART </td>
-                            <td width="23%"><obs id="allergN" conceptId="160558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="No/Unknown" style="checkbox"/></td>
-                            <td width="17%" style="background-color: #696969;"><obs id="allergY" conceptId="160558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="checkbox"/><sup>*</sup></td>
+                            <td width="23%"><obs id="allergN" conceptId="160558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                 answerConceptId="1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="No/Unknown" style="checkbox"/></td>
+                            <td width="17%" style="background-color: #696969;"><obs id="allergY" conceptId="160558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                                                    answerConceptId="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="checkbox"/><sup>*</sup></td>
                         </tr>
                         <tr>
                             <td colspan="4">Active World Health Organization (WHO) HIV stage 3 or 4 illness </td>
-                            <td width="23%"><obs id="activeN" conceptId="162694AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="No" style="checkbox"/></td>
-                            <td width="17%" style="background-color: #696969;"><obs id="activeY" conceptId="162694AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="checkbox"/><sup>*</sup></td>
+                            <td width="23%"><obs id="activeN" conceptId="162694AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                 answerConceptId="1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="No" style="checkbox"/></td>
+                            <td width="17%" style="background-color: #696969;"><obs id="activeY" conceptId="162694AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                                                    answerConceptId="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="checkbox"/><sup>*</sup></td>
                         </tr>
                         <tr>
-                            <td colspan="4">Any other clinical condition that, in the opinion of the site investigator, would make the participant     unsuitable for the study or unable to comply with dosing requirements.</td>
-                            <td width="23%"><obs id="opinionN" conceptId="160582AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="No" style="checkbox"/></td>
-                            <td width="17%" style="background-color: #696969;"><obs id="opinionY" conceptId="160582AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="checkbox"/><sup>*</sup></td>
+                            <td colspan="4">
+                                Any other clinical condition that, in the opinion of the site investigator, would make the participant
+                                unsuitable for the study or unable to comply with dosing requirements.
+                            </td>
+                            <td width="23%"><obs id="opinionN" conceptId="160582AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                 answerConceptId="1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="No" style="checkbox"/></td>
+                            <td width="17%" style="background-color: #696969;"><obs id="opinionY" conceptId="160582AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                                                    answerConceptId="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Yes" style="checkbox"/><sup>*</sup></td>
                         </tr>
                         <tr>
                             <td colspan="3">Initials: </td>
-                            <td colspan="2">Scheduled     return date for lab results:<obs id="labResultDate" conceptId="5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
+                            <td colspan="2">Scheduled     return date for lab results:
+                                <obs id="labResultDate" conceptId="5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+                            </td>
                             <td width="17%">* <em>Refer to clinic for care/ART</em></td>
                         </tr>
                         <tr>
                             <td colspan="6" align="center"><em>(HIV-1 infection and/or CD4+ cell count only, if needed)</em></td>
                         </tr>
                     </table>
-                            </span>
-        </td>
-    </tr>
-    <tr>
-        <td style="background-color: #696969; color: #ffffff;" align="center">
-            LABORATORY RESULTS<br/>CHC NON-PARTICIPANTS AND PARTICIPANTS WITHOUT HIV/CD4 RESULTS ONLY
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <obsgroup groupingConceptId="162085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
-                <table class="screen" width="98%" align="center">
-                    <tr align="center">
-                        <td colspan="4">Date returned for lab results: <obs id="labReturnDate" conceptId="160082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" default="today"/><br/><em>Review above selection criteria with patient. If no changes, continue with screening lab results</em></td>
-                    </tr>
-                    <tr style="font-weight:bold" align="center">
-                        <td width="64%" colspan="2">Selection criterion</td>
-                        <td width="11%">Include</td>
-                        <td width="23%" style="background-color: #696969;">Exclude</td>
-                    </tr>
-                    <tr>
-                        <td width="37%">Patients without HIV result on CHC results card:</td>
-                        <td width="27%">HIV Test/Retest result:<obs id="hivtestCHC" conceptId="1040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1402AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="not on card" style="checkbox"/></td>
-                        <td width="11%"><obs id="hivtestP" conceptId="159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Positive" style="checkbox"/></td>
-                        <td width="23%" style="background-color: #696969;"><obs id="hivtestN" conceptId="159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Negative" style="checkbox"/></td>
-                    </tr>
-                    <tr>
-                        <td width="37%">Patients without CD4+ within last 6 months:</td>
-                        <td width="27%">Screening Visit CD4+ result:<obs id="R_cd4six" conceptId="5497AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
-                        <td width="11%"><obs id="R_cd4G350" conceptId="1941AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1000114FACES_FACES_FACES_FACES_FACES" answerLabel="&gt;350" style="checkbox"/></td>
-                        <td width="23%" style="background-color: #696969;"><obs id="R_cd4L350" conceptId="1941AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1000113FACES_FACES_FACES_FACES_FACES" answerLabel="&lt;=350" style="checkbox"/><sup>*</sup></td>
-                    </tr>
-                    <tr>
-                        <td width="64%" colspan="2">Initials: </td>
-                        <td width="35%" colspan="2">* <em>Refer to clinic</em> <em>for care/ART</em></td>
-                    </tr>
-                </table>
-            </obsgroup>
-        </td>
-    </tr>
-    <tr>
-        <td style="background-color: #696969; color: #ffffff;" align="center">
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <table class="screen" align="center" width="98%">
-                <tr>
-                    <td width="84%" colspan="2" ><strong>All criteria for study inclusion met?</strong><obs id="inclusion" conceptId="162699AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Yes (see below),No (Stop)" style="radio"/></td>
-                    <td width="15%">Initials:</td>
+                </span>
+    </td>
+</tr>
+<tr>
+    <td style="background-color: #696969; color: #ffffff;" align="center">
+        LABORATORY RESULTS<br/>CHC NON-PARTICIPANTS AND PARTICIPANTS WITHOUT HIV/CD4 RESULTS ONLY
+    </td>
+</tr>
+<tr>
+    <td>
+        <obsgroup groupingConceptId="162085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+            <table class="screen" width="98%" align="center">
+                <tr align="center">
+                    <td colspan="4">Date returned for lab results:
+                        <obs id="labReturnDate" conceptId="160082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" default="today"/><br/><em>
+                            Review above selection criteria with patient. If no changes, continue with screening lab results</em>
+                    </td>
+                </tr>
+                <tr style="font-weight:bold" align="center">
+                    <td width="64%" colspan="2">Selection criterion</td>
+                    <td width="11%">Include</td>
+                    <td width="23%" style="background-color: #696969;">Exclude</td>
                 </tr>
                 <tr>
-                    <td width="84%" colspan="2">Will participant be enrolled in study?<obs id="enrolled" conceptId="162700AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1066" answerLabels="Yes,No" style="radio"/></td>
-                    <td width="15%" rowspan="3"></td>
-                </tr>
-                <tr>
-                    <td width="26%" rowspan="2">à If <em>NO</em>, tick     all that apply: </td>
-                    <td width="58%">
-                        <obs id="pregna" conceptId="1743AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1434AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Patient is pregnant and will be referred to clinic’s ART program" style="checkbox"/><br/>
-                        <obs id="less2" conceptId="1743AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="162702AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Patient is &lt;2 years of age and will be referred to clinic's ART program" style="checkbox"/><br/>
-                        <obs id="ARTstandard" conceptId="1743AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="162704AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Patient qualifies for standard ART for a reason not specified above" style="checkbox"/>
-
+                    <td width="37%">Patients without HIV result on CHC results card:</td>
+                    <td width="27%">HIV Test/Retest result:<obs id="hivtestCHC" conceptId="1040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                                answerConceptId="1402AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="not on card" style="checkbox"/>
+                    </td>
+                    <td width="11%"><obs id="hivtestP" conceptId="159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                         answerConceptId="703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Positive" style="checkbox"/>
+                    </td>
+                    <td width="23%" style="background-color: #696969;"><obs id="hivtestN" conceptId="159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                                            answerConceptId="664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Negative" style="checkbox"/>
                     </td>
                 </tr>
                 <tr>
-                    <td width="58%"><em>Describe</em>:<obs id="descr" conceptId="162704AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
+                    <td width="37%">Patients without CD4+ within last 6 months:</td>
+                    <td width="27%">Screening Visit CD4+ result:<obs id="R_cd4six" conceptId="5497AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
+                    <td width="11%"><obs id="R_cd4G350" conceptId="162850AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                         answerConceptId="1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="&gt;350" style="checkbox"/>
+                    </td>
+                    <td width="23%" style="background-color: #696969;"><obs id="R_cd4L350" conceptId="162850AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                                            answerConceptId="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="&lt;=350" style="checkbox"/><sup>*</sup>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="64%" colspan="2">Initials: </td>
+                    <td width="35%" colspan="2">* <em>Refer to clinic</em> <em>for care/ART</em></td>
                 </tr>
             </table>
-    <tr>
-        <td style="text-align:center;">
-            <div class="ke-form-buttons">
-                <submit />
-            </div>
-        </td>
-    </tr>
-    <table>
-        <tr>
-            <td style="font-style: italic;">Version 2.0; 12 December 2013</td>
-        </tr>
-    </table>
+        </obsgroup>
     </td>
+</tr>
+<tr>
+    <td style="background-color: #696969; color: #ffffff;" align="center">
+    </td>
+</tr>
+<tr>
+    <td>
+        <table class="screen" align="center" width="98%">
+            <tr>
+                <td width="84%" colspan="2" ><strong>All criteria for study inclusion met?</strong>
+                    <obs id="inclusion" conceptId="162699AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerLabels="Yes (see below),No (Stop)" style="radio"/>
+                </td>
+                <td width="15%">Initials:</td>
+            </tr>
+            <tr>
+                <td width="84%" colspan="2">Will participant be enrolled in study?
+                    <obs id="enrolled" conceptId="162700AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1066" answerLabels="Yes,No" style="radio"/>
+                </td>
+                <td width="15%" rowspan="3"></td>
+            </tr>
+            <tr>
+                <td width="26%" rowspan="2">à If <em>NO</em>, tick     all that apply: </td>
+                <td width="58%">
+                    <obs id="pregna" conceptId="162701AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerConceptId="1434AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerLabel="Patient is pregnant and will be referred to clinic’s ART program" style="checkbox"/><br/>
+                    <obs id="less2" conceptId="162701AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerConceptId="162702AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerLabel="Patient is &lt;2 years of age and will be referred to clinic's ART program" style="checkbox"/><br/>
+                    <obs id="ARTstandard" conceptId="162701AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerConceptId="162703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerLabel="Patient qualifies for standard ART for a reason not specified above" style="checkbox"/>
+
+                </td>
+            </tr>
+            <tr>
+                <td width="58%"><em>Describe</em>:<obs id="descr" conceptId="162704AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
+            </tr>
+        </table>
+<tr>
+    <td style="text-align:center;">
+        <div class="ke-form-buttons">
+            <submit />
+        </div>
+    </td>
+</tr>
+<table>
+    <tr>
+        <td style="font-style: italic;">Version 2.0; 12 December 2013</td>
     </tr>
-    </tbody>
+</table>
+</td>
+</tr>
+</tbody>
 </table>
 </div>
 </htmlform>

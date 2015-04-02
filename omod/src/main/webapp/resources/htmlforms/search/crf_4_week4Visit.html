@@ -38,13 +38,13 @@
     {
         if (getValue('sympt.value')== YES_CONCEPT_ID)
         {
-            $j('#symptoms').show();
-            $j('#sever').show();
+            jq('#symptoms').hide();
+            jq('#sever').hide();
         }
         else
         {
-            $j('#symptoms').hide();
-            $j('#sever').hide();
+            jq('#symptoms').hide();
+            jq('#sever').hide();
         }
     }
 
@@ -52,13 +52,13 @@
     {
         if (getValue('visitAnother.value')== YES_CONCEPT_ID)
         {
-            $j('#visitLocation').show();
-            $j('#visitReason').show();
+            jq('#visitLocation').show();
+            jq('#visitReason').show();
         }
         else
         {
-            $j('#visitLocation').hide();
-            $j('#visitReason').hide();
+            jq('#visitLocation').hide();
+            jq('#visitReason').hide();
         }
     }
 
@@ -66,15 +66,15 @@
     {
         if (getValue('hosp.value')== YES_CONCEPT_ID)
         {
-            $j('#hospDays').show();
-            $j('#hospLocation').show();
-            $j('#hospReason').show();
+            jq('#hospDays').show();
+            jq('#hospLocation').show();
+            jq('#hospReason').show();
         }
         else
         {
-            $j('#hospDays').hide();
-            $j('#hospLocation').hide();
-            $j('#hospReason').hide();
+            jq('#hospDays').hide();
+            jq('#hospLocation').hide();
+            jq('#hospReason').hide();
         }
     }
 
@@ -83,11 +83,11 @@
     {
         if (getValue('who234.value')== YES_CONCEPT_ID)
         {
-            $j('#who234disease').show();
+            jq('#who234disease').show();
         }
         else
         {
-            $j('#who234disease').hide();
+            jq('#who234disease').hide();
         }
     }
 
@@ -96,24 +96,30 @@
     {
         if (getValue('arvQuant.value')== QUANTITY2_CONCEPT_ID)
         {
-            $j('#arv3').hide();
-            $j('#med3').hide();
+            jq('#med3').hide();
+            jq('#exp3').hide();
+            jq('#miss13').hide();
+            jq('#miss23').hide();
+            jq('#miss33').hide();
         }
         else
         {
-            $j('#arv3').show();
-            $j('#med3').show();
+            jq('#med3').show();
+            jq('#exp3').show();
+            jq('#miss13').show();
+            jq('#miss23').show();
+            jq('#miss33').show();
         }
     }
 
 
     /* Form Skipping Pattern based on the selected value*/
-    $j(function(){
-        $j('#sympt input').click(onSYMPTChange);
-        $j('#who234 input').click(onWHO234Change);
-        $j('#visitAnother input').click(onVISITANOTHERChange);
-        $j('#hosp input').click(onHOSPChange);
-        $j('#arvQuant input').click(onARVQUANTChange);
+    jq(function(){
+        jq('#sympt input').click(onSYMPTChange);
+        jq('#who234 input').click(onWHO234Change);
+        jq('#visitAnother input').click(onVISITANOTHERChange);
+        jq('#hosp input').click(onHOSPChange);
+        jq('#arvQuant input').click(onARVQUANTChange);
 
         onSYMPTChange();
         onWHO234Change();
@@ -136,12 +142,12 @@
 
 </div>
 <div class="ke-form-content">
-<table class="screen" align="center" width="970px">
+<table class="screen" align="center" width="1100px">
 <tbody>
 <tr>
     <td style="background-color: #696969; color: #ffffff;">
         <a name="page1"></a>
-        SEARCH Hihg CD4+ ART Delivery - WEEK 4 VISIT FORM (1)
+        CRF 4 - WEEK 4 VISIT FORM (1)
     </td>
 </tr>
 <tr>
@@ -150,9 +156,13 @@
             <td rowspan="2" width="25%"></td>
             <td rowspan="2" width="25%"></td>
             <td rowspan="2" width="35%">Participant initials:<lookup class="value" expression="patient.personName"/></td>
-            <td style="background-color:lightcyan;">Clinic ID:<lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('Faces ID') ) $patId #end "/></td>
+            <td style="background-color:lightcyan;">
+                Clinic ID:<lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('Faces ID') ) $patId #end "/>
+            </td>
             <tr>
-                <td style="background-color:lightcyan;">SEARCH ID:<lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('SEARCH ID') ) $patId #end "/></td>
+                <td style="background-color:lightcyan;">
+                    SEARCH ID:<lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('SEARCH ID') ) $patId #end "/>
+                </td>
             </tr>
         </table>
     </td>
@@ -166,12 +176,14 @@
     <td>
         <table class="screen" width="98%" align="center">
             <tr>
-                <td colspan="8" align="center"><strong>SYMPTOM SCREEN</strong><obs id="sympt" conceptId="1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="" style="radio"/>No current symptoms <obs id="symptdone" conceptId="1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Not done" style="radio"/>..............Not done or Done</td>
+                <td colspan="10" align="center"><strong>SYMPTOM SCREEN</strong><obs id="sympt" conceptId="1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                                                    answerConceptIds="1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="" style="radio"/>No current symptoms
+                </td>
             </tr>
         </table>
     </td>
 </tr>
-<tr>
+<tr align="center">
     <td>
 	                <span id="symptoms">
                        <div style="float: left; padding-right: 2px">
@@ -182,16 +194,43 @@
                                        <td>Absent</td>
                                        <td>Severity<sup>*</sup></td>
                                        <td>AE Log?</td>
-                                       <td>Duration<br/>(days)</td>
+                                       <td>Duration</td>
+                                       <td>Day</td>
                                    </tr>
                                    <repeat>
                                        <template>
                                            <tr>
-                                               <td><obs conceptId="1728AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  answerConceptIds="512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,122496AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,114403AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Cutaneous rash, Dyspnea, Unintentional weight loss, Pain, Nausea" answerSeparator="&lt;br /&gt;" style="dropdown"/></td>      <!-- Symptoms name column1 -->
-                                               <td><obs conceptId="1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  answerConceptIds="1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="" style="radio"/></td>     <!-- Symptom Absence column2 -->
-                                               <td><obs conceptId="162642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  answerConceptIds="1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,155136AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="1 = mild,2=moderate,3 = severe,4 = life-threatening" answerSeparator="&lt;br /&gt;" style="dropdown"/></td>      <!-- Symptom severity column3 -->
-                                               <td><obs conceptId="160759AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="" style="radio"/></td>     <!-- Symptom AE Log column4 -->
-                                               <td><obs conceptId="1731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>     <!-- Symptom duration column4 -->
+                                               <td><obs conceptId="1728AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                        answerConceptIds="
+												   512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												   122496AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												   832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												   114403AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												   5978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                        answerLabels="Cutaneous rash, Dyspnea, Unintentional weight loss, Pain, Nausea"
+                                                        answerSeparator="&lt;br /&gt;" style="dropdown"/>
+                                               </td>      <!-- Symptoms name column1 -->
+                                               <td><obs conceptId="1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                        answerConceptId="1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                        answerLabel="" style="checkbox"/>
+                                               </td>     <!-- Symptom Absence column2 -->
+                                               <td><obs conceptId="162642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                        answerConceptIds="
+												   1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												   1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												   1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												   155136AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                        answerLabels="1 = mild,2=moderate,3 = severe,4 = life-threatening"
+                                                        answerSeparator="&lt;br /&gt;" style="dropdown"/>
+                                               </td>      <!-- Symptom severity column3 -->
+                                               <td><obs conceptId="160029AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                        answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                        answerLabels="" style="radio"/>
+                                               </td>     <!-- Symptom AE Log column4 -->
+                                               <td><obs conceptId="1731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>     <!-- Symptom duration column5 -->
+                                               <td><obs conceptId="1732AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                        answerConceptId="1072AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel=""/>
+                                               </td>     <!-- Symptom duration type=days column6 -->
                                            </tr>
                                        </template>
                                        <render n="1" concept=" " />
@@ -205,22 +244,45 @@
                        </div>
                     <div style="float: left">
                         <table class="screen" width="98%" align="center">
-                            <obsgroup groupingConceptId="159615AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                            <obsgroup groupingConceptId="1727AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
                                 <tr style="font-weight:bold;" align="center">
                                     <td>Symptoms</td>
                                     <td>Absent</td>
                                     <td>Severity<sup>*</sup></td>
                                     <td>AE Log?</td>
-                                    <td>Duration<br/>(days)</td>
+                                    <td>Duration</td>
+                                    <td>Day</td>
                                 </tr>
                                 <repeat>
                                     <template>
                                         <tr>
-                                            <td><obs conceptId="1728AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  answerConceptIds="122983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,116743AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Vomiting, Diarrhea, Insomnia, Other" answerSeparator="&lt;br /&gt;" style="dropdown"/></td>      <!-- Symptoms name column5 -->
-                                            <td><obs conceptId="1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="" style="radio"/></td>     <!-- Symptom Absence column6 -->
-                                            <td><obs conceptId="162642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  answerConceptIds="1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,155136AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="1 = mild,2=moderate,3 = severe,4 = life-threatening" answerSeparator="&lt;br /&gt;" style="dropdown"/></td>      <!-- Symptom severity column7 -->
-                                            <td><obs conceptId="160029AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="" style="radio"/></td>     <!-- Symptom AE Log column4 -->
-                                            <td><obs conceptId="1731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>     <!-- Symptom duration column8 -->
+                                            <td><obs conceptId="1728AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerConceptIds="
+												122983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												116743AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerLabels="Vomiting, Diarrhea, Insomnia, Other"
+                                                     answerSeparator="&lt;br /&gt;" style="dropdown"/></td>      <!-- Symptoms name column7 -->
+                                            <td><obs conceptId="1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerConceptId="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerLabel="" style="checkbox"/></td>     <!-- Symptom Absence column8 -->
+                                            <td><obs conceptId="162642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerConceptIds="
+												1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												162693AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerLabels="1 = mild,2=moderate,3 = severe,4 = life-threatening"
+                                                     answerSeparator="&lt;br /&gt;" style="dropdown"/></td>      <!-- Symptom severity column9 -->
+                                            <td><obs conceptId="160029AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerLabels="" style="radio"/>
+                                            </td>     <!-- Symptom AE Log column10 -->
+                                            <td><obs conceptId="1731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>     <!-- Symptom duration column11 -->
+                                            <td><obs conceptId="1732AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerConceptId="1072AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel=""/>
+                                            </td>     <!-- Symptom duration type=days column12 -->
                                         </tr>
                                     </template>
                                     <render n="1" concept=" " />
@@ -232,18 +294,21 @@
                             </obsgroup>
                         </table>
                     </div>
-                     </span>
+                </span>
     </td>
 </tr>
 <tr>
     <td>
-                        <span id="sever">
-                            <table>
-                                <tr>
-                                    <td><em>*Severity:	Rank on scale of 1-4:     1 = mild;     2 = moderate;     3 = severe;     4 = life-threatening</em> If grade 3/4 or SAE, record on Adverse Event Form</td>
-                                </tr>
-                            </table>
-                        </span>
+				<span id="sever">
+					<table>
+                        <tr>
+                            <td><em>
+                                *Severity:	Rank on scale of 1-4:     1 = mild;     2 = moderate;     3 = severe;     4 = life-threatening</em>
+                                If grade 3/4 or SAE, record on Adverse Event Form
+                            </td>
+                        </tr>
+                    </table>
+				</span>
     </td>
 </tr>
 <tr>
@@ -251,13 +316,22 @@
         <table class="screen" align="center" width="98%">
             <tr>
                 <td>Visit to another health center?<br/>If yes, record on Adverse Event Form <em>if grade 3/4 or SAE</em></td>
-                <td><obs id="visitAnother" conceptId="1000152FACES_FACES_FACES_FACES_FACES" answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Yes,No" style="radio"/></td>
-                <td colspan="2"><em>If yes, Location:</em><br/><obs id="visitLocation" conceptId="1763AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="dropdown"/></td>
-                <td><em>reasons:</em><br/><obs id="visitReason" conceptId="1793AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="dropdown"/></td>
+                <td><obs id="visitAnother" conceptId="162880AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerLabels="Yes,No" style="radio"/>
+                </td>
+                <td colspan="2"><em>If yes, Location:</em><br/><obs id="visitLocation"
+                                                                    conceptId="1763AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="dropdown"/>
+                </td>
+                <td><em>reasons:</em><br/><obs id="visitReason" conceptId="160430AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="dropdown"/></td>
             </tr>
             <tr>
                 <td>Hospitalization?<br/>If yes, this is an SAE; record on Adverse Event Form</td>
-                <td><obs id="hosp" conceptId="1792AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Yes,No" style="radio"/></td>
+                <td><obs id="hosp"
+                         conceptId="1792AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerLabels="Yes,No" style="radio"/>
+                </td>
                 <td><em>If yes, # of days:</em><br/><obs id="hospDays" conceptId="1647AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
                 <td><em>Location:</em><br/><obs id="hospLocation" conceptId="1772AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="text"/></td>
                 <td><em>reasons:</em><br/><obs id="hospReason" conceptId="1655AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="text"/></td>
@@ -285,75 +359,163 @@
     <td>
         <table class="screen"  width="98%" align="center">
             <tr>
-                <td width="50%" style="font-weight:bold;">WHO Stage 2, 3, 4 Illness or Targeted Medical Condition at this visit?<br/><em>Refer to Clinical Endpoints Study sheet</em></td>
-                <td width="50%" align="center"><obs id="who234" conceptId="162694AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Yes,No" style="radio"/></td>
+                <td width="50%" style="font-weight:bold;">
+                    WHO Stage 2, 3, 4 Illness or Targeted Medical Condition at this visit?<br/><em>
+                    Refer to Clinical Endpoints Study sheet</em>
+                </td>
+                <td width="50%" align="center"><obs id="who234"
+                                                    conceptId="162876AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                    answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                    answerLabels="Yes,No" style="radio"/>
+                </td>
             </tr>
         </table>
     </td>
 </tr>
 <tr>
     <td>
-                       <span id="who234disease">
-                       <table class="screen" width="98%">
-                           <tr style="font-weight:bold" align="center">
-                               <td>position</td>
-                               <td>Disease or condition</td>
-                               <td>Code</td>
-                               <td>Description of symptoms and diagnosis</td>
-                           </tr>
-                           <repeat>
-                               <template>
-                                   <obsgroup groupingConceptId="160167AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
-                                       <tr>
-                                           <td><obs conceptId="1639AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="numeric"/> </td>		<!--Position 1, 2 and 3-->
-                                           <td width="45%"><obs id="dise" conceptId="6042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="dropdown"/></td>
-                                           <td width="10%"><obs id="disecode" conceptId="161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="numeric"/></td>
-                                           <td width="45%"><obs id="disedescript" conceptId="161602AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="text"/></td>
-                                       </tr>
-                                   </obsgroup>
-                               </template>
-                               <render n="1" concept=" " />
-                               <render n="2" concept=" " />
-                               <render n="3" concept=" " />
-                           </repeat>
-                       </table>
-                        </span>
+			   <span id="who234disease">
+				   <table class="screen" width="98%">
+                       <tr style="font-weight:bold" align="center">
+                           <td>position</td>
+                           <td>Disease or condition</td>
+                           <td>Code</td>
+                           <td>Description of symptoms and diagnosis</td>
+                       </tr>
+                       <repeat>
+                           <template>
+                               <obsgroup groupingConceptId="160167AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                                   <tr>
+                                       <td><obs conceptId="1815AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="numeric"/> </td>		<!--Position 1, 2 and 3-->
+                                       <td width="45%"><obs id="dise"
+                                                            conceptId="6042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                            answerConceptIds="1215,5340,146299,145771,1294,1216,
+									   		151985,5040,158274,130021,832,111721,110170,132387,122043,
+									   		823,5018,145343,111103,121849,148762,143326,141623,136458,
+									   		136162,135761,123084,119910,119481,119288,118983,117543,116506,
+									   		116128,115432,115327,6032,5354,5337,5334,5048,5046,5044,5043,5044,5042,
+									   		5038,5035,5034,5032,5027,1249,1217,999,5339,42"
+                                                            style="dropdown"/></td> <!--Diagnosis-->
+                                       <td width="10%"><obs id="disecode" conceptId="161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="numeric"/></td> <!--Code-->
+                                       <td width="45%"><obs id="disedescript" conceptId="161602AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="text"/></td> <!--Descr-->
+                                   </tr>
+                               </obsgroup>
+                           </template>
+                           <render n="1" concept=" " />
+                           <render n="2" concept=" " />
+                           <render n="3" concept=" " />
+                       </repeat>
+                   </table>
+				</span>
     </td>
 </tr>
 <tr>
     <td>
         <table class="screen" width="98%" align="center">
             <tr>
-                <td colspan="4"  style="font-weight:bold;" align="center">ADHERENCE ASSESSMENT</td>
+                <td colspan="4"  style="font-weight:bold;" align="center" width="100%">ADHERENCE ASSESSMENT </td>
             </tr>
-            <tr align="center">
-                <td>3-Day Adherence</td>
-                <td>ARV #1</td>
-                <td>ARV #2</td>
-                <td>ARV #3<obs id="arvQuant" conceptId="1181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="1183AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="No 3rd med" style="checkbox"/></td>
+            <tr>
+                <td colspan="4" align="left">
+                    <div style="float: left; padding-right: 0px">
+                        <table class="screen" width="400px" align="center">
+                            <tr style="font-weight:bold;" height="30px">
+                                <td>3-Day Adherence</td>
+                            </tr>
+                            <tr style="font-weight:bold;" height="30px">
+                                <td>Medication Code</td>
+                            </tr>
+                            <tr style="font-weight:bold;" height="30px">
+                                <td>Expected doses per day</td>
+                            </tr>
+                            <tr style="font-weight:bold;" height="30px">
+                                <td>Number of doses missed yesterday</td>
+                            </tr>
+                            <tr style="font-weight:bold;" height="30px">
+                                <td>Number of doses missed day before yesterday</td>
+                            </tr>
+                            <tr style="font-weight:bold;" height="30px">
+                                <td>Number of doses missed day before that</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div style="float: left; padding-right: 0px">
+                        <table class="screen" width="95px" align="center">
+                            <obsgroup groupingConceptId="162848AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                                <tr style="font-weight:bold;" align="center" height="30px">
+                                    <td>ARV #1</td> <!-- 3-Day Adherence -->
+                                </tr>
+                                <tr style="font-weight:bold;" align="center" height="30px">
+                                    <td><obs conceptId="1639AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="numeric"/></td> <!-- Medication Code -->
+                                </tr>
+                                <tr style="font-weight:bold;" align="center" height="30px">
+                                    <td><obs conceptId="162845AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="numeric"/></td> <!-- Expected doses per day -->
+                                </tr>
+                                <tr style="font-weight:bold;" align="center" height="30px">
+                                    <td><obs conceptId="162844AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="numeric"/></td> <!-- Doses missed yesterday -->
+                                </tr>
+                                <tr style="font-weight:bold;" align="center" height="30px">
+                                    <td><obs conceptId="162846AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="numeric"/></td> <!-- Doses missed day before yesterday -->
+                                </tr>
+                                <tr style="font-weight:bold;" align="center" height="30px">
+                                    <td><obs conceptId="162847AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="numeric"/></td> <!-- Doses missed day before that -->
+                                </tr>
+                            </obsgroup>
+                        </table>
+                    </div>
+                    <div style="float: left; padding-right: 0px">
+                        <table class="screen" width="95px" align="center">
+                            <obsgroup groupingConceptId="160740AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                                <tr style="font-weight:bold;" align="center" height="30px">
+                                    <td>ARV #2</td> <!-- 3-Day Adherence -->
+                                </tr>
+                                <tr style="font-weight:bold;" align="center" height="30px">
+                                    <td><obs conceptId="1639AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="numeric"/></td> <!-- Medication Code -->
+                                </tr>
+                                <tr style="font-weight:bold;" align="center" height="30px">
+                                    <td><obs conceptId="162845AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="numeric"/></td> <!-- Expected doses per day -->
+                                </tr>
+                                <tr style="font-weight:bold;" align="center" height="30px">
+                                    <td><obs conceptId="162844AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="numeric"/></td> <!-- Doses missed yesterday -->
+                                </tr>
+                                <tr style="font-weight:bold;" align="center" height="30px">
+                                    <td><obs conceptId="162846AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="numeric"/></td> <!-- Doses missed day before yesterday -->
+                                </tr>
+                                <tr style="font-weight:bold;" align="center" height="30px">
+                                    <td><obs conceptId="162847AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="numeric"/></td> <!-- Doses missed day before that -->
+                                </tr>
+                            </obsgroup>
+                        </table>
+                    </div>
+                    <div style="float: left; padding-right: 0px">
+                        <table class="screen" width="300px" align="center">
+                            <obsgroup groupingConceptId="1442AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                                <tr style="font-weight:bold;" align="center" height="30px">
+                                    <td>ARV #3
+                                        <obs id="arvQuant" conceptId="1181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                             answerConceptId="1183AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                             answerLabel="No 3rd med" style="checkbox"/></td> <!-- 3-Day Adherence -->
+                                </tr>
+                                <tr style="font-weight:bold;" align="center" height="30px">
+                                    <td><obs id="med3" conceptId="1639AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="numeric"/></td> <!-- Medication Code -->
+                                </tr>
+                                <tr style="font-weight:bold;" align="center" height="30px">
+                                    <td><obs id="exp3" conceptId="162845AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="numeric"/></td> <!-- Expected doses per day -->
+                                </tr>
+                                <tr style="font-weight:bold;" align="center" height="30px">
+                                    <td><obs id= "miss13" conceptId="162844AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="numeric"/></td> <!-- Doses missed yesterday -->
+                                </tr>
+                                <tr style="font-weight:bold;" align="center" height="30px">
+                                    <td><obs id="miss23" conceptId="162846AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="numeric"/></td> <!-- Doses missed day before yesterday -->
+                                </tr>
+                                <tr style="font-weight:bold;" align="center" height="30px">
+                                    <td><obs id="miss33" conceptId="162847AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="numeric"/></td> <!-- Doses missed day before that -->
+                                </tr>
+                            </obsgroup>
+                        </table>
+                    </div>
+                </td>
             </tr>
-            <tr align="center">
-                <td align="left">Medication code</td>
-                <td><obs id="arv1" conceptId="1000129FACES_FACES_FACES_FACES_FACES" type="numeric"/></td> <!--chose to use a numeric concept for the ARV code to be entered-->
-                <td><obs id="arv2" conceptId="1000130FACES_FACES_FACES_FACES_FACES" type="numeric"/></td> <!--chose to use a numeric concept for the ARV code to be entered-->
-                <td><obs id="arv3" conceptId="1000131FACES_FACES_FACES_FACES_FACES" type="numeric"/></td> <!--chose to use a numeric concept for the ARV code to be entered-->
-            </tr>
-            <repeat>
-                <template>
-                    <obsgroup groupingConceptId="161881AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
-                        <tr align="center">
-                            <td align="left"><obs id="adherenceQ" conceptId="1164AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  answerConceptIds="160855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1160AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1161AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1162AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Expected doses per day, Number of doses missed yesterday, Number of doses missed day before yesterday, Number of doses missed day before that" answerSeparator="&lt;br /&gt;" style="dropdown"/></td>
-                            <td><obs id="med1" conceptId="1000129FACES_FACES_FACES_FACES_FACES" default="0"/></td>
-                            <td><obs id="med2" conceptId="1000130FACES_FACES_FACES_FACES_FACES" default="0"/></td>
-                            <td><obs id="med3" conceptId="1000131FACES_FACES_FACES_FACES_FACES"/></td>
-                        </tr>
-                    </obsgroup>
-                </template>
-                <render n="1" concept=" " />
-                <render n="2" concept=" " />
-                <render n="3" concept=" " />
-                <render n="4" concept=" " />
-            </repeat>
         </table>
     </td>
 </tr>

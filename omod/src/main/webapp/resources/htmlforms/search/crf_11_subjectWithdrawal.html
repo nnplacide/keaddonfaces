@@ -38,90 +38,105 @@
     <div class="ke-form-content">
 
 
-    <table class="screen" align="center" width="970px">
-        <tbody>
-        <tr>
-            <td style="background-color: #696969; color: #ffffff;">
-                <a name="page1"></a>
-                SEARCH Hihg CD4+ ART Delivery - Subject Withdrawal FORM
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <table width="100%">
-                    <td rowspan="2" width="25%"></td>
-                    <td rowspan="2" width="25%"></td>
-                    <td rowspan="2" width="35%">Participant initials:<lookup class="value" expression="patient.personName"/></td>
-                    <td style="background-color:lightcyan;">Clinic ID:<lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('Faces ID') ) $patId #end "/></td>
-                    <tr>
-                        <td style="background-color:lightcyan;">SEARCH ID:<lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('SEARCH ID') ) $patId #end "/></td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td style="background-color: #696969; color: #ffffff;" align="center">
-                Subject Withdrawal FORM
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <table class="screen"  width="98%" align="center">
-                    <tr style="background-color: #696969; font-weight: bold;">
-                        <td align="center" width="50%">REASON FOR SUBJECT WITHDRAWAL</td>
-                        <td align="center">CRITERIA FOR WITHDRAWAL DATE DETERMINATION</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <obs id="unable" conceptId="161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1000134FACES_FACES_FACES_FACES_FACES" answerLabels="" style="radio"/>
-                            Participant no longer able to participate<br/>
-                            (Moved out of study community, unable to swallow oral medications, etc.)
+        <table class="screen" align="center" width="970px">
+            <tbody>
+            <tr style="background-color: #696969; font-weight: bold;">
+                <td align="center" style="background-color: #696969; color: #ffffff;">
+                    <a name="page1"></a>
+                    CRF-11 ART Delivery - Subject Withdrawal FORM
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table width="100%">
+                        <td rowspan="2" width="25%"></td>
+                        <td rowspan="2" width="25%"></td>
+                        <td rowspan="2" width="35%">Participant initials:<lookup class="value" expression="patient.personName"/></td>
+                        <td style="background-color:lightcyan;">Clinic ID:
+                            <lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('Faces ID') ) $patId #end "/>
                         </td>
-                        <td>Withdrawal date = date of investigator’s decision</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <obs id="consent" conceptId="161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1000155FACES_FACES_FACES_FACES_FACES" answerLabels="" style="radio"/>Withdrawal of informed consent
-                        </td>
-                        <td>Withdrawal date = date of withdrawal of informed
-                            consent</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <obs id="death" conceptId="161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="160432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="radio"/>Study participant death
-                        </td>
-                        <td>Withdrawal date=date of death</td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <table class="screen" align="center" width="98%">
-                    <tr>
-                        <td align="center">
-                            <strong>WITHDRAWAL DATE: </strong><obs id="withdrawDate" conceptId="160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td style="text-align:center;">
-                <div class="ke-form-buttons">
-                    <submit />
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <table>
-                    <tr>
-                        <td style="font-style: italic;">Version 1.1; 25 June 2013</td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+                        <tr>
+                            <td style="background-color:lightcyan;">SEARCH ID:
+                                <lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('SEARCH ID') ) $patId #end "/>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="background-color: #696969; color: #ffffff;" align="center">
+                    Subject Withdrawal FORM
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table class="screen"  width="98%" align="center">
+                        <tr style="background-color: #696969; font-weight: bold;">
+                            <td align="center" width="50%">REASON FOR SUBJECT WITHDRAWAL</td>
+                            <td align="center">
+                                CRITERIA FOR WITHDRAWAL DATE DETERMINATION</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <obs id="unable"
+                                     conceptId="161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerConceptId="162874AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerLabel="" style="radio"/>
+                                Participant no longer able to participate<br/>
+                                (Moved out of study community, unable to swallow oral medications, etc.)
+                            </td>
+                            <td>Withdrawal date = date of investigator’s decision</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <obs id="consent"
+                                     conceptId="161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerConceptId="162880AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerLabel="" style="radio"/>
+                                Withdrawal of informed consent
+                            </td>
+                            <td>Withdrawal date = date of withdrawal of informed consent</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <obs id="death"
+                                     conceptId="161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerConceptId="160432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerLabel="" style="radio"/>Study participant death
+
+                            </td>
+                            <td>Withdrawal date=date of death</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table class="screen" align="center" width="98%">
+                        <tr>
+                            <td align="center">
+                                <strong>WITHDRAWAL DATE: </strong><obs id="withdrawDate" conceptId="160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:center;">
+                    <div class="ke-form-buttons">
+                        <submit />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <td style="font-style: italic;">Version 1.1; 25 June 2013</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </htmlform>

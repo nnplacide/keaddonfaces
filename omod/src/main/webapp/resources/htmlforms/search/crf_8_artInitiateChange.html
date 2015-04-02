@@ -13,31 +13,31 @@
     -->
 <htmlform>
 
-    <style type="text/css">
-        table.screen {
-            border-collapse: collapse;
-        }
-        table.screen > tbody > tr > td, table.screen > tbody > tr > th {
-            border: 1px solid black;
-            vertical-align: baseline;
-            padding: 4px;
-        }
-    </style>
+<style type="text/css">
+    table.screen {
+        border-collapse: collapse;
+    }
+    table.screen > tbody > tr > td, table.screen > tbody > tr > th {
+        border: 1px solid black;
+        vertical-align: baseline;
+        padding: 4px;
+    }
+</style>
 
-    <div style="display:none">
-        <encounterProvider default="ae01b8ff-a4cc-4012-bcf7-72359e852e14" />
-    </div>
-    <div class="ke-form-header">
-        <table style="width: 100%">
-            <tr>
-                <td>Date: <encounterDate id="encounter-date" showTime="false"/></td>
-                <td>Enrolled at: <encounterLocation id="site" default="GlobalProperty:kenyaemr.defaultLocation"/></td>
-            </tr>
-        </table>
+<div style="display:none">
+    <encounterProvider default="ae01b8ff-a4cc-4012-bcf7-72359e852e14" />
+</div>
+<div class="ke-form-header">
+    <table style="width: 100%">
+        <tr>
+            <td>Date: <encounterDate id="encounter-date" showTime="false"/></td>
+            <td>Enrolled at: <encounterLocation id="site" default="GlobalProperty:kenyaemr.defaultLocation"/></td>
+        </tr>
+    </table>
 
-    </div>
-    <div class="ke-form-content">
-        <table class="screen" align="center" width="970px">
+</div>
+<div class="ke-form-content">
+    <table class="screen" align="center" width="970px">
 
         <tbody>
         <tr>
@@ -52,9 +52,13 @@
                     <td rowspan="2" width="25%"></td>
                     <td rowspan="2" width="25%"></td>
                     <td rowspan="2" width="35%">Participant initials:<lookup class="value" expression="patient.personName"/></td>
-                    <td style="background-color:lightcyan;">Clinic ID:<lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('Faces ID') ) $patId #end "/></td>
+                    <td style="background-color:lightcyan;">
+                        Clinic ID:<lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('Faces ID') ) $patId #end "/>
+                    </td>
                     <tr>
-                        <td style="background-color:lightcyan;">SEARCH ID:<lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('SEARCH ID') ) $patId #end "/></td>
+                        <td style="background-color:lightcyan;">
+                            SEARCH ID:<lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('SEARCH ID') ) $patId #end "/>
+                        </td>
                     </tr>
                 </table>
             </td>
@@ -68,7 +72,15 @@
             <td>
                 <table class="screen" align="center" width="98%">
                     <tr style="font-stretch: extra-expanded;">
-                        <td>SELECT ONE:<obs id="status" conceptId="1255AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1256AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1259AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1000137FACES_FACES_FACES_FACES_FACES" answerLabels="Initiation,Change of therapy,Stop therapy,Restart therapy" style="radio"/></td>
+                        <td>SELECT ONE:<obs id="status"
+                                            conceptId="1255AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                            answerConceptIds="
+								1256AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+								1259AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+								1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+								160738AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                            answerLabels="Initiation,Change of therapy,Stop therapy,Restart therapy" style="radio"/>
+                        </td>
                     </tr>
                 </table>
             </td>
@@ -88,16 +100,44 @@
                     </tr>
                     <repeat>
                         <template>
-                            <obsgroup groupingConceptId="1088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                            <obsgroup groupingConceptId="161888AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
                                 <tr>
                                     <td><obs conceptId="1639AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="numeric"/> </td>		<!--Position-->
                                     <td><obs id="art" conceptId="1088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="dropdown"/></td>
                                     <td><obs id="code" conceptId="161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
                                     <td><obs id="dose" conceptId="160856AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
-                                    <td><obs id="frequency" conceptId="160855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="160862AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,160858AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,160866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,160870AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="OD=once a day,BD=twice a day,TDS=three times a day,QID=four times a day" style="dropdown"/></td>
+                                    <td><obs id="frequency"
+                                             conceptId="160855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                             answerConceptIds="
+										160862AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+										160858AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+										160866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+										160870AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                             answerLabels="
+										OD=once a day,
+										BD=twice a day,
+										TDS=three times a day,
+										QID=four times a day" style="dropdown"/>
+                                    </td>
                                     <td><obs id="start" conceptId="159599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
                                     <td><obs id="stop" conceptId="160739AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
-                                    <td><obs id="reason" conceptId="1252AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="148568AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,102AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,159598AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1434AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,981AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="E = Stopped due to side effects, T = Toxicity, A = Non-adherence, P = Pregnancy, D = Dose change, O = Other" style="dropdown"/></td>
+                                    <td><obs id="reason"
+                                             conceptId="1252AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                             answerConceptIds="
+										148568AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+										102AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+										159598AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+										1434AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+										981AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+										5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                             answerLabels="
+										E = Stopped due to side effects, 
+										T = Toxicity, 
+										A = Non-adherence, 
+										P = Pregnancy, 
+										D = Dose change, 
+										O = Other" style="dropdown"/>
+                                    </td>
                                 </tr>
                             </obsgroup>
                         </template>
@@ -176,10 +216,10 @@
         </tr>
         <table>
             <tr>
-                <td style="font-style: italic;">Version 1.1; 25 June 2013</td>
+                <td style="font-style: italic;">Version 1.2; 12 December 2014</td>
             </tr>
         </table>
         </tbody>
     </table>
-        </div>
+</div>
 </htmlform>

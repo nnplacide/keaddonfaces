@@ -72,7 +72,6 @@ public class HeiFragmentController {
         model.addAttribute("page2Form", heiVisitForm);
         model.addAttribute("page2Encounters", heiVisitSummaryEncounters);
 
-
     }
 
     /**

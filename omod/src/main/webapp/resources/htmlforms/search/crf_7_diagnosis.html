@@ -37,93 +37,95 @@
     </div>
     <div class="ke-form-content">
 
-    <table class="screen" align="center" width="1000px">
-        <tbody>
-        <tr>
-            <td style="background-color: #696969; color: #ffffff;">
-                <a name="page1"></a>
-                SEARCH High CD4+ ART Delivery - DIAGNOSIS FORM
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <table width="100%">
-                    <td rowspan="2" width="25%"></td>
-                    <td rowspan="2" width="25%"></td>
-                    <td rowspan="2" width="35%">Participant initials:<lookup class="value" expression="patient.personName"/></td>
-                    <td style="background-color:lightcyan;">Clinic ID:<lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('Faces ID') ) $patId #end "/></td>
-                    <tr>
-                        <td style="background-color:lightcyan;">SEARCH ID:<lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('SEARCH ID') ) $patId #end "/></td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td style="background-color: #696969; color: #ffffff;" align="center">
-                DIAGNOSIS FORM
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <table class="screen" width="98%" align="center">
-                    <tr align="center">
-                        <td><strong>Diagnosis</strong></td>
-                        <td><strong>Diagnosis<br/>Code</strong></td>
-                        <td><strong>Start Date of Dx</strong><br/><em>(day/month/year)</em></td>
-                        <td><strong>Date Recorded</strong><br/><em>(day/month/year)</em></td>
-                    </tr>
-                    <repeat>
-                        <template>
-                            <obsgroup groupingConceptId="159947AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
-                                <tr>
-                                    <td width="45%"><obs id="diagnos" conceptId="1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="dropdown"/></td>
-                                    <td><obs id="diagnosCode" conceptId="1000129FACES_FACES_FACES_FACES_FACES"/></td>
-                                    <td><obs id="diagnosDate" conceptId="159948AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
-                                    <td><obs id="diagnosRecord" conceptId="160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
-                                </tr>
-                            </obsgroup>
-                        </template>
-                        <render n="1" concept=" " />
-                        <render n="2" concept=" " />
-                        <render n="3" concept=" " />
-                        <render n="4" concept=" " />
-                        <render n="5" concept=" " />
-                        <render n="6" concept=" " />
-                        <render n="7" concept=" " />
-                        <render n="8" concept=" " />
-                        <render n="9" concept=" " />
-                        <render n="10" concept=" " />
-                        <render n="11" concept=" " />
-                        <render n="12" concept=" " />
-                        <render n="13" concept=" " />
-                        <render n="14" concept=" " />
-                        <render n="15" concept=" " />
-                        <render n="16" concept=" " />
-                        <render n="17" concept=" " />
-                        <render n="18" concept=" " />
-                        <render n="19" concept=" " />
-                        <render n="20" concept=" " />
-                    </repeat>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td style="text-align:center;">
-                <div class="ke-form-buttons">
-                    <submit />
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <table>
-                    <tr>
-                        <td style="font-style: italic;">Version 1.1; 25 June 2013</td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-  </div>
+        <table class="screen" align="center" width="1000px">
+            <tbody>
+            <tr>
+                <td style="background-color: #696969; color: #ffffff;">
+                    <a name="page1"></a>
+                    SEARCH High CD4+ ART Delivery - DIAGNOSIS FORM
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table width="100%">
+                        <td rowspan="2" width="25%"></td>
+                        <td rowspan="2" width="25%"></td>
+                        <td rowspan="2" width="35%">Participant initials:<lookup class="value" expression="patient.personName"/></td>
+                        <td style="background-color:lightcyan;">Clinic ID:
+                            <lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('Faces ID') ) $patId #end "/>
+                        </td>
+                        <tr>
+                            <td style="background-color:lightcyan;">SEARCH ID:
+                                <lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('SEARCH ID') ) $patId #end "/>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="background-color: #696969; color: #ffffff;" align="center">
+                    DIAGNOSIS FORM
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table class="screen" width="98%" align="center">
+                        <tr align="center">
+                            <td><strong>Diagnosis</strong></td>
+                            <td><strong>Diagnosis<br/>Code</strong></td>
+                            <td><strong>Start Date of Dx</strong><br/><em>(day/month/year)</em></td>
+                            <td><strong>Date Recorded</strong><br/><em>(day/month/year)</em></td>
+                        </tr>
+                        <repeat>
+                            <template>
+                                <obsgroup groupingConceptId="159947AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                                    <tr>
+                                        <td width="45%"><obs id="diagnos"
+                                                             conceptId="1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                             answerConceptIds="1215,5340,146299,145771,1294,1216,
+										151985,5040,158274,130021,832,111721,110170,132387,122043,
+										823,5018,145343,111103,121849,148762,143326,141623,136458,
+										136162,135761,123084,119910,119481,119288,118983,117543,116506,
+										116128,115432,115327,6032,5354,5337,5334,5048,5046,5044,5043,5044,5042,
+										5038,5035,5034,5032,5027,1249,1217,999,5339,42"
+                                                             style="dropdown"/></td>
+                                        <td><obs id="diagnosCode" conceptId="161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
+                                        <td><obs id="diagnosDate" conceptId="159948AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
+                                        <td><obs id="diagnosRecord" conceptId="160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
+                                    </tr>
+                                </obsgroup>
+                            </template>
+                            <render n="1" concept=" " />
+                            <render n="2" concept=" " />
+                            <render n="3" concept=" " />
+                            <render n="4" concept=" " />
+                            <render n="5" concept=" " />
+                            <render n="6" concept=" " />
+                            <render n="7" concept=" " />
+                            <render n="8" concept=" " />
+                            <render n="9" concept=" " />
+                            <render n="10" concept=" " />
+                        </repeat>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:center;">
+                    <div class="ke-form-buttons">
+                        <submit />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <td style="font-style: italic;">Version 1.1; 25 June 2013</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </htmlform>

@@ -337,6 +337,7 @@
                 <ref bean="kenyaemr.common.form.progressNote" />
                 <ref bean="kenyaemr.common.form.clinicalEncounter" />
                 <!--<ref bean="kenyaemr.common.form.labResults" />-->
+                <ref bean="keaddonfaces.form.crf_9_adverseEvent"/>
                 <ref bean="kenyaemr.common.form.tbScreening" />
                 <ref bean="kenyaemr.common.form.otherMedications" />
                 <ref bean="kenyaemr.hiv.form.clinicalEncounterAddendum" />
