@@ -1,0 +1,360 @@
+<!--
+      ~ The contents of this file are subject to the OpenMRS Public License
+      ~ Version 1.0 (the "License"); you may not use this file except in
+      ~ compliance with the License. You may obtain a copy of the License at
+      ~ http://license.openmrs.org
+      ~
+      ~ Software distributed under the License is distributed on an "AS IS"
+      ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+      ~ License for the specific language governing rights and limitations
+      ~ under the License.
+      ~
+      ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+    -->
+<htmlform>
+
+<style type="text/css">
+    table.screen {
+        border-collapse: collapse;
+    }
+    table.screen > tbody > tr > td, table.screen > tbody > tr > th {
+        border: 1px solid black;
+        vertical-align: baseline;
+        padding: 4px;
+    }
+</style>
+
+<div style="display:none">
+    <encounterProvider default="ae01b8ff-a4cc-4012-bcf7-72359e852e14" />
+</div>
+<div class="ke-form-header">
+    <table style="width: 100%">
+        <tr>
+            <td>Date: <encounterDate id="encounter-date" showTime="true"/></td>
+            <td>Enrolled at: <encounterLocation id="site" default="GlobalProperty:kenyaemr.defaultLocation"/></td>
+        </tr>
+    </table>
+
+</div>
+<div class="ke-form-content">
+<table class="screen" align="center" width="970px">
+
+<tbody>
+<tr>
+    <td align="center" style="background-color: #696969; color: #ffffff;">
+        <a name="page1"></a>
+        CRF-9 ADVERSE EVENT FORM
+    </td>
+</tr>
+<tr>
+    <td>
+        <table width="100%">
+            <td width="25%"></td>
+            <td></td>
+            <td rowspan="2" width="35%">Participant initials:<lookup class="value" expression="patient.personName"/></td>
+            <td style="background-color:lightcyan;">Clinic ID:<lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('Faces ID') ) $patId #end "/></td>
+            <tr>
+                <td style="background-color:lightcyan;">SEARCH ID:<lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('SEARCH ID') ) $patId #end "/></td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td style="background-color: #696969; color: #ffffff;" align="center">
+        <strong>ADVERSE EVENT FORM</strong> RECORD ONLY GRADE 3 AND 4 AE’S and SERIOUS ADVERSE EVENTS (SAE’S)
+    </td>
+</tr>
+<tr>
+    <td>
+        <table class="screen" width="98%" align="center">
+            <tr>
+                <td colspan="10" align="center"><strong>RELATIONSHIP TO STUDY DRUGS§ Enter ART</strong></td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr align="center">
+    <td align="center">
+	                <span id="AE_ART">
+                       <div style="float: left; padding-right: 2px" align="center">
+                           <table class="screen" width="98%" align="center">
+                               <obsgroup groupingConceptId="161879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"> <!-- First relationship of medication to an AE -->
+                                   <tr style="font-weight:bold;" align="center">
+                                       <td colspan="3">
+                                           Relationship between the 1st AE to Meds<br/>
+                                           Enter AE code: <obs id="ae1Code" conceptId="161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+                                       </td>
+                                   </tr>
+                                   <tr style="font-weight:bold;" align="center">
+                                       <td>Med Column</td>
+                                       <td>Medication code</td>
+                                       <td>Relationship to  Study  Drug<sup>§</sup></td>
+                                   </tr>
+                                   <repeat>
+                                       <template>
+                                           <tr align="center">
+                                               <td><obs conceptId="1639AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+                                               </td>      <!-- EA position from the table below -->
+                                               <td><obs conceptId="161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+                                               </td>     <!-- coding of the drugs as provided on the form and the codenotes -->
+                                               <td><obs
+                                                       id="relation1"
+                                                       conceptId="162865AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                       answerConceptIds="
+													162862AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+													162863AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+													162573AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+													1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+													162866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+													1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                       answerLabels="
+													1=definitely related,
+													2=probably related,
+													3=possibly related,
+													4=unlikely related,
+													5=not related,
+													6=pending,
+													N/A=not on drug" style="dropdown"/>
+                                               </td>      <!-- AE _ relationship to drug -->
+                                           </tr>
+                                       </template>
+                                       <render n="1" concept=" " />
+                                       <render n="2" concept=" " />
+                                       <render n="3" concept=" " />
+                                       <render n="4" concept=" " />
+                                       <render n="5" concept=" " />
+                                       <render n="6" concept=" " />
+                                       <render n="7" concept=" " />
+                                   </repeat>
+                               </obsgroup>
+                           </table>
+                       </div>
+                    <div style="float: left">
+                        <table class="screen" width="98%" align="center">
+                            <obsgroup groupingConceptId="162882AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"> <!-- Second relationship of medication to an AE -->
+                                <tr style="font-weight:bold;" align="center">
+                                    <td colspan="3">
+                                        Relationship between the 2nd AE to Meds<br/>
+                                        Enter AE code: <obs id="ae2Code" conceptId="161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+                                    </td>
+                                </tr>
+                                <tr style="font-weight:bold;" align="center">
+                                    <td>Med Column</td>
+                                    <td>Medication code</td>
+                                    <td>Relationship  to  Study  Drug<sup>§</sup></td>
+                                </tr>
+                                <repeat>
+                                    <template>
+                                        <tr>
+                                            <td><obs conceptId="1639AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+                                            </td>      <!-- EA position from the table below -->
+                                            <td><obs conceptId="161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+                                            </td>     <!-- coding of the drugs as provided on the form and the codenotes -->
+                                            <td><obs
+                                                    id="relation1"
+                                                    conceptId="162865AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                    answerConceptIds="
+													162862AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+													162863AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+													162573AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+													1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+													162866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+													1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                    answerLabels="
+													1=definitely related,
+													2=probably related,
+													3=possibly related,
+													4=unlikely related,
+													5=not related,
+													6=pending,
+													N/A=not on drug" style="dropdown"/>
+                                            </td>      <!-- AE _ relationship to drug -->
+                                        </tr>
+                                    </template>
+                                    <render n="1" concept=" " />
+                                    <render n="2" concept=" " />
+                                    <render n="3" concept=" " />
+                                    <render n="4" concept=" " />
+                                    <render n="5" concept=" " />
+                                    <render n="6" concept=" " />
+                                    <render n="7" concept=" " />
+                                </repeat>
+                            </obsgroup>
+                        </table>
+                    </div>
+                    <div style="float: left">
+                        <table class="screen" width="98%" align="center">
+                            <obsgroup groupingConceptId="160168AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"> <!-- third relationship of medication to an AE -->
+                                <tr style="font-weight:bold;" align="center">
+                                    <td colspan="3">
+                                        Relationship between the 3rd AE to Meds<br/>
+                                        Enter AE code: <obs id="ae3Code" conceptId="161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+                                    </td>
+                                </tr>
+                                <tr style="font-weight:bold;" align="center">
+                                    <td>Med Column</td>
+                                    <td>Medication code</td>
+                                    <td>Relationship  to  Study  Drug<sup>§</sup></td>
+                                </tr>
+                                <repeat>
+                                    <template>
+                                        <tr>
+                                            <td><obs conceptId="1639AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+                                            </td>      <!-- EA position from the table below -->
+                                            <td><obs conceptId="161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+                                            </td>     <!-- coding of the drugs as provided on the form and the codenotes -->
+                                            <td><obs
+                                                    id="relation1"
+                                                    conceptId="162865AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                    answerConceptIds="
+													162862AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+													162863AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+													162573AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+													1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+													162866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+													1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                    answerLabels="
+													1=definitely related,
+													2=probably related,
+													3=possibly related,
+													4=unlikely related,
+													5=not related,
+													6=pending,
+													N/A=not on drug" style="dropdown"/>
+                                            </td>      <!-- AE _ relationship to drug -->
+                                        </tr>
+                                    </template>
+                                    <render n="1" concept=" " />
+                                    <render n="2" concept=" " />
+                                    <render n="3" concept=" " />
+                                    <render n="4" concept=" " />
+                                    <render n="5" concept=" " />
+                                    <render n="6" concept=" " />
+                                    <render n="7" concept=" " />
+                                </repeat>
+                            </obsgroup>
+                        </table>
+                    </div>
+                </span>
+    </td>
+</tr>
+<tr>
+    <td>
+        <table class="screen"  width="98%" align="center">
+            <tr style="background-color: #696969; font-weight: bold; font-style: italic;">
+                <td colspan="9">To be completed by study clinician on date event recorded</td>
+                <td colspan="5">To be completed by clinical officer</td>
+            </tr>
+            <tr style="font-weight: bold;">
+                <td>Position</td>
+                <td>Event</td>
+                <td>AE<br/>Code</td>
+                <td>Start date</td>
+                <td>Date event<br/>recorded</td>
+                <td>Max Severity<sup>*</sup></td>
+                <td>SAE<br/>(Y/N)</td>
+                <td>Un-<br/>expect.<br/>(Y/N)</td>
+                <td>Report to UG</td>
+                <td>Report to KE</td>
+                <td>Report to US</td>
+                <td>Outcome<sup>#</sup></td>
+                <td>Stop date</td>
+            </tr>
+            <repeat>
+                <template>
+                    <obsgroup groupingConceptId="159947AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                        <tr>
+                            <td><obs conceptId="1639AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="numeric"/> </td>		<!--Position-->
+                            <td><obs
+                                    id="ae"
+                                    conceptId="162867AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                    answerConceptIds="5088,140238,871,140501,148649,5978,122983,142412,143264,
+										139084,118789,881,206,879,136443,151,114403,5245,113934,159298,874,119827,
+										122496,138905,5209,127637,126073,148346,996,137195,
+										114382,825,512,460,879,125886,123468,118539,148432,
+										121,80,177,77,148251,6022,6005,155,135743,135761,144503,
+										111633,840,111633,122110,678,1330,21,112406,654,790,887,887,
+										1009,1006,653,128340,655,138039,121689,135488,
+										5244,135790,128311,5099,142630,129214,116642,153316,
+										48,112484,158420,5008,5009,5578,141403,162331,
+										1292,148630,81,111687,116689,116334,873,151985,
+										116214,156639,136757,5103,139223"
+                                    style="dropdown"/>
+                            </td> <!-- Event -->
+                            <td><obs id="aeCode" conceptId="161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td> <!-- AE Code-->
+                            <td><obs id="startDate" conceptId="162601AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td> <!-- Start date-->
+                            <td><obs id="RecordDate" conceptId="162869AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td> <!-- Date event recorded -->
+                            <td><obs
+                                    id="severity"
+                                    conceptId="162642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                    answerConceptIds="
+										1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+										1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+										1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+										162693AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+										160432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                    answerLabels="1 = mild,2=moderate,3 = severe,4 = life-threatening,5 = death"
+                                    answerSeparator="&lt;br /&gt;" style="dropdown"/>
+                            </td> <!-- severity -->
+                            <td><obs id="sae" conceptId="162867AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerLabels="Y,N" style="dropdown"/>
+                            </td>
+                            <td><obs id="expected" conceptId="162870AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerLabels="Y,N" style="dropdown"/></td>
+                            <td><obs id="report1" conceptId="162871AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerConceptId="162884AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/></td> <!-- report to Uganda  -->
+                            <td><obs id="report2" conceptId="162871AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerConceptId="162885AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/></td> <!-- report to Kenya -->
+                            <td><obs id="report3" conceptId="162871AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerConceptId="162885AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="checkbox"/></td> <!-- report to US -->
+                            <td><obs id="outcome"
+                                     conceptId="162875AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerConceptIds="6097AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,119844AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+                                    162872AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,162873AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+                                    160432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,"
+                                     answerLabels="
+                                    1 = recovered/resolved,
+                                    2 = recovering/resolving,
+                                    3 = not recovered/not resolved,
+                                    4 = recovered/resolved with sequelae,
+                                    5 = death,
+                                    6 = unknown" style="dropdown"/>
+                            </td>
+                            <td><obs id="stopDate" conceptId="162602AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
+                        </tr>
+                    </obsgroup>
+                </template>
+                <render n="1" concept=" " />
+                <render n="2" concept=" " />
+                <render n="3" concept=" " />
+            </repeat>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+        <table>
+            <tr>
+                <td></td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td style="text-align:center;">
+        <div class="ke-form-buttons">
+            <submit />
+        </div>
+    </td>
+</tr>
+<table>
+    <tr>
+        <td style="font-style: italic;">Version 1.1; 25 June 2013</td>
+    </tr>
+</table>
+</tbody>
+</table>
+</div>
+</htmlform>

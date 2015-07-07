@@ -9,7 +9,7 @@
     }
 %>
 <div class="ke-panel-frame">
-    <div class="ke-panel-heading">HEI Enrollment and HIV Discontinuation</div>
+    <div class="ke-panel-heading">FACES and SEARCH forms entry</div>
     <div class="ke-panel-content" style="background-color: #F3F9FF">
 
         <fieldset>

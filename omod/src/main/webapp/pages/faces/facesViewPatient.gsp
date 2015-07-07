@@ -10,7 +10,7 @@ E<%
                     icon: "buttons/patient_overview.png"
             ],
             [
-                    label: "HEI and Discontinuation",
+                    label: "FACES and SEARCH forms",
                     href: ui.pageLink("keaddonfaces", "faces/facesViewPatient", [ patientId: currentPatient.id, section: "hei" ]),
                     active: (selection == "section-hei"),
                     iconProvider: "kenyaui",

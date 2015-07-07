@@ -1,0 +1,484 @@
+<!--
+      ~ The contents of this file are subject to the OpenMRS Public License
+      ~ Version 1.0 (the "License"); you may not use this file except in
+      ~ compliance with the License. You may obtain a copy of the License at
+      ~ http://license.openmrs.org
+      ~
+      ~ Software distributed under the License is distributed on an "AS IS"
+      ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+      ~ License for the specific language governing rights and limitations
+      ~ under the License.
+      ~
+      ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved. By Placide Ntwali Feb 20, 2015.
+    -->
+<htmlform>
+
+<style type="text/css">
+    table.screen {
+        border-collapse: collapse;
+    }
+    table.screen > tbody > tr > td, table.screen > tbody > tr > th {
+        border: 1px solid black;
+        vertical-align: baseline;
+        padding: 4px;
+    }
+</style>
+<script type="text/javascript">
+    var YES_CONCEPT_ID = 1065;
+    var NO_CONCEPT_ID = 1066;
+    var UNKNOWN_CONCEPT_ID = 1067;
+    var OTHER_CONCEPT_ID = 5622;
+    var today = new Date();
+
+    /* Skipping Patterns and dropped fields*/
+    function onMEDSChange()
+    {
+
+        if (getValue('meds.value') == YES_CONCEPT_ID)
+        {
+            jq('#takingmeds').hide();
+        }
+        else
+        {
+            jq('#takingmeds').hide();
+        }
+    }
+
+    function onSYMPTChange()
+    {
+
+        if (getValue('sympt.value') != NO_CONCEPT_ID)
+        {
+            jq('#symptoms').hide();
+        }
+        else
+        {
+            jq('#symptoms').hide();
+        }
+    }
+
+
+    function onO_HIVChange()
+    {
+
+        if (getValue('O_hiv.value') == YES_CONCEPT_ID)
+        {
+            jq('#R_hiv').show();
+        }
+        else
+        {
+            jq('#R_hiv').hide();
+        }
+    }
+
+    function onO_CD4CD8Change()
+    {
+
+        if (getValue('O_cd4cd8.value')== YES_CONCEPT_ID)
+        {
+            jq('#R_cd4').show();
+            jq('#R_cd4Percent').show();
+        }
+        else
+        {
+            jq('#R_cd4').hide();
+            jq('#R_cd4Percent').hide();
+        }
+    }
+
+
+
+    jq(function(){
+
+        /* Form Skipping Pattern based on the selected value*/
+        jq('#meds input').click(onMEDSChange);
+        jq('#sympt input').click(onSYMPTChange); //if the symptoms table is determined to be required the trigger will be shifted to #sympt
+        jq('#O_hiv input').click(onO_HIVChange);
+        jq('#O_cd4cd8 input').click(onO_CD4CD8Change);
+
+        /*validate CD4 */
+        getField('R_cd4.value').change(
+                function() {
+                    var msInYear=1000*60*60*24*365.25;
+                    var ENC_DATE=new Date(getValue('encounter-date.value'))//.getTime();
+                    var birthdateMs= new Date(<lookup expression="patient.birthdate.time"/>);
+                    var encounterDateMs=ENC_DATE.getTime();
+                    var CHILD = 12;
+                    var age = (encounterDateMs-birthdateMs)/msInYear;
+                    var VR_cd4 = parseFloat(getValue('R_cd4.value'));
+
+                    if(!isNaN(VR_cd4) &amp;&amp; !isNaN(age))
+                    {
+                        if (age &lt; CHILD)
+                        {
+                            /*validate cd4 count for children */
+                            if (VR_cd4 &lt; 0 || VR_cd4 &gt; 4500 )
+                            {
+                                alert("should be between 0 and 4500")
+                                setValue('R_cd4.value', '')
+                                getField('R_cd4.error').html('Should be between 0-4500').show();
+                            }
+                            else
+                            {
+                                getField('R_cd4.error').hide();
+                            }
+                        }
+                        else
+                        {
+                            /*validate cd4 count for adults */
+                            if ((VR_cd4 &lt; 0) || (VR_cd4 &gt; 3500) )
+                            {
+                                alert("should be between 0 and 3500")
+                                setValue('R_cd4.value', '')
+                                getField('R_cd4.error').html("Should be between 0-3500").show();
+                            }
+                            else
+                            {
+                                getField('R_cd4.error').hide();
+                            }
+                        }
+                    }
+                });
+
+        onMEDSChange();
+        onSYMPTChange();
+        onO_HIVChange();
+        onO_CD4CD8Change();
+    })
+    function validateEncounterDate()
+    {
+        var today=new Date().getTime();
+        var enc_date=new Date(getValue('encounter_date.value')).getTime();
+        var birthdate=new Date("<lookup expression="patient.birthdate"/>").getTime();
+
+        if (enc_date &gt; today)
+        {
+            getField('encounter_date.error').html('Cannot be a future date').show();
+        }
+        else if (enc_date &lt; birthdate)
+        {
+            getField('encounter_date.error').html('Cannot be a less the  birth date').show();
+        }
+        else
+        {
+            getField('encounter_date.error').hide();
+        }
+    }
+
+
+    jq(function(){
+        getField('encounter_date.value').change(validateEncounterDate);
+        validateEncounterDate();
+    });
+
+    beforeSubmit.push(function() {
+        /*TODO- validate all required fields*/
+
+
+        var today=new Date();
+        var birthDate= new Date("<lookup expression="patient.birthdate"/>").getTime();
+        var enc_date= new Date(getValue('encounter_date.value')).getTime
+
+        /* Validate Encounter Date */
+        /*this data should not be in Future */
+        if(enc_date &gt; today)
+        {
+            getField('encounter_date.error').html('Should not be greater than the Current date').show();
+            return false;
+        }
+
+        /* Encounter Date should be greater than the Patients's date of Birth    */
+        if(enc_date &lt; birthDate)
+        {
+            getField('encounter_date.error').html('Should not be less than the date of Birth').show();
+            return false;
+        }
+
+
+        return true;
+    })    ;
+</script>
+
+<div style="display:none">
+    <encounterProvider default="ae01b8ff-a4cc-4012-bcf7-72359e852e14" />
+</div>
+<div class="ke-form-header">
+    <table style="width: 100%">
+        <tr>
+            <td>Date: <encounterDate id="encounter-date" showTime="true"/></td>
+            <td>Enrolled at: <encounterLocation id="site" default="GlobalProperty:kenyaemr.defaultLocation"/>   Age: <lookup class="value" expression="patient.age"/></td>
+
+        </tr>
+    </table>
+
+</div>
+<div class="ke-form-content">
+<table class="screen" align="center" width="970px">
+<tbody>
+<tr>
+    <td style="background-color: #696969; color: #ffffff;" align="center">
+        <a name="page1"></a>
+        CRF-01 - SCREENING ONLY VISIT FORM
+    </td>
+</tr>
+<tr>
+    <td style="background-color: #696969; color: #ffffff;" align="center">
+        FOR CHC NON- PARTICIPANTS / PARTICIPANTS WITHOUT HIV OR CD4 RESULTS
+    </td>
+</tr>
+<tr>
+    <td>
+        <table class="screen" width="98%" align="center">
+            <tr>
+                <td colspan="2" align="center"><strong>Taking medications?</strong><obs id="meds"
+                                                                                        conceptId="159367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                                                        answerConceptIds="
+								1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+								1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+								1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                                                        answerLabels="Yes,No,Unknown" style="radio"/> (If Yes, list below)</td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr align="center">
+    <td>
+					  <span id="takingmeds">
+						<table class="screen" width="98%" align="center">
+                            <td align="center">
+                                <table>
+                                    <obsgroup groupingConceptId="1442AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"> <!-- grouping the medication the patient is curerently on -->
+                                        <tr style="font-weight:bold;" align="center">
+                                            <td colspan="2" style="font-weight:bold;" align="center">Medication</td>
+                                        </tr>
+                                        <repeat>
+                                            <template>
+                                                <tr>
+                                                    <td><obs conceptId="159369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+                                                    </td> <!-- Drug will be repeated 4 times down -->
+                                                </tr>
+                                            </template>
+                                            <render n="1" concept=" "/>
+                                            <render n="2" concept=" "/>
+                                            <render n="3" concept=" "/>
+                                            <render n="4" concept=" "/>
+                                        </repeat>
+                                    </obsgroup>
+                                </table>
+                            </td>
+                        </table>
+					</span>
+    </td>
+</tr>
+<tr align="center">
+    <td style="background-color: #696969; color: #ffffff;" align="center">
+        SYMPTOM SCREEN
+    </td>
+</tr>
+<tr>
+    <td>
+        <table class="screen" width="98%" align="center">
+            <tr>
+                <td colspan="10" align="center"><strong>SYMPTOM SCREEN</strong><obs id="sympt"
+                                                                                    conceptId="1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                                                    answerConceptIds="1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="" style="radio"/>No current symptoms</td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr align="center">
+    <td>
+	                <span id="symptoms">
+                       <div style="float: left; padding-right: 2px">
+                           <table class="screen" width="98%" align="center">
+                               <obsgroup groupingConceptId="1727AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                                   <tr style="font-weight:bold;" align="center">
+                                       <td>Symptoms</td>
+                                       <td>Absent</td>
+                                       <td>Severity<sup>*</sup></td>
+                                       <td>Duration</td>
+                                       <td>Day</td>
+                                   </tr>
+                                   <repeat>
+                                       <template>
+                                           <tr>
+                                               <td><obs conceptId="1728AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                        answerConceptIds="
+												   512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												   122496AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												   832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												   114403AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												   5978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                        answerLabels="Cutaneous rash, Dyspnea, Unintentional weight loss, Pain, Nausea"
+                                                        answerSeparator="&lt;br /&gt;" style="dropdown"/>
+                                               </td>      <!-- Symptoms name column1 -->
+                                               <td><obs conceptId="1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                        answerConceptId="1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                        answerLabel="" style="checkbox"/>
+                                               </td>     <!-- Symptom Absence column2 -->
+                                               <td><obs conceptId="162642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                        answerConceptIds="
+												   1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												   1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												   1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												   162693AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                        answerLabels="1 = mild,2=moderate,3 = severe,4 = life-threatening"
+                                                        answerSeparator="&lt;br /&gt;" style="dropdown"/>
+                                               </td>      <!-- Symptom severity column3 -->
+                                               <td><obs conceptId="1731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>     <!-- Symptom duration column4 -->
+                                               <td><obs conceptId="1732AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                        answerConceptId="1072AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel=""/>
+                                               </td>
+                                           </tr>
+                                       </template>
+                                       <render n="1" concept=" " />
+                                       <render n="2" concept=" " />
+                                       <render n="3" concept=" " />
+                                       <render n="4" concept=" " />
+                                       <render n="5" concept=" " />
+                                   </repeat>
+                               </obsgroup>
+                           </table>
+                       </div>
+                    <div style="float: left">
+                        <table class="screen" width="98%" align="center">
+                            <obsgroup groupingConceptId="1727AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                                <tr style="font-weight:bold;" align="center">
+                                    <td>Symptoms</td>
+                                    <td>Absent</td>
+                                    <td>Severity<sup>*</sup></td>
+                                    <td>Duration</td>
+                                    <td>Day</td>
+                                </tr>
+                                <repeat>
+                                    <template>
+                                        <tr>
+                                            <td><obs conceptId="1728AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerConceptIds="
+												122983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												116743AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerLabels="Vomiting, Diarrhea, Insomnia, Other"
+                                                     answerSeparator="&lt;br /&gt;" style="dropdown"/></td>      <!-- Symptoms name column5 -->
+                                            <td><obs conceptId="1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerConceptId="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerLabel="" style="checkbox"/></td>     <!-- Symptom Absence column6 -->
+                                            <td><obs conceptId="162642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerConceptIds="
+												1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												162693AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerLabels="1 = mild,2=moderate,3 = severe,4 = life-threatening"
+                                                     answerSeparator="&lt;br /&gt;" style="dropdown"/></td>      <!-- Symptom severity column7 -->
+                                            <td><obs conceptId="1731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>     <!-- Symptom duration column8 -->
+                                            <td><obs conceptId="1732AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerConceptId="1072AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="" style="dropdown"/>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                    <render n="1" concept=" " />
+                                    <render n="2" concept=" " />
+                                    <render n="3" concept=" " />
+                                    <render n="4" concept=" " />
+                                    <render n="5" concept=" " />
+                                </repeat>
+                            </obsgroup>
+                        </table>
+                    </div>
+                </span>
+    </td>
+</tr>
+<tr>
+    <td>
+        <table>
+            <tr>
+                <td style="font-style: italic;">
+                    * Severity:	Rank on scale of 1-4:     1 = mild;     2 = moderate;     3 = severe;     4 = life-threatening
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+        <table class="screen"  width="98%" align="center">
+            <tr>
+                <td colspan="8" align="center">LAB TESTS</td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+        <table class="screen" width="98%" align="center">
+            <tr style="font-weight: bold;" align="center">
+                <td>Test</td>
+                <td>Ordered?</td>
+                <td>Result</td>
+                <td>Test</td>
+                <td>Ordered?</td>
+                <td>Result</td>
+            </tr>
+            <tr>
+                <td rowspan="2">HIV Infection</td>
+                <td rowspan="2">
+                    <obs id="O_hiv" conceptId="1040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerConceptIds="
+									1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+									1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerLabels="Yes,No" style="radio"/>
+                </td>
+                <td rowspan="2"><obs id="R_hiv" conceptId="159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerConceptIds="
+									703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+									664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerLabels="Positive, Negative" style="radio"/>
+                </td>
+                <td>CD4 cell count</td>
+                <td rowspan="2"><obs id="O_cd4cd8" conceptId="1941AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerConceptIds="
+									1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+									1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                     answerLabels="Yes,No" style="radio"/>
+                </td>
+                <td><obs id="R_cd4" conceptId="5497AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>cells/uL</td>
+            </tr>
+            <tr>
+                <td>CD4%</td>
+                <td><obs id="R_cd4Percent" conceptId="730AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>%</td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+        <table>
+            <td>Next scheduled visit: <obs id="tca" conceptId="5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" allowFutureDates="true"/></td>
+            <tr>
+                <!--             <td>Clinical Officer name: <encounterProvider type="autocomplete"/></td>-->
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td style="text-align:center;">
+        <div class="ke-form-buttons">
+            <submit/>
+        </div>
+    </td>
+</tr>
+<tr>
+    <td>
+        <table>
+            <tr>
+                <td style="font-style: italic;">Version 2.0; 12 December 2013</td>
+            </tr>
+        </table>
+    </td>
+</tr>
+</tbody>
+</table>
+</div>
+</htmlform>

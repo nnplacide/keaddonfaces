@@ -46,7 +46,13 @@ public class HeiFragmentController {
         String[]specialFacesFormUuids = {
                 FacesMetadata._Form.DISCONTINUATION_FORM,
                 FacesMetadata._Form.HEI_INITIAL_FORM,
-                FacesMetadata._Form.ART_ELIBILITY_FORM
+                FacesMetadata._Form.ART_ELIBILITY_FORM,
+                FacesMetadata._Form.SEARCH_ID_FORM,
+                FacesMetadata._Form.CRF1_FORM,
+                FacesMetadata._Form.CRF2_FORM,
+                FacesMetadata._Form.CRF3_FORM,
+                FacesMetadata._Form.CRF4_FORM,
+                FacesMetadata._Form.CRF11_FORM
         };
 
         List<SimpleObject> facesAvailableForms = new ArrayList<SimpleObject>();

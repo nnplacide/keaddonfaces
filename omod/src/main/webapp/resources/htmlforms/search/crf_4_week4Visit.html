@@ -1,0 +1,826 @@
+<!--
+      ~ The contents of this file are subject to the OpenMRS Public License
+      ~ Version 1.0 (the "License"); you may not use this file except in
+      ~ compliance with the License. You may obtain a copy of the License at
+      ~ http://license.openmrs.org
+      ~
+      ~ Software distributed under the License is distributed on an "AS IS"
+      ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+      ~ License for the specific language governing rights and limitations
+      ~ under the License.
+      ~
+      ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+    -->
+<htmlform>
+
+<style type="text/css">
+    table.screen {
+        border-collapse: collapse;
+    }
+    table.screen > tbody > tr > td, table.screen > tbody > tr > th {
+        border: 1px solid black;
+        vertical-align: baseline;
+        padding: 4px;
+    }
+</style>
+
+<script type="text/javascript">
+var YES_CONCEPT_ID = 1065;
+var NO_CONCEPT_ID = 1066;
+var OTHER_CONCEPT_ID = 5622;
+var ADULT =15;
+var QUANTITY2_CONCEPT_ID = 1183;
+
+
+/* Skipping Patterns and dropped fields*/
+
+function onSYMPTChange()
+{
+    if (getValue('sympt.value')== YES_CONCEPT_ID)
+    {
+        jq('#symptoms').hide();
+        jq('#sever').hide();
+    }
+    else
+    {
+        jq('#symptoms').hide();
+        jq('#sever').hide();
+    }
+}
+
+function onVISITANOTHERChange()
+{
+    if (getValue('visitAnother.value')== YES_CONCEPT_ID)
+    {
+        jq('#visitLocation').show();
+        jq('#visitReason').show();
+    }
+    else
+    {
+        jq('#visitLocation').hide();
+        jq('#visitReason').hide();
+    }
+}
+
+function onHOSPChange()
+{
+    if (getValue('hosp.value')== YES_CONCEPT_ID)
+    {
+        jq('#hospDays').show();
+        jq('#hospLocation').show();
+        jq('#hospReason').show();
+    }
+    else
+    {
+        jq('#hospDays').hide();
+        jq('#hospLocation').hide();
+        jq('#hospReason').hide();
+    }
+}
+
+
+function onWHO234Change()
+{
+    if (getValue('who234.value')== YES_CONCEPT_ID)
+    {
+        jq('#who234disease').show();
+    }
+    else
+    {
+        jq('#who234disease').hide();
+    }
+}
+
+
+function onARVQUANTChange()
+{
+    if (getValue('arvQuant.value')== QUANTITY2_CONCEPT_ID)
+    {
+        jq('#med3').hide();
+        jq('#exp3').hide();
+        jq('#miss13').hide();
+        jq('#miss23').hide();
+        jq('#miss33').hide();
+    }
+    else
+    {
+        jq('#med3').show();
+        jq('#exp3').show();
+        jq('#miss13').show();
+        jq('#miss23').show();
+        jq('#miss33').show();
+    }
+}
+
+/*********************************************************************************************************************************\
+ /****************************************************************
+ *                          1ST MEDICATION						*
+ *																*
+ * LIMITING THE ADHERENCE VALUES FOR EXPECTED AND MISSED DOSES	*
+ *****************************************************************\
+
+
+ /* validate expected dosage */
+function exp1_valid()
+{
+    var Vexp1 = parseFloat(getValue('exp1.value'));
+    if(!isNaN(Vexp1))
+        if (Vexp1 &lt; 0 || Vexp1 &gt; 4 )
+        {
+            alert("cannot expect doses greater than 4 or less than 0, please review")
+            setValue('exp1.value', '')
+            getField('exp1.error').html('Should be between 0-4').show();
+        }
+        else
+        {
+            getField('exp1.error').hide();
+        }
+}
+
+/* Validating Number of doses missed yesterday */
+function miss1y_valid()
+{
+    var Vmiss1y = parseFloat(getValue('miss1y.value'));
+    if(!isNaN(Vmiss1y))
+        if (Vmiss1y &lt; 0 || Vmiss1y &gt; 4 )
+        {
+            alert("missed doses cannot be greater than 4 or less than 0, please review")
+            setValue('miss1y.value', '')
+            getField('miss1y.error').html('Should be between 0-4').show();
+        }
+        else
+        {
+            getField('miss1y.error').hide();
+        }
+}
+
+/* Validating Number of doses missed day before yesterday */
+function miss1by_valid()
+{
+    var Vmiss1by = parseFloat(getValue('miss1by.value'));
+    if(!isNaN(Vmiss1by))
+        if (Vmiss1by &lt; 0 || Vmiss1by &gt; 4 )
+        {
+            alert("missed doses cannot be greater than 4 or less than 0, please review")
+            setValue('miss1by.value', '')
+            getField('miss1by.error').html('Should be between 0-4').show();
+        }
+        else
+        {
+            getField('miss1by.error').hide();
+        }
+}
+
+
+
+/* Validating Number of doses missed day before that */
+function miss1by1_valid()
+{
+    var Vmiss1by1 = parseFloat(getValue('miss1by1.value'));
+    if(!isNaN(Vmiss1by1))
+        if (Vmiss1by1 &lt; 0 || Vmiss1by1 &gt; 4 )
+        {
+            alert("missed doses cannot be greater than 4 or less than 0, please review")
+            setValue('miss1by1.value', '')
+            getField('miss1by1.error').html('Should be between 0-4').show();
+        }
+        else
+        {
+            getField('miss1by1.error').hide();
+        }
+}
+
+/*********************************************************************************************************************************\
+ /****************************************************************
+ *                          2ND MEDICATION						*
+ *																*
+ * LIMITING THE ADHERENCE VALUES FOR EXPECTED AND MISSED DOSES	*
+ *****************************************************************\
+
+
+ /* validate expected dosage */
+function exp2_valid()
+{
+    var Vexp2 = parseFloat(getValue('exp2.value'));
+    if(!isNaN(Vexp2))
+        if (Vexp2 &lt; 0 || Vexp2 &gt; 4 )
+        {
+            alert("cannot expect doses greater than 4 or less than 0, please review")
+            setValue('exp2.value', '')
+            getField('exp2.error').html('Should be between 0-4').show();
+        }
+        else
+        {
+            getField('exp1.error').hide();
+        }
+}
+
+/* Validating Number of doses missed yesterday */
+function miss2y_valid()
+{
+    var Vmiss2y = parseFloat(getValue('miss2y.value'));
+    if(!isNaN(Vmiss2y))
+        if (Vmiss2y &lt; 0 || Vmiss2y &gt; 4 )
+        {
+            alert("missed doses cannot be greater than 4 or less than 0, please review")
+            setValue('miss2y.value', '')
+            getField('miss2y.error').html('Should be between 0-4').show();
+        }
+        else
+        {
+            getField('miss2y.error').hide();
+        }
+}
+
+/* Validating Number of doses missed day before yesterday */
+function miss2by_valid()
+{
+    var Vmiss2by = parseFloat(getValue('miss2by.value'));
+    if(!isNaN(Vmiss2by))
+        if (Vmiss2by &lt; 0 || Vmiss2by &gt; 4 )
+        {
+            alert("missed doses cannot be greater than 4 or less than 0, please review")
+            setValue('miss2by.value', '')
+            getField('miss2by.error').html('Should be between 0-4').show();
+        }
+        else
+        {
+            getField('miss1by.error').hide();
+        }
+}
+
+
+
+/* Validating Number of doses missed day before that */
+function miss2by1_valid()
+{
+    var Vmiss2by1 = parseFloat(getValue('miss2by1.value'));
+    if(!isNaN(Vmiss2by1))
+        if (Vmiss2by1 &lt; 0 || Vmiss2by1 &gt; 4 )
+        {
+            alert("missed doses cannot be greater than 4 or less than 0, please review")
+            setValue('miss2by1.value', '')
+            getField('miss2by1.error').html('Should be between 0-4').show();
+        }
+        else
+        {
+            getField('miss2by1.error').hide();
+        }
+}
+
+
+
+/*********************************************************************************************************************************\
+ /****************************************************************
+ *                          3RD MEDICATION						*
+ *																*
+ * LIMITING THE ADHERENCE VALUES FOR EXPECTED AND MISSED DOSES	*
+ *****************************************************************\
+
+
+ /* validate expected dosage */
+function exp3_valid()
+{
+    var Vexp3 = parseFloat(getValue('exp3.value'));
+    if(!isNaN(Vexp3))
+        if (Vexp3 &lt; 0 || Vexp3 &gt; 4 )
+        {
+            alert("cannot expect doses greater than 4 or less than 0, please review")
+            setValue('exp3.value', '')
+            getField('exp3.error').html('Should be between 0-4').show();
+        }
+        else
+        {
+            getField('exp3.error').hide();
+        }
+}
+
+/* Validating Number of doses missed yesterday */
+function miss3y_valid()
+{
+    var Vmiss3y = parseFloat(getValue('miss13.value'));
+    if(!isNaN(Vmiss3y))
+        if (Vmiss3y &lt; 0 || Vmiss3y &gt; 4 )
+        {
+            alert("missed doses cannot be greater than 4 or less than 0, please review")
+            setValue('miss13.value', '')
+            getField('miss13.error').html('Should be between 0-4').show();
+        }
+        else
+        {
+            getField('miss13.error').hide();
+        }
+}
+
+/* Validating Number of doses missed day before yesterday */
+function miss3by_valid()
+{
+    var Vmiss3by = parseFloat(getValue('miss23.value'));
+    if(!isNaN(Vmiss3by))
+        if (Vmiss3by &lt; 0 || Vmiss3by &gt; 4 )
+        {
+            alert("missed doses cannot be greater than 4 or less than 0, please review")
+            setValue('miss23.value', '')
+            getField('miss23.error').html('Should be between 0-4').show();
+        }
+        else
+        {
+            getField('miss23.error').hide();
+        }
+}
+
+
+
+/* Validating Number of doses missed day before that */
+function miss3by1_valid()
+{
+    var Vmiss3by1 = parseFloat(getValue('miss33.value'));
+    if(!isNaN(Vmiss3by1))
+        if (Vmiss3by1 &lt; 0 || Vmiss3by1 &gt; 4 )
+        {
+            alert("missed doses cannot be greater than 4 or less than 0, please review")
+            setValue('miss33.value', '')
+            getField('miss33.error').html('Should be between 0-4').show();
+        }
+        else
+        {
+            getField('miss33.error').hide();
+        }
+}
+
+
+/* Form Skipping Pattern based on the selected value*/
+jq(function(){
+    jq('#sympt input').click(onSYMPTChange);
+    jq('#who234 input').click(onWHO234Change);
+    jq('#visitAnother input').click(onVISITANOTHERChange);
+    jq('#hosp input').click(onHOSPChange);
+    jq('#arvQuant input').click(onARVQUANTChange);
+    jq('#ARV1position').hide();
+    jq('#ARV2position').hide();
+    jq('#ARV3position').hide();
+
+    /* validate ADHERENCE ASSESSMENT dosage */
+    getField('exp1.value').change(exp1_valid);
+    getField('miss1y.value').change(miss1y_valid);
+    getField('miss1by.value').change(miss1by_valid);
+    getField('miss1by1.value').change(miss1by1_valid);
+    getField('exp2.value').change(exp2_valid);
+    getField('miss2y.value').change(miss2y_valid);
+    getField('miss2by.value').change(miss2by_valid);
+    getField('miss2by1.value').change(miss2by1_valid);
+    getField('exp3.value').change(exp3_valid);
+    getField('miss13.value').change(miss3y_valid);
+    getField('miss23.value').change(miss3by_valid);
+    getField('miss33.value').change(miss3by1_valid);
+    setValue('ARV1position.value','1')
+    setValue('ARV2position.value','2')
+    setValue('ARV3position.value','3')
+
+    onSYMPTChange();
+    onWHO234Change();
+    onVISITANOTHERChange();
+    onHOSPChange();
+    onARVQUANTChange();
+    exp1_valid();
+    miss1y_valid();
+    miss1by_valid();
+    miss1by1_valid();
+    exp2_valid();
+    miss2y_valid();
+    miss2by_valid();
+    miss2by1_valid();
+    exp3_valid();
+    miss3y_valid();
+    miss3by_valid();
+    miss3by1_valid();
+});
+</script>
+
+<div style="display:none">
+    <encounterProvider default="ae01b8ff-a4cc-4012-bcf7-72359e852e14" />
+</div>
+<div class="ke-form-header">
+    <table style="width: 100%">
+        <tr>
+            <td>Date: <encounterDate id="encounter-date" showTime="true"/></td>
+            <td>Enrolled at: <encounterLocation id="site" default="GlobalProperty:kenyaemr.defaultLocation"/></td>
+        </tr>
+    </table>
+
+</div>
+<div class="ke-form-content">
+<table class="screen" align="center" width="1100px">
+<tbody>
+<tr>
+    <td align="center" style="background-color: #696969; color: #ffffff;">
+        <a name="page1"></a>
+        CRF 4 - WEEK 4 VISIT FORM (1)
+    </td>
+</tr>
+<tr>
+    <td>
+        <table width="100%">
+            <td rowspan="2" width="25%"></td>
+            <td rowspan="2" width="25%"></td>
+            <td rowspan="2" width="35%">Participant initials:<lookup class="value" expression="patient.personName"/></td>
+            <td style="background-color:lightcyan;">
+                Clinic ID:<lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('Faces ID') ) $patId #end "/>
+            </td>
+            <tr>
+                <td style="background-color:lightcyan;">
+                    SEARCH ID:<lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('SEARCH ID') ) $patId #end "/>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td style="background-color: #696969; color: #ffffff;" align="center">
+        SYMPTOM SCREEN
+    </td>
+</tr>
+<tr>
+    <td>
+        <table class="screen" width="98%" align="center">
+            <tr>
+                <td colspan="10" align="center"><strong>SYMPTOM SCREEN</strong><obs id="sympt" conceptId="1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                                                    answerConceptIds="1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="" style="radio"/>No current symptoms
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr align="center">
+    <td>
+	                <span id="symptoms">
+                       <div style="float: left; padding-right: 2px">
+                           <table class="screen" width="98%" align="center">
+                               <obsgroup groupingConceptId="1727AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                                   <tr style="font-weight:bold;" align="center">
+                                       <td>Symptoms</td>
+                                       <td>Absent</td>
+                                       <td>Severity<sup>*</sup></td>
+                                       <td>AE Log?</td>
+                                       <td>Duration</td>
+                                       <td>Day</td>
+                                   </tr>
+                                   <repeat>
+                                       <template>
+                                           <tr>
+                                               <td><obs conceptId="1728AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                        answerConceptIds="
+												   512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												   122496AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												   832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												   114403AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												   5978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                        answerLabels="Cutaneous rash, Dyspnea, Unintentional weight loss, Pain, Nausea"
+                                                        answerSeparator="&lt;br /&gt;" style="dropdown"/>
+                                               </td>      <!-- Symptoms name column1 -->
+                                               <td><obs conceptId="1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                        answerConceptId="1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                        answerLabel="" style="checkbox"/>
+                                               </td>     <!-- Symptom Absence column2 -->
+                                               <td><obs conceptId="162642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                        answerConceptIds="
+												   1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												   1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												   1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												   162693AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                        answerLabels="1 = mild,2=moderate,3 = severe,4 = life-threatening"
+                                                        answerSeparator="&lt;br /&gt;" style="dropdown"/>
+                                               </td>      <!-- Symptom severity column3 -->
+                                               <td><obs conceptId="160029AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                        answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                        answerLabels="" style="radio"/>
+                                               </td>     <!-- Symptom AE Log column4 -->
+                                               <td><obs conceptId="1731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>     <!-- Symptom duration column5 -->
+                                               <td><obs conceptId="1732AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                        answerConceptId="1072AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel=""/>
+                                               </td>     <!-- Symptom duration type=days column6 -->
+                                           </tr>
+                                       </template>
+                                       <render n="1" concept=" " />
+                                       <render n="2" concept=" " />
+                                       <render n="3" concept=" " />
+                                       <render n="4" concept=" " />
+                                       <render n="5" concept=" " />
+                                   </repeat>
+                               </obsgroup>
+                           </table>
+                       </div>
+                    <div style="float: left">
+                        <table class="screen" width="98%" align="center">
+                            <obsgroup groupingConceptId="1727AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                                <tr style="font-weight:bold;" align="center">
+                                    <td>Symptoms</td>
+                                    <td>Absent</td>
+                                    <td>Severity<sup>*</sup></td>
+                                    <td>AE Log?</td>
+                                    <td>Duration</td>
+                                    <td>Day</td>
+                                </tr>
+                                <repeat>
+                                    <template>
+                                        <tr>
+                                            <td><obs conceptId="1728AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerConceptIds="
+												122983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												116743AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerLabels="Vomiting, Diarrhea, Insomnia, Other"
+                                                     answerSeparator="&lt;br /&gt;" style="dropdown"/></td>      <!-- Symptoms name column7 -->
+                                            <td><obs conceptId="1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerConceptId="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerLabel="" style="checkbox"/></td>     <!-- Symptom Absence column8 -->
+                                            <td><obs conceptId="162642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerConceptIds="
+												1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+												162693AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerLabels="1 = mild,2=moderate,3 = severe,4 = life-threatening"
+                                                     answerSeparator="&lt;br /&gt;" style="dropdown"/></td>      <!-- Symptom severity column9 -->
+                                            <td><obs conceptId="160029AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerLabels="" style="radio"/>
+                                            </td>     <!-- Symptom AE Log column10 -->
+                                            <td><obs conceptId="1731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>     <!-- Symptom duration column11 -->
+                                            <td><obs conceptId="1732AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                     answerConceptId="1072AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel=""/>
+                                            </td>     <!-- Symptom duration type=days column12 -->
+                                        </tr>
+                                    </template>
+                                    <render n="1" concept=" " />
+                                    <render n="2" concept=" " />
+                                    <render n="3" concept=" " />
+                                    <render n="4" concept=" " />
+                                    <render n="5" concept=" " />
+                                </repeat>
+                            </obsgroup>
+                        </table>
+                    </div>
+                </span>
+    </td>
+</tr>
+<tr>
+    <td>
+				<span id="sever">
+					<table>
+                        <tr>
+                            <td><em>
+                                *Severity:	Rank on scale of 1-4:     1 = mild;     2 = moderate;     3 = severe;     4 = life-threatening</em>
+                                If grade 3/4 or SAE, record on Adverse Event Form
+                            </td>
+                        </tr>
+                    </table>
+				</span>
+    </td>
+</tr>
+<tr>
+    <td>
+        <table class="screen" align="center" width="98%">
+            <tr>
+                <td>Visit to another health center?<br/>If yes, record on Adverse Event Form <em>if grade 3/4 or SAE</em></td>
+                <td><obs id="visitAnother" conceptId="162888AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerLabels="Yes,No" style="radio"/>
+                </td>
+                <td colspan="2"><em>If yes, Location:</em><br/><obs id="visitLocation"
+                                                                    conceptId="1763AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="dropdown"/>
+                </td>
+                <td><em>reasons:</em><br/><obs id="visitReason" conceptId="160430AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="dropdown"/></td>
+            </tr>
+            <tr>
+                <td>Hospitalization?<br/>If yes, this is an SAE; record on Adverse Event Form</td>
+                <td><obs id="hosp"
+                         conceptId="1792AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                         answerLabels="Yes,No" style="radio"/>
+                </td>
+                <td><em>If yes, # of days:</em><br/><obs id="hospDays" conceptId="1647AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
+                <td><em>Location:</em><br/><obs id="hospLocation" conceptId="1772AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="text"/></td>
+                <td><em>reasons:</em><br/><obs id="hospReason" conceptId="162879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="text"/></td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+        <table width="100%" align="center">
+            <tr>
+                <td> Page 1 </td>
+                <td> <a href="#page2">go to Next Page</a></td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td style="background-color: #696969; color: #ffffff;" align="center">
+        <a name="page2"></a>
+        WEEK 4 VISIT FORM (2)
+    </td>
+</tr>
+<tr>
+    <td>
+        <table class="screen"  width="98%" align="center">
+            <tr>
+                <td width="50%" style="font-weight:bold;">
+                    WHO Stage 2, 3, 4 Illness or Targeted Medical Condition at this visit?<br/><em>
+                    Refer to Clinical Endpoints Study sheet</em>
+                </td>
+                <td width="50%" align="center"><obs id="who234"
+                                                    conceptId="162876AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                    answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                    answerLabels="Yes,No" style="radio"/>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+			   <span id="who234disease">
+				   <table class="screen" width="98%">
+                       <tr style="font-weight:bold" align="center">
+                           <td>position</td>
+                           <td>Disease or condition</td>
+                           <td>Code</td>
+                           <td>Description of symptoms and diagnosis</td>
+                       </tr>
+                       <repeat>
+                           <template>
+                               <obsgroup groupingConceptId="160167AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                                   <tr>
+                                       <td><obs conceptId="1815AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="numeric"/> </td>		<!--Position 1, 2 and 3-->
+                                       <td width="45%"><obs id="dise"
+                                                            conceptId="6042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                                            answerConceptIds="1215,5340,146299,145771,1294,1216,
+									   		151985,5040,158274,130021,832,111721,110170,132387,122043,
+									   		823,5018,145343,111103,121849,148762,143326,141623,136458,
+									   		136162,135761,123084,119910,119481,119288,118983,117543,116506,
+									   		116128,115432,115327,6032,5354,5337,5334,5048,5046,5044,5043,5044,5042,
+									   		5038,5035,5034,5032,5027,1249,1217,999,5339,42"
+                                                            style="dropdown"/></td> <!--Diagnosis-->
+                                       <td width="10%"><obs id="disecode" conceptId="161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="numeric"/></td> <!--Code-->
+                                       <td width="45%"><obs id="disedescript" conceptId="161602AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="text"/></td> <!--Descr-->
+                                   </tr>
+                               </obsgroup>
+                           </template>
+                           <render n="1" concept=" " />
+                           <render n="2" concept=" " />
+                           <render n="3" concept=" " />
+                       </repeat>
+                   </table>
+				</span>
+    </td>
+</tr>
+<tr>
+    <td>
+        <table class="screen" width="98%" align="center">
+            <tr>
+                <td colspan="4"  style="font-weight:bold;" align="center" width="100%">ADHERENCE ASSESSMENT </td>
+            </tr>
+            <tr>
+                <td colspan="4" align="left">
+                    <div style="float: left; padding-right: 0px">
+                        <table class="screen" width="400px" align="center">
+                            <tr style="font-weight:bold;" height="55px">
+                                <td>3-Day Adherence</td>
+                            </tr>
+                            <tr style="font-weight:bold;" height="45px">
+                                <td>Medication Code</td>
+                            </tr>
+                            <tr style="font-weight:bold;" height="45px">
+                                <td>Expected doses per day</td>
+                            </tr>
+                            <tr style="font-weight:bold;" height="45px">
+                                <td>Number of doses missed yesterday</td>
+                            </tr>
+                            <tr style="font-weight:bold;" height="45px">
+                                <td>Number of doses missed day before yesterday</td>
+                            </tr>
+                            <tr style="font-weight:bold;" height="45px">
+                                <td>Number of doses missed day before that</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div style="float: left; padding-right: 0px">
+                        <table class="screen" width="200px" align="center">
+                            <obsgroup groupingConceptId="162848AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                                <tr style="font-weight:bold;" align="center" height="55px">
+                                    <td>ARV # 1<obs id="ARV1position" conceptId="160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="text" default="1"/></td> <!-- ARV#1 -->
+                                </tr>
+                                <tr style="font-weight:bold;" align="center" height="45px">
+                                    <td><obs conceptId="1639AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="numeric"/></td> <!-- Medication Code -->
+                                </tr>
+                                <tr style="font-weight:bold;" align="center" height="45px">
+                                    <td><obs id="exp1" conceptId="162845AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="numeric"/></td> <!-- Expected doses per day -->
+                                </tr>
+                                <tr style="font-weight:bold;" align="center" height="45px">
+                                    <td><obs id="miss1y" conceptId="162844AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="numeric"/></td> <!-- Doses missed yesterday -->
+                                </tr>
+                                <tr style="font-weight:bold;" align="center" height="45px">
+                                    <td><obs id="miss1by" conceptId="162846AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="numeric"/></td> <!-- Doses missed day before yesterday -->
+                                </tr>
+                                <tr style="font-weight:bold;" align="center" height="45px">
+                                    <td><obs id="miss1by1" conceptId="162847AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="numeric"/></td> <!-- Doses missed day before that -->
+                                </tr>
+                            </obsgroup>
+                        </table>
+                    </div>
+                    <div style="float: left; padding-right: 0px">
+                        <table class="screen" width="200px" align="center">
+                            <obsgroup groupingConceptId="160740AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                                <tr style="font-weight:bold;" align="center" height="55px">
+                                    <td>ARV # 2<obs id="ARV2position" conceptId="160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="text" default="2"/></td> <!-- ARV#2 -->
+                                </tr>
+                                <tr style="font-weight:bold;" align="center" height="45px">
+                                    <td><obs conceptId="1639AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="numeric"/></td> <!-- Medication Code -->
+                                </tr>
+                                <tr style="font-weight:bold;" align="center" height="45px">
+                                    <td><obs id="exp2" conceptId="162845AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="numeric"/></td> <!-- Expected doses per day -->
+                                </tr>
+                                <tr style="font-weight:bold;" align="center" height="45px">
+                                    <td><obs id="miss2y" conceptId="162844AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="numeric"/></td> <!-- Doses missed yesterday -->
+                                </tr>
+                                <tr style="font-weight:bold;" align="center" height="45px">
+                                    <td><obs id="miss2by" conceptId="162846AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="numeric"/></td> <!-- Doses missed day before yesterday -->
+                                </tr>
+                                <tr style="font-weight:bold;" align="center" height="45px">
+                                    <td><obs id="miss2by1" conceptId="162847AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="numeric"/></td> <!-- Doses missed day before that -->
+                                </tr>
+                            </obsgroup>
+                        </table>
+                    </div>
+                    <div style="float: left; padding-right: 0px">
+                        <table class="screen" width="240px" align="center">
+                            <obsgroup groupingConceptId="1442AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                                <tr style="font-weight:bold;" align="center" height="55px">
+                                    <td>ARV # 3<obs id="ARV3position" conceptId="160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="text" default="3"/>
+                                        <obs id="arvQuant" conceptId="1181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                             answerConceptId="1183AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                             answerLabel="No 3rd med" style="checkbox"/></td> <!-- ARV 3 & 3-Day Adherence -->
+                                </tr>
+                                <tr style="font-weight:bold;" align="center" height="45px">
+                                    <td><obs id="med3" conceptId="1639AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="numeric"/></td> <!-- Medication Code -->
+                                </tr>
+                                <tr style="font-weight:bold;" align="center" height="45px">
+                                    <td><obs id="exp3" conceptId="162845AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="numeric"/></td> <!-- Expected doses per day -->
+                                </tr>
+                                <tr style="font-weight:bold;" align="center" height="45px">
+                                    <td><obs id= "miss13" conceptId="162844AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="numeric"/></td> <!-- Doses missed yesterday -->
+                                </tr>
+                                <tr style="font-weight:bold;" align="center" height="45px">
+                                    <td><obs id="miss23" conceptId="162846AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="numeric"/></td> <!-- Doses missed day before yesterday -->
+                                </tr>
+                                <tr style="font-weight:bold;" align="center" height="45px">
+                                    <td><obs id="miss33" conceptId="162847AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="numeric"/></td> <!-- Doses missed day before that -->
+                                </tr>
+                            </obsgroup>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+        <table>
+            <td>Next scheduled visit: <obs conceptId="5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" allowFutureDates="true"/></td>
+            <tr>
+                <td></td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+        <table width="100%">
+            <tr>
+                <td> <a href="#page1">Go to Previous Page</a></td>
+                <td> <a href="#page1">Page 1</a></td>
+                <td><b>Page 2</b></td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td style="text-align:center;">
+        <div class="ke-form-buttons">
+            <submit />
+        </div>
+    </td>
+</tr>
+<table>
+    <tr>
+        <td style="font-style: italic;">Version 1.1; 25 June 2013</td>
+    </tr>
+</table>
+</tbody>
+</table>
+</div>
+</htmlform>

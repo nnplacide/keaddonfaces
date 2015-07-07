@@ -1,0 +1,225 @@
+<!--
+      ~ The contents of this file are subject to the OpenMRS Public License
+      ~ Version 1.0 (the "License"); you may not use this file except in
+      ~ compliance with the License. You may obtain a copy of the License at
+      ~ http://license.openmrs.org
+      ~
+      ~ Software distributed under the License is distributed on an "AS IS"
+      ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+      ~ License for the specific language governing rights and limitations
+      ~ under the License.
+      ~
+      ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+    -->
+<htmlform>
+
+<style type="text/css">
+    table.screen {
+        border-collapse: collapse;
+    }
+    table.screen > tbody > tr > td, table.screen > tbody > tr > th {
+        border: 1px solid black;
+        vertical-align: baseline;
+        padding: 4px;
+    }
+</style>
+
+<div style="display:none">
+    <encounterProvider default="ae01b8ff-a4cc-4012-bcf7-72359e852e14" />
+</div>
+<div class="ke-form-header">
+    <table style="width: 100%">
+        <tr>
+            <td>Date: <encounterDate id="encounter-date" showTime="true"/></td>
+            <td>Enrolled at: <encounterLocation id="site" default="GlobalProperty:kenyaemr.defaultLocation"/></td>
+        </tr>
+    </table>
+
+</div>
+<div class="ke-form-content">
+    <table class="screen" align="center" width="970px">
+
+        <tbody>
+        <tr>
+            <td align="center" style="background-color: #696969; color: #ffffff;">
+                <a name="page1"></a>
+                CRF-8 - ART INITIATION/CHANGE FORM
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table width="100%">
+                    <td rowspan="2" width="25%"></td>
+                    <td rowspan="2" width="25%"></td>
+                    <td rowspan="2" width="35%">Participant initials:<lookup class="value" expression="patient.personName"/></td>
+                    <td style="background-color:lightcyan;">
+                        Clinic ID:<lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('Faces ID') ) $patId #end "/>
+                    </td>
+                    <tr>
+                        <td style="background-color:lightcyan;">
+                            SEARCH ID:<lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('SEARCH ID') ) $patId #end "/>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="background-color: #696969; color: #ffffff;" align="center">
+                ART INITIATION/CHANGE FORM
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="screen" align="center" width="98%">
+                    <tr style="font-stretch: extra-expanded;">
+                        <td>SELECT ONE:<obs id="status"
+                                            conceptId="1255AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                            answerConceptIds="
+								1256AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+								1259AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+								1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+								160738AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                            answerLabels="Initiation,Change of therapy,Stop therapy,Restart therapy" style="radio"/>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="screen"  width="98%" align="center">
+                    <tr style="background-color: #696969; font-weight: bold;">
+                        <td>position</td>
+                        <td>ART</td>
+                        <td>Med Code</td>
+                        <td>Dose (mg)<sup>#</sup></td>
+                        <td>Frequency<sup>*</sup></td>
+                        <td>Start Date</td>
+                        <td>Stop Date</td>
+                        <td>Stop Reason<sup>†</sup></td>
+                    </tr>
+                    <repeat>
+                        <template>
+                            <obsgroup groupingConceptId="161888AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                                <tr>
+                                    <td><obs conceptId="1639AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="numeric"/> </td>		<!--Position-->
+                                    <td><obs id="art" conceptId="1088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="dropdown"/></td>
+                                    <td><obs id="code" conceptId="161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
+                                    <td><obs id="dose" conceptId="160856AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
+                                    <td><obs id="frequency"
+                                             conceptId="160855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                             answerConceptIds="
+										160862AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+										160858AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+										160866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+										160870AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                             answerLabels="
+										OD=once a day,
+										BD=twice a day,
+										TDS=three times a day,
+										QID=four times a day" style="dropdown"/>
+                                    </td>
+                                    <td><obs id="start" conceptId="159599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
+                                    <td><obs id="stop" conceptId="160739AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
+                                    <td><obs id="reason"
+                                             conceptId="1252AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                             answerConceptIds="
+										148568AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+										102AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+										159598AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+										1434AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+										981AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,
+										5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                                             answerLabels="
+										E = Stopped due to side effects, 
+										T = Toxicity, 
+										A = Non-adherence, 
+										P = Pregnancy, 
+										D = Dose change, 
+										O = Other" style="dropdown"/>
+                                    </td>
+                                </tr>
+                            </obsgroup>
+                        </template>
+                        <render n="1" concept=" " />
+                        <render n="2" concept=" " />
+                        <render n="3" concept=" " />
+                        <render n="4" concept=" " />
+                        <render n="5" concept=" " />
+                        <render n="6" concept=" " />
+                    </repeat>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table style="font-weight:bold;">
+                    <tr>
+                        <td>
+                            <em>
+                                <sup>#</sup>  Enter TAB if combination drug (e.g., Truvada, Aluvia)<br/>
+                                <sup>*</sup>  Please record as follows: OD = once a day, BD = twice a day, TDS = three times a day, QID = four times a day<br/>
+                                <sup>†</sup>  Reason Codes:  E = Stopped due to side effects; T = Toxicity; A = Non-adherence; P = Pregnancy; D = Dose change; O = Other
+                            </em>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="screen" align="center">
+                    <tr style="background-color: #696969; font-weight: bold">
+                        <td colspan="2" align="center">Medication Codes</td>
+                    </tr>
+                    <tr>
+                        <td>Truvada (FTC/TDF)	215</td>
+                        <td>Efavirenz (EFV)	161</td>
+                    </tr>
+                    <tr>
+                        <td>Aluvia (LPV/RTV)	190</td>
+                        <td>Abacavir (ABC) oral solution	151</td>
+                    </tr>
+                    <tr>
+                        <td>Abacavir (ABC) tablet	152</td>
+                        <td>Lamivudine (3TC) oral solution	166</td>
+                    </tr>
+                    <tr>
+                        <td>Lamivudine (3TC) tablet	167</td>
+                        <td>Zidovudine (AZT) oral solution	180</td>
+                    </tr>
+                    <tr>
+                        <td>Zidovudine (AZT) tablet	181</td>
+                        <td>Atripla (EFV/FTC/TDF)	245</td>
+                    </tr>
+                    <tr>
+                        <td>Combivir (ZDV/3TC)	153</td>
+                        <td>Nevirapine (NVP) oral solution	169</td>
+                    </tr>
+                    <tr>
+                        <td>Nevirapine (NVP) tablet	170</td>
+                        <td>Atazanavir (ATV)	244</td>
+                    </tr>
+                    <tr>
+                        <td>Tenofovir/Lamivudine (TDF/3TC)</td>
+                        <td>Duovir-N/Combipack (ZDV/3TC/NVP)	158</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align:center;">
+                <div class="ke-form-buttons">
+                    <submit />
+                </div>
+            </td>
+        </tr>
+        <table>
+            <tr>
+                <td style="font-style: italic;">Version 1.2; 12 December 2014</td>
+            </tr>
+        </table>
+        </tbody>
+    </table>
+</div>
+</htmlform>
